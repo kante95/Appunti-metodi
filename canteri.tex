@@ -1,0 +1,1182 @@
+\documentclass[12pt]{book}
+\usepackage{mathtools}
+\usepackage[italian]{babel}
+\usepackage{graphicx}
+\usepackage[utf8]{inputenc}
+\usepackage{float}
+\usepackage{tabularx}
+\usepackage{chngpage}
+\usepackage{amsthm}
+\usepackage{mathtools}
+\usepackage{amsfonts}
+\usepackage{tikz}
+\usepackage{amssymb}
+\usepackage{gensymb}
+\usepackage{wrapfig}
+\usepackage{enumerate}
+\usepackage{braket}
+\usepackage{pgfplots}
+\usepackage{bbm}
+\usepackage{fancyhdr}
+\usepackage{emptypage}
+
+\usetikzlibrary{decorations.markings}
+
+\theoremstyle{plain}
+
+%\numberwithin{equation}{section}
+\newcommand{\R}{\mathbb{R}}
+\newcommand{\F}{\mathcal{F}}
+\renewcommand{\L}{\mathcal{L}}
+\newcommand{\C}{\mathbb{C}}
+\renewcommand{\H}{\mathcal{H}}
+\newcommand{\Sum}{\sum_{n=0}^\infty}
+\newcommand{\Res}[1]{\text{Res}f(z)\Big|_{#1}}
+\newcommand{\vettore}[1]{\overrightarrow{#1}}
+\newcommand{\p}{\mathbf{p}}
+\newcommand{\x}{\mathbf{x}}
+
+
+\newtheorem{thm}{Teorema}[section]
+\newtheorem{prop}[thm]{Proposizione}
+\newtheorem{coro}[thm]{Corollario}
+\newtheorem{lem}[thm]{Lemma}
+\theoremstyle{definition}
+\newtheorem{dfn}[thm]{Definizione}
+
+\theoremstyle{remark}
+\newtheorem*{rmk}{Remark}
+\renewcommand{\d}[2]{\frac{d #1}{d #2}} % for derivatives
+\newcommand{\dd}[2]{\frac{d^2 #1}{d #2^2}} % for double derivatives
+\newcommand{\pd}[2]{\frac{\partial #1}{\partial #2}} 
+% for partial derivatives
+\newcommand{\pdd}[2]{\frac{\partial^2 #1}{\partial #2^2}} 
+% for double partial derivatives
+
+\title{\textbf{Metodi matematici per la fisica e complementi matematici della meccanica quantistica}}
+\author{Marco Canteri}
+\date{2016}
+
+\def\changemargin#1#2{\list{}{\rightmargin#2\leftmargin#1}\item[]}
+\let\endchangemargin=\endlist
+
+\input{title.tex}
+
+\usepackage[a4paper, inner=1.5cm, outer=3cm, top=3cm, 
+bottom=3cm, bindingoffset=1cm,headheight=110pt]{geometry} 
+
+\pagestyle{fancy}
+\fancyhf{}
+\fancyhead[LE]{\leftmark}
+\fancyhead[RO]{\rightmark}
+\fancyfoot[C]{\thepage}
+\begin{document}
+\pagestyle{empty} 
+\titleGP
+\newpage
+\input{info.tex}
+\tableofcontents
+\pagestyle{fancy}
+\input{metodi.tex}
+\chapter{Spazi di Hilbert}
+\section{Richiami e definizioni}
+In questi appunti ci riferiremo sempre ad uno spazio vettoriale definito sul campo dei complessi $\C$ che costituirà l'insieme degli scalari.
+\begin{dfn}
+Uno spazio euclideo $E$ è uno spazio vettoriale munito di prodotto scalare, ovvero una funzione $(\cdot,\cdot):E\times E\to \C$ che soddisfa le seguenti
+\begin{enumerate}[i.]
+\item $(f,g) = \overline{(g,f)}$
+\item $(f,\lambda_1g_1+\lambda_2g_2) = \lambda_1(f,g_1) + \lambda_2(f,g_2)$
+\item $(f,f)\geq 0 \quad (f,f)=0\iff f=0$
+\end{enumerate}
+per ogni $f,g\in E$ e $\lambda_1,\lambda_2\in \C$
+\end{dfn}
+\leavevmode
+\\Da questa definizione segue l'antilinearità del primo argomento, ovvero:
+\[(\lambda_1f_1+\lambda_2f_2,g) = \overline{\lambda_1}(f_1,g) + \overline{\lambda_2}(f_2,g)\]
+\begin{thm}(Disuguaglianza di Schwartz)
+\begin{equation}
+|(f,g)|^2 \leq (f,f)(g,g) \qquad \forall f,g
+\end{equation}
+\end{thm}
+\hspace{-1.6em}\textbf{Dimostrazione:}\\
+Dalle proprietà del prodotto scalare abbiamo che:
+\[0\leq (g+\lambda f,g+\lambda f) = (g,g) + |\lambda|^2(f,f) + \lambda(g,f) + \overline{\lambda(g,f)} = (g,g) + |\lambda|^2(f,f) + 2\text{Re}[\lambda(g,f)]\]
+dato che vale per ogni $\lambda$ ne possiamo scegliere uno in particolare ad esempio:
+\[\lambda = \frac{(f,g)}{|(f,g)|}t\]
+con $t\in \R$, notiamo allora che valgono:
+\[|\lambda|^2 = t^2\qquad \lambda (g,f) = \frac{(f,g)(g,f)}{|(f,g)|}t = \frac{(f,g)\overline{(f,g)}}{|(f,g)|}t = |(f,g)|t\]
+otteniamo per cui dalla disuquaglianza precedente la seguente:
+\[0\leq (g,g) + t^2(f,f) + 2t|(f,g)|\]
+dato che deve essere verificata per ogni valore di $t$, allora il discrimiante di questa disuguaglianza deve essere negativo, ovvero:
+\[4|(f,g)|^2 - 4(f,f)(g,g)\leq 0 \implies |(f,g)|^2\leq(f,f)(g,g) \]
+come volevasi dimostrare.
+\begin{dfn}
+\label{def:norma}
+Si dice spazio vettoriale normato uno spazio vettoriale $V$ su $\C$ dotato di una norma $\|\cdot \|:V\to\R^+$
+per cui valgono le seguenti
+\begin{enumerate}[i.]
+\item $\|f\|\geq 0 $ e $\|f\| = 0\iff f=0$
+\item $\|\lambda f\|= |\lambda| \|f\|$
+\item $\|f+g\|\leq \|f\|+\|g\|$
+\end{enumerate}
+\end{dfn}\leavevmode
+\\
+è possibile ammorbidire la prima condizione mettendo solo l'implicazione ovvero: $f=0\implies \|f\|=0$ in questo caso si parla allora di seminorma e di spazio seminormato.
+
+\begin{thm}
+Ogni spazio euclideo è uno spazio vettoriale normato la cui norma è data da:
+\[\|f\|^2 = (f,f)\]
+\end{thm}
+\hspace{-1.6em}\textbf{Dimostrazione:}\\
+Le condizioni i. e ii. della norma sono banalmente verificate. Vediamo invece di dimostrare la disuguaglianza triangolare:
+\[\|f+g\|^2 = (f+g,f+g) = (f,f)+(g,g)+2\text{Re}[(f,g)]\leq \|f\|^2 + \|g\|^2 + 2|(f,g)|\] 
+\[\leq  \|f\|^2 + \|g\|^2  + 2\|f\|\,\|g\| = (\|f\|+\|g\|)^2\]
+dove nel penultimo passaggio si è usata la disuguaglianza di Schwarzt.\\
+\newline 
+Facciamo ora qualche esempio di spazi vettoriali su $\C$ ed euclidei che ci saranno utili in futuro.\\
+$\C^n = \{z_1,z_2,\dots,z_n\}$ è evidentemente uno spazio vettoriale con la somma e il prodotto per scalare dati da
+\[\lambda \in\C,z,w\in\C^n \quad \lambda z =   \{ \lambda z_1, \lambda z_2,\dots, \lambda z_n\}\quad z+w =\{z_1+w_1,z_2+w_2,\dots,z_n+w_n\} \]
+Molto più interessante è l'insieme definito dall'insieme delle successioni in $\C$ come segue:
+\[l_2 = \left\{\{z_n\}=(z_1,z_2,\dots) : \sum_{k=1}^{+\infty}|z_k|^2<+\infty\right\}\]
+molto naturalmente possiamo dotare questo insieme di somma e prodotto per scalare come segue:
+\[\lambda \in\C,z,w\in l_2 \quad \lambda z =   (\lambda z_1, \lambda z_2,\dots)\in l_2 \quad z+w =(z_1+w_1,z_2+w_2,\dots) \]
+dobbiamo dimostrare però che $z+w\in l_2$, ovvero che $\displaystyle\sum_{k=1}^{+\infty}|z_k+w_k|^2<+\infty$:
+\[|z_k+w_k|^2 = (z_k+w_k)(\overline{z_k}+\overline{w_k}) = |z_k|^2+|w_k|^2 + w_k\overline{z_k} + z_k\overline{w_k} = |z_k|^2+|w_k|^2 + 2\text{Re}[(z_k\overline{w_k})]\]
+\[\leq |z_k|^2+|w_k|^2 + 2|z_kw_k|\leq 2|z_k|^2+2|w_k|^2 \]
+dove nel'ultimo passaggio si è usata l'identità\footnote{$0\leq (|a|-|b|)^2 = |a^2| + |b|^2 - 2|a|\,|b| \implies 2|a|\,|b| \leq |a^2| + |b|^2$}:
+\begin{equation}
+\label{nonsochenomedarci}
+|ab|\leq \frac{1}{2}(|a|^2+|b|^2)\quad \forall a,b\in\C
+\end{equation}
+continuiamo a lavorare con $l_2$ e ora che abbiamo dimostrato che è uno spazio vettoriale, dotiamolo di prodotto scalare definendolo come:
+\begin{equation}\label{innerproduct}(z,w) = \sum_{k=1}^{+\infty} \overline{z_k}{w_k} \quad z,w\in l_2\end{equation}
+il prodotto scalare è ben definito infatti grazie all'identità \eqref{nonsochenomedarci} possiamo scrivere
+\[|(z,w)| = \sum_{k=1}^{+\infty}| \overline{z_k}{w_k}| \leq \sum_{k=1}^{+\infty}\frac{1}{2}|z_k| + \frac{1}{2}|w_k| <+\infty\]
+quindi $l_2$ è uno spazio euclideo su $\C$ infinito dimensionale.\\Facciamo ora un altro esempio e definiamo il seguente insieme:
+\[C_2(I) = \left\{f(x)\,\, \text{funzioni continue}: \int_I |f(x)|^2\,dx<+\infty\right\}\]
+vediamo la struttura di spazio vettoriale verificando che le operazioni di somma e prodotto per scalare siamo chiuse rispetto a $C_2(I)$:
+\[\lambda \in\C;f,g\in C_2(I) \quad \int_I|\lambda f|^2\,dx <+\infty \quad \int_I |f+g|^2\,dx \leq   \int_I 2|f|^2+2|g|^2\,dx <+\infty\]
+dove si è sfruttata la disuguaglianza triangolare e l'identità \eqref{nonsochenomedarci}:
+\begin{equation}
+\label{disutileinseguito}
+|f+g|^2 \leq (|f|+|g|)^2 = |f|^2 + |g|^2 + 2|f|\,|g| \leq 2|f|^2 + 2|g|^2
+\end{equation}
+dotiamo $C_2(I)$ di prodotto scalare definendo
+\[(f,g) = \int_I \overline{f}(x)g(x)\,dx \quad f,g\in C_2(I) \]
+vediamo che è ben definito infatti:
+\[|(f,g)| = \int_I |f(x)g(x)| \,dx \leq \int_I \frac{1}{2}(|f(x)|^2+|g(x)|^2)\,dx <+\infty\]
+sempre sfruttando \eqref{nonsochenomedarci}, quindi $C_2(I)$ è uno spazio euclideo infinito dimensionale. Piccola parentesi notazionale, i seguenti modi per indicare il prodotto scalare sono equivalenti:
+\[(f,g)\qquad \braket{f|g}\qquad \braket{f,g}\]
+useremo prevalentemente il primo, il secondo invece è molto utilizzato in fisica quando si usa la notazione di Dirac.\\
+\begin{dfn}
+Se abbiamo uno spazio $E$ normato una successione $\{f_n\}$ converge fortemente a $f$ quando
+\[f_n \xrightarrow[n\to \infty]{E} f \iff \|f_n-f\| \xrightarrow[n\to \infty]{} 0 \]
+\end{dfn}
+\hspace{-1.6em}si dice inoltre che una successione è di Cauchy se:
+\[\|f_n - f_m\| \xrightarrow[n,m\to \infty]{}0 \]
+è facile mostrare che ogni successione convergente è anche di Cauchy. Il contrario non è sempre vero però e abbiamo la seguente definizione
+\begin{dfn}
+Uno spazio in cui ogni successione di Cauchy è convergente si dice completo. Uno spazio normato completo si dice spazio di Banach.
+\end{dfn}
+\begin{dfn}
+Ogni spazio euclideo completo con la norma indotta dal prodotto scalare è uno \textbf{spazio di Hilbert} $\H$
+\end{dfn}
+\hspace{-1.6em}Se uno spazio non è completo esiste il teorema del completamento che ci dice che uno spazio incompleto si può sempre completare (non ci dice però in che modo).\\
+\newline$l_2$ è un esempio di spazio completo quindi è anche uno spazio di Hilbert. $C_2(I)$ invece non è completo, per mostrarlo basta fornire un controesempio. Prendiamo il caso di $C_2(\R)$ e prendiamo come elemento della successione $\{f_n\}$ il seguente:
+\[f_n =  \begin{cases}
+    1      & \quad|x|< a\\
+    e^{-n^2(|x|-a)^2} & \quad |x|\geq a\\
+  \end{cases}
+  \]
+ verifichiamo che $\{f_n\}$ è di cauchy
+ \[\|f_n-f_m\|^2 = \int_{-\infty}^{+\infty}|f_n-f_m|^2\,dx = 2\int_0^{+\infty}|f_n-f_m|^2\,dx = 2\int_a^{+\infty}(e^{-n^2(x-a)^2} - e^{-m^2(x-a)^2})^2\,dx \]
+\[2\int_0^{+\infty}(e^{-n^2\rho^2} - e^{-m^2\rho^2})^2\,d\rho = 2\int_0^{+\infty}[ e^{-2n^2\rho^2} + e^{-2m^2\rho^2} - 2e^{-(n^2+m^2)\rho^2}]\,d\rho = \]
+\[\sqrt{\frac{\pi}{2n^2}} + \sqrt{\frac{\pi}{2m^2}} - 2\sqrt{\frac{\pi}{n^2+m^2}}=\sqrt{\frac{\pi}{2}}\left[\frac{1}{n}+\frac{1}{m}-\frac{2\sqrt{2}}{\sqrt{n^2+m^2}}\right] \xrightarrow[n,m\to \infty]{}0\]
+la successione quindi è di Cauchy, però vediamo che converge alla funzione
+\[\chi =  \begin{cases}
+    1      & \quad|x|< a\\
+    0 & \quad |x|\geq a\\
+  \end{cases}\]
+infatti:
+\[\|f_n-\chi\|^2 = 2\int_0^{+\infty}|f_n-\chi|^2\,dx = 2\int_a^{+\infty}(e^{-n^2(x-a)^2})^2\,dx \xrightarrow[n\to \infty]{}0\]
+ma dato che $\chi$ non è continua non appartiene a $C_2(\R)$.
+\begin{figure}[H]
+\centering
+\begin{tikzpicture}
+%\begin{axis}[colormap/hot,domain=0:2,colorbar sampled,colorbar style={samples=6},point meta min=0,point meta max=10]
+%\pgfplotsinvokeforeach{1,...,5}{
+%	\addplot[
+%	execute at begin plot visualization = {
+%	\pgfplotscolormapdefinemappedcolor{\numexpr#1*10\relax}},mapped color, thick]{#1*2.718^(-(x-1)^2)};
+%	}
+%\end{axis}
+\draw [<->](-5,0) -- (5,0)node[below=1.5pt] {\color{black}$x$};
+\draw[->](0,0)--(0,4)node[right=1.5pt] {\color{black}$y$};
+
+\draw [red,domain=-1.5:1.5,samples = 100] plot ({\x}, {3});
+\draw [red,domain=1.5:5,samples = 100] plot ({\x}, {3*2.718^(-(\x-1.5)^2)});
+\draw [red,domain=-5:-1.5,samples = 100] plot ({\x}, {3*2.718^(-(-\x-1.5)^2)});
+
+\draw [blue,domain=-1.5:1.5,samples = 100] plot ({\x}, {3});
+\draw [blue,domain=1.5:5,samples = 100] plot ({\x}, {3*2.718^(-4*(\x-1.5)^2)});
+\draw [blue,domain=-5:-1.5,samples = 100] plot ({\x}, {3*2.718^(-4*(-\x-1.5)^2)});
+
+\draw [green,domain=-1.5:1.5,samples = 100] plot ({\x}, {3});
+\draw [green,domain=1.5:5,samples = 100] plot ({\x}, {3*2.718^(-9*(\x-1.5)^2)});
+\draw [green,domain=-5:-1.5,samples = 100] plot ({\x}, {3*2.718^(-9*(-\x-1.5)^2)});
+
+\draw [green,domain=-1.5:1.5,samples = 100] plot ({\x}, {3});
+\draw [green,domain=1.5:5,samples = 100] plot ({\x}, {3*2.718^(-9*(\x-1.5)^2)});
+\draw [green,domain=-5:-1.5,samples = 100] plot ({\x}, {3*2.718^(-9*(-\x-1.5)^2)});
+
+\draw [brown,domain=-1.5:1.5,samples = 100] plot ({\x}, {3});
+\draw [brown,domain=1.5:5,samples = 100] plot ({\x}, {3*2.718^(-16*(\x-1.5)^2)});
+\draw [brown,domain=-5:-1.5,samples = 100] plot ({\x}, {3*2.718^(-16*(-\x-1.5)^2)});
+
+\draw(.1,2.9) node[above]{\scriptsize$1$};
+
+\draw(3.4,4)[red]--(3.6,4)node[right,text=black]{\scriptsize$n=1$};
+\draw(3.4,3.7)[blue]--(3.6,3.7)node[right,text=black]{\scriptsize$n=2$};
+\draw(3.4,3.4)[green]--(3.6,3.4)node[right,text=black]{\scriptsize$n=3$};
+\draw(3.4,3.1)[brown]--(3.6,3.1)node[right,text=black]{\scriptsize$n=4$};
+
+\draw[dotted](1.5,0)node[below]{\footnotesize$a$} -- (1.5,3);
+\draw[dotted](-1.5,0)node[below,yshift=.35ex]{\footnotesize$-a$} -- (-1.5,3);
+
+%\draw (3,0) node[below=1.5pt] {$x$}; 
+%\draw[dotted] (3,0) -- (3,2.7);
+%\draw [blue,thick,domain=0.01:10,samples = 100] plot ({\x}, {2*2.718^(-3+3*ln(3)-((\x-3)^2)/6  )});
+\end{tikzpicture}
+\caption{Funzione $f_n$ graficata per diversi valori di $n$}
+\end{figure}
+
+$C_2(\R)$ quindi non è completo ma si può completare grazie al teorema del completamento, il completamento non è banale e si può fare sostituendo all'integrale di Riemann quello di Lebesque, si ottiene quindi l'insieme:
+\[L_2(I) = \{f(x):\int_I|f(x)|^2\,dx<+\infty\} \]
+dove l'integrale si intende nel senso di Lebesque. Si incappa però in un altro problema tecnico delle funzioni quasi nulle ovunque, la norma di queste funzioni è nulla sebbene esse non sono nulle ovunque, quindi questo spazio è definito con una seminorma, si può facilmente sistemare questo problema identificando le funzioni quasi nulle ovunque con le funzioni nulle ovunque e in questo caso lo spazio $\mathcal{L}_2(I)$ diventa uno spazio di Hilbert.
+\begin{thm}(Della convergenza dominata)
+Se $\{f_n\}$ sono L-sommabili ($\int_I|f(x)|\,dx<+\infty$ con l'integrale inteso nel senso di Lebesque) e se $\displaystyle\lim_{n\to+\infty} f_n(x) = f(x)$ e se esiste una $g(x)$ L-sommabile tale che $|f_n(x)|\leq g(x)$, $\forall n$ allora:
+\[\lim_{n\to+\infty} \int_I f_n(x)\,dx = \int_I f(x)\,dx\]
+\end{thm}
+\section{Applicazioni lineari}
+Siano $E,F$ due spazi vettoriali normati consideriamo l'applicazione lineare $A:E\to F$, nel caso in cui $E=F$ allora $A$ si dice \emph{operatore}, se $F=\C$ allora $A$ si dice \emph{funzionale lineare}. $A$ è continua se 
+\[f_n \xrightarrow[n\to \infty]{E}f \implies Af_n \xrightarrow[n\to \infty]{F}Af\]
+inoltre si dice che $A$ è limitata se esiste $C_A$ tale che
+\[\|Af\|_F \leq C_A \|f\|_E\quad \forall f\in D_A\]
+dove $D_A$ è il dominio di $A$
+\begin{thm}
+$A$ è continua $\iff$ A è limitata
+\end{thm}
+\hspace{-1.6em}Facciamo degli esempi di operatori. Prendiamo il caso di $E=F=\H = L_2(0,2\pi)$ e definiamo l'operatore di moltiplicazione (o di posizione) $Qf = xf(x)$ e come dominio $D_Q = \{f : Qf\in L_2(0,2\pi)\}$. Vediamo innanzitutto se è limitato:
+\[\|Qf\|^2 = \int_0^{2\pi} x^2 |f(x)|^2\,dx\leq 4\pi^2 \int_0^{2\pi}|f(x)|^2\,dx\leq 4\pi^2 \|f\|^2 \quad \forall f\in D_Q\]
+l'operatore è quindi limitato per cui è anche continuo. Notiamo che se avessimo preso $L_2(\R)$ l'operatore non sarebbe più stato limitato quindi nemmeno continuo. Inoltre se l'operatore è limitato non ci sono problemi con il dominio al contrario di quanto accade invece con gli operatori non limitati. Vediamone un esempio, ovvero l'operatore coniugato a $Q$, dove per operatore coniugato si intende $P$ tale che $[Q,P] = QP-PQ = i\mathbbm{1}$ (detta anche regola di quantizzazione canonica, si è usata la convenzione di $\hbar =1$).\\
+$P$ è l'operatore impulso dato da $P = -i\frac{d}{dx}$, vediamo che non è continuo. Per farlo prendiamo una base ortonormale definita da:
+\[e_n(x) = \frac{e^{inx}}{\sqrt{2\pi}}\quad n\in \mathbb{Z}\]
+e facciamoci agire il nostro operatore $P$:
+\[Pe_n = -i \frac{d}{dx}\frac{e^{inx}}{\sqrt{2\pi}} = ne_n(x)\]
+in questo caso si dice che gli $e_n$ sono gli autovettori di $P$ con $n$ autovalori. Prendiamo a questo punto la seguente successione e facciamone la norma:
+\[g_n = \frac{e_n}{n} \quad \|g_n\| = \frac{1}{n} \implies \|g_n\|  \xrightarrow[n\to \infty]{L_2(0,2\pi)}0 \]
+Proviamo a far agire $P$ su $g_n$
+\[Pg_n = \frac{1}{n}Pe_n = e_n \quad \implies \|Pg_n\| = 1\quad \forall n\]
+quindi l'operatore $P$ non è ne continuo ne limitato.\\
+\newline
+Consideriamo ora un'applicazione $A:E\to E$, con $E$ spazio di banach, e diamo una definizione per l'applicazione inversa $A^{-1}$, vediamo innanzitutto quando un applicazione è invertibile.
+\begin{dfn}
+Se $Af=g$, allora $A$ si dice invertibile se e solo se esiste $f$ unica tale che $f = A^{-1}g$
+\end{dfn}
+\begin{thm}
+Se $A^{-1}$ esiste $\iff$ $Ker(A) = \{0\}$
+\end{thm}
+\hspace{-1.6em}Dove $Ker(A)$ è il nucleo di $A$ definito come l'insieme $Ker(A)= \{f\in E:Af=0\}$.\\
+Facciamo subito un esempio, consideriamo l'operatore di derivazione $A = \frac{d}{dx}$ nello spazio $L_2(0,1)$ con dominio $D_A=\{f,f'\in L_2(0,1)\}$.
+Esso non è invertibile in quanto evidentemente il nucleo di $A$ non contiene solo lo $0$ ma anche tutte le costanti $c\in \C$. Si può però modificare leggermente il dominio con una condizione al bordo per far diventare l'operatore $A$ invertibile. Consideriamo infatti il dominio $D_A =\{f,f'\in L_2(0,1),f(0)=0\}$, in questo caso il nucleo di $A$ contiene solo lo $0$ e l'operatore diventa invertibile con inversa:
+\[f = A^{-1}g\quad\text{con}\quad A^{-1}g = \int_0^xg(x)\,dx\]
+Tentiamo a questo punto di formalizzare un po quello che è l'insieme delle applicazioni lineari. Prendiamo un applicazione lineare $A:E\to F$ limitata dove $E,F$ sono spazi di Banach e definiamo il seguente insieme:
+\[\mathfrak{L}(E,F) =\{A:E\to F\, \text{limitate}\}\]
+nel caso $F=\C$, $\mathfrak{L}(E,\C)$ si dice duale di $E$ e si indica con $E'$
+\begin{thm}
+$\mathfrak{L}(E,F)$ è uno spazio vettoriale normato con somma e prodotto per scalare dati da:
+\[(A+B)f = Af+Bf \qquad (\lambda A)f = \lambda (Af) \quad \forall f\in E\]
+e norma operatoriale data da:
+\[\|A\| = \underset{f\neq0}{sup}\frac{\|Af\|}{\|f\|}\]
+\end{thm}
+\hspace{-1.6em}\textbf{Dimostrazione:}\\
+Mostriamo per prima cosa che $A+B$ è ancora un elemento di $\mathfrak{L}(E,F)$, ovvero stabiliamo se è limitata:
+\[\|(A+B)f\| = \|Af+Bf\| \leq \|Af\| + \|Bf\| \leq C_{AB}\|f\|\]
+per la limitatezza di $A$ e $B$. La dimostrazione che $\lambda A$ è ancora limitata è triviale. Vediamo invece che la norma operatoria è una norma, in particolare mostriamo che vale la iii. della definizione \eqref{def:norma}. Dalla definizione di norma operatoriale abbiamo l'immediata conseguenza che $\|Af\|\leq \|A\|\|f\|$,
+prendiamo quindi il seguente rapporto:
+\[\frac{\|(A+B)f\|}{\|f\|}\leq \frac{\|Af\|+\|Bf\|}{\|f\|}\leq \frac{(\|A\|+\|B\|)\|f\|}{\|f\|} = \|A\|+\|B\|\]
+dato che deve valere per ogni $f$ otteniamo che, data la definizione di norma operatoriale:
+\[\|A+B\| = \underset{f\neq0}{sup}\frac{\|(A+B)f\|}{\|f\|}\implies \|A+B\|\leq \|A\|+\|B\|\]
+\\
+Possiamo anche costruire una successione di operatori lineari $\{A_n\}\in \mathfrak{L}(E,F)$, la cui convergenza viene in maniera naturale definita come segue:
+\[A_n \xrightarrow[n\to \infty]{\mathfrak{L}(E,F)} A \iff \|A_N - A\|\xrightarrow[n\to \infty]{} 0 \] 
+quindi, analogamente per quanto fatto per gli spazi precendenti, si possono definire il criterio di Cauchy per le successioni e quindi la completezza dello spazio. Otteniamo quindi il seguente teorema
+\begin{thm}
+Se $F$ è di Banach allora anche $\mathfrak{L}(E,F)$ è di Banach.
+\end{thm}
+\hspace{-1.6em}Definiamo a questo punto il prodotto tra operatori, prendiamo $A,B\in\mathfrak{L}(E,E)$ e definiamo il prodotto tra $A$ e $B$ come $(AB)f = A(Bf),\,\forall f\in E$. È chiaro che con questo prodotto $\mathfrak{L}(E,E)$ ha un algebra non commutativa. Dimostriamo alcune identità del prodotto:
+\[\|(AB)f\| = \|A(Bf)\| \leq \|A\|\|B\|\|f\|\]
+dividendo per $\|f\|$ e prendendo il $sup$ a sinistra otteniamo anche:
+\[\|AB\| \leq \|A\|\|B\|\]
+questo ha importanti conseguenze, perchè se prendiamo $B=A$ otteniamo che anche $A^2$ è limitato cosi come $A^n$, per cui anche un polinomio di operatori $P(A) = \sum_{k=1}^{n}c_k A^k$ è limitato. Più interessante è quando il polinomio ha infiniti termini, in questo caso bisogna studiarne la convergenza. Prendiamo infatti la successione $S_N = \sum_{k=1}^{N}c_k A^k $, vediamo quando questa successione è di Cauchy e quindi per completezza è convergente:
+\[\|S_N -S_M\| = \| \sum_{k=1}^{N}c_k A^k -  \sum_{k=1}^{M}c_k A^k\| = \|\sum_{k=N+1}^{M}c_k A^k\| \leq \sum_{k=N+1}^{M} |c_k|\|A^k\| \leq \sum_{k=N+1}^{M} |c_k|\|A\|^k\]
+la convergenza di quest'ultima serie dipende dall'operatore e dai coefficienti $c_k$, ad esempio se abbiamo $|c_k|=1$ la serie converge per $\|A\|<1$, o alternativamente se abbiamo i coefficienti $c_k = \frac{1}{k!}$ abbiamo la serie $\sum_{k=1}^\infty\frac{A^k}{k!}$ che corrisponde a $e^A$ e quindi non abbiamo alcun vincolo su $\|A\|$.
+\section{Operatori su spazi di Hilbert}
+Ricordiamo che uno spazio di Hilbert $\H$ è uno spazio euclideo completo con la norma indotta dal prodotto scalare, possiamo scrivere quindi le seguenti indentità:
+\begin{equation}
+\label{identitautile}
+\|f+g\|^2 = (f+g,f+g)=\|f\|^2 + \|g\|^2 + 2\text{Re}(f,g)\quad\|f-g\|^2 = \|f\|^2 + \|g\|^2 - 2\text{Re}(f,g)
+\end{equation}
+Sommando queste due identità otteniamo l'identità del parallelogramma:
+\[\|f+g\|^2 + \|f-g\|^2 = 2\|f\|^2+2\|g\|^2\]
+sottraendole invece otteniamo:
+\[\|f+g\|^2 - \|f-g\|^2 = 4\text{Re}(f,g)\]
+\begin{thm}
+Sia $E$ di Banach, allora $E$ è di Hilbert se e solo se la norma dello spazio di Banach soddisfa l'identità del parallelogramma.
+\end{thm}
+\hspace{-1.6em}Un altrà identità che non dimostriamo è la seguente:
+\[(f,g) = \frac{1}{4}(\|f+g\|^2 - \|f-g\|^2 -i\|f+ig\|^2 + i\|f-ig\|^2)\]
+e ricordiamo anche un identità più facile: $\text{Re}(f,ig) = -\text{Im}(f,g)$.
+\begin{dfn}
+$G$ si dice sottospazio di $\H$ se $G\subseteq \H$, $G$ varietà lineare ovvero $g_1,g_2\in G\implies \lambda_1g_1\lambda_2g_2\in G$ e $G$ chiuso, ovvero è completo.
+\end{dfn}
+\begin{thm}
+(Della proiezione ortogonale) Sia $G$ sottospazio di $\H$ allora esiste unica la decomposizione $h = g+f$ $\forall h\in\H$ con $g\in G$ ed $f\perp G$.
+Inoltre vale:
+\[\|f\| =  \underset{g'\in G}{inf}\|h-g'\|\]
+\end{thm}
+\hspace{-1.6em}Possiamo quindi esprimere $\H$ con l'operazione di somma diretta e il complemento ortogonale di $G$:
+\[\H = G \oplus G^{\perp}\]
+\begin{thm}
+(Di rappresentazione di Riesz)
+Prendiamo un elemento del duale di $\H$: $F\in\H'$, esso ammette la rappresentazione unica:
+\[F(h) = (f^*,h)\quad f^*\in\H,\forall h\in\H \]
+\end{thm}
+\hspace{-1.6em}\textbf{Dimostrazione:}\\
+il $ker(F) = \{g:F(g)=0\}$ è un sottospazio di $\H$, per il teorema della proiezione ortogonale esiste unica $f$ tale che $h = f+g$ con $(f,g) = 0$ e $g\in Ker(F)$.
+Consideriamo $g_1 = F(h)f-F(f)h$, si può calcolare subito per linearità che:
+\[F(g_1) = F(F(h)f-F(f)h) = F(h)F(f)-F(f)F(h) = 0 \]
+quindi evidentemente $g_1\in Ker(F)$, ovvero:
+\[0=(f,g_1) = (f,F(h)f-F(f)h ) = F(h)\|f\|^2 - F(f)(f,h)\]
+ovvero:
+\[F(h) = \frac{F(f)}{\|f\|^2}(f,h) = (f^*,h)\]
+dove abbiamo definito $f^* = \frac{F(f)}{\|f\|^2}f$.\\
+\newline
+Questo teorema è di notevole importanza, infatti ci permette di costruire una mappa tra lo spazio duale di $\H$ e $\H$ stesso, ovvero il duale di uno spazio di Hilbert coincide con se stesso $\H'=\H$. Uno spazio in cui accade questo si dice riflessivo.\\
+Vediamo ora come, sempre grazie a questo teorema, possiamo in maniera naturale introdurre il concetto di aggiunto di un operatore. Consideriamo $A$ operatore limitato e continuo e definiamo il seguente funzionale lineare:
+\[F(f) = (g,Af)\]
+dato un qualsiasi vettore $g$. È immediato vedere che tale funzionale è limitato, infatti:
+\[|F(f)| = |(g,Af)| \leq \|g\|\|Af\|\leq \|g\|\|A\|\|f\| = C_F \|f\|\]
+essendo limitato significa che è un elemento del duale dello spazio di Hilbert, quindi possiamo sfruttare il teorema di Riesz e scrivere che esiste unico $g^*$ tale che:
+\[F(f) = (g^*,f)\]
+ma dato come abbiamo definito il nostro funzionale otteniamo:
+\[(g^*,f) = (g,Af)\]
+visto che $g^*$ è unico, esiste un operatore $A^\dagger$ tale che possiamo scrivere:
+\[(A^\dagger g,f) = (g,Af)\]
+e chiamiamo $A^\dagger$ \textbf{operatore aggiunto} di $A$.
+\begin{lem}
+Se $A$ è limitato allora anche $A^\dagger$ è limitato e vale che $\|A\|=\|A^\dagger\|$
+\end{lem}
+\hspace{-1.6em}\textbf{Dimostrazione:}\\
+Consideriamo la quantità positiva seguente:
+\[\|A^\dagger g\|^2 = |(A^\dagger g, A^\dagger g)| = |(g,AA^\dagger g)| \leq \|g\| \|AA^\dagger g\| \leq  \|g\| \|A\|\|A^\dagger g\|\]
+da cui otteniamo dividendo dalle due parti per $\|A^\dagger g\|$:
+\[\|A^\dagger g\|\leq \|g\| \|A\|\]
+il che dimostra la limitatezza di $A^\dagger$, dividendo ancora per $\|g\|$ e dalla definizione di norma operatoriale arriviamo a:
+\[\|A^\dagger \| \leq \|A\|\]
+ma dato che $(A^\dagger)^\dagger = A$ allora:
+\[\|A \| \leq \|A^\dagger\|\]
+da cui il lemma.\\
+\newline
+Dimostriamo due proprietà degli operatori aggiunti:
+\begin{enumerate}[i.]
+\item $(AB)^\dagger = B^\dagger A^\dagger$, infatti presi due qualsiasi vettori $g,f$:
+\[((AB)^\dagger g,f) =(g,ABf) = (A^\dagger g,Bf) = (B^\dagger A^\dagger g,f) \]
+\item $(\alpha A + \beta B)^\dagger = \overline{\alpha}A^\dagger + \overline{\beta}B^\dagger$ con $\alpha,\beta\in\C$, infatti nuovamente presi due qualsiasi vettori $g,f$:
+\[((\alpha A + \beta B)^\dagger g,f) = (g,(\alpha A + \beta B)f) = \alpha(g,Af) + \beta(g,Bf) = \alpha(A^\dagger g,f) + \beta(B^\dagger g,f)\]
+\[ (\overline{\alpha}A^\dagger g,f) + (\overline{\beta}B^\dagger g,f)= ((\overline{\alpha}A^\dagger + \overline{\beta}B^\dagger)g,f) \]
+\end{enumerate}
+Fino ad adesso abbiamo parlato di operatori limitati e definito per essi l'operatore aggiunto, facciamo la stessa cosa per gli operatori non limitati e diamo la seguente definizione
+\begin{dfn}
+\label{aggiunto_nonlimitato}
+Sia $A$ operatore non limitato con $D_A\subset\H$ e $\overline{D_A}=\H$ allora si definisce l'operatore aggiunto $A^\dagger$ l'operatore tale che valga:
+\[(g,Af) = (A^\dagger g,f)\]
+\end{dfn}\leavevmode
+\\La condizione sul dominio è stata messa per far in modo che l'operatore aggiunto sia univocamente determinato. Diamo ora due importanti definizioni per gli operatori aggiunti.
+\begin{dfn}
+$A$ operatore è detto simmetrico se vale:
+\[(Ag,f) - (g,Af) = 0\quad \forall f,g\in D_A\]
+\end{dfn}
+\begin{dfn}
+$A$ si dice autoaggiunto (hermitiano per i fisici) se $A$ è simmetrico e $D_{A^\dagger} = D_A$, scriveremo che $A^\dagger = A$
+\end{dfn}
+\begin{thm}
+Se $A^\dagger = A $ in $\H$ allora valgono le seguenti:
+\begin{enumerate}[i.]
+\item $(\psi,A\psi) \doteq \braket{\psi}$ è una quantità reale
+\item se $\varphi_i,\lambda_i$ esistono tali che $A\varphi_i = \lambda_i\varphi_i$ allora i $\lambda_i$ sono reali.
+\item Se $\lambda_i\neq \lambda_j$ allora $(\varphi_i,\varphi_j)=0$
+\end{enumerate}
+\end{thm}
+\hspace{-1.6em}\textbf{Dimostrazione:}
+\begin{enumerate}[i.]
+\item $\overline{(\psi,A\psi)} = (A\psi,\psi) = (\psi,A\psi)$ il complesso coniugato è uguale a se stesso quindi è una quantità reale.
+\item $A\varphi_i = \lambda_i\varphi_i \implies (\varphi_i,A\varphi_i) =(\varphi_i, \lambda_i\varphi_i) = \lambda_i\|\varphi_i\|^2 \implies \lambda_i = \frac{(\varphi_i,A\varphi_i)}{\|\varphi_i\|^2} $, ma dato che la quantità al numeratore è reale per il punto i. di questo teorema e il denominatore è reale per definizione di norma allora $\lambda_i$ è reale.
+\item $A\varphi_i = \lambda_i\varphi_i \implies (\varphi_j,A\varphi_i) = (\varphi_j,\lambda_i\varphi_i)$ ma anche $A\varphi_j = \lambda_j\varphi_j \implies (A\varphi_j,\varphi_i) = (\lambda_j\varphi_j,\varphi_i) \implies (\varphi_j,A\varphi_i) = (\lambda_j\varphi_j,\varphi_i) $
+facendo la differenza tra la prima equazione e la seconda otteniamo:
+\[0 = \lambda_i(\varphi_j,\varphi_i)- \lambda_j(\varphi_j,\varphi_i) = (\lambda_i-\lambda_j)(\varphi_j,\varphi_i) \]
+da cui è chiaro che se $\lambda_i\neq \lambda_j$ allora $(\varphi_i,\varphi_j)=0$.
+\end{enumerate}\leavevmode
+\newline
+Facciamo allora degli esempi sugli operatori autoaggiunti. Consideriamo lo spazio $L_2(0,2\pi)$ e l'operatore di moltiplicazione $Qf = xf(x)$ già incontrato in precedenza. Abbiamo già dimostrato che è limitato quindi il dominio sarà $D_Q =\H$, vediamo se è anche simmetrico:
+\[(Qf,g)-(f,Qg) = \int_0^{2\pi}x\overline{f}(x)g(x)\,dx - \int_0^{2\pi}\overline{f}(x)xg(x)\,dx = 0\]
+quindi è simmetrico, inoltre $D_Q^{\dagger} = D_Q =\H$ quindi $Q$ è autoaggiunto.\\Vediamo invece se l'operatore $P = -i\frac{d}{dx}$ con dominio $D_P = \{f,f'\in L_2(0,2\pi)\}$ è simmetrico:
+\[(Pf,g) - (f,Pg) = \int_0^{2\pi}\overline{(-if')}(x)g(x)\,dx - \int_0^{2\pi}-\overline{f}(x)ig'(x)\,dx =i\int_0^{2\pi}[\overline{f'}(x)g(x)+\overline{f}(x)g'(x)]dx\]
+\[ i\int_0^{2\pi}\frac{d}{dx}(\overline{f}g)dx = i\big(\overline{f}g\big|_0^{2\pi}\]
+vediamo che allora affinchè $P$ sia simmetrico il suo dominio deve essere $D_P = \{f,f'\in L_2(0,2\pi),f(0) = f(2\pi) = 0\}$. Con questo dominio $P$ è simmetrico ma non è autoaggiunto, infatti il dominio di $P^\dagger$ che è $D_{P^\dagger} = \{f,  i\big(\overline{f}g\big|_0^{2\pi} = 0,\forall g\in D_P\} $ ha la condizione al contorno automaticamente soddisfatta dal dominio di $P$ quindi $D_{P^\dagger} = \{f,f'\in L_2(0,2\pi)\}\supset D_P$ quindi $P$ non è autoaggiunto.\\ Modifichiamo però il dominio di $P$ con una condizione al contorno e prendiamo $D_P = \{f,f'\in L_2(0,2\pi),f(0) = f(2\pi)\}$, con questo dominio $P$ è simmetrico, inoltre se prendiamo la condizione al contorno del dominio di $P^\dagger$ abbiamo che:
+\[\overline{f}(2\pi)g(2\pi)-\overline{f}(0)g(0)=0\implies [\overline{f}(2\pi) - \overline{f}(0)]g(0) = 0\implies \overline{f}(2\pi) = \overline{f}(0)\implies f(0)=f(2\pi)\]
+che è esattamente la condizione al contorno del dominio di $P$, quindi i domini coincidono e $P$ è di conseguenza autoaggiunto.
+\subsection{Paradosso del commutatore}
+La scelta del dominio è fondamentale quando si parla di operatori non limitati, infatti come abbiamo visto poco fa un dominio diverso può trasformare un operatore da autoaggiunto a non. Un'altro esempio dove il dominio risultata di primaria importanza è il cosiddetto paradosso del commutatore. Prendiamo i soliti operatori $Q$ e $P$ e il loro commutatore $C = [Q,P] = QP-PQ$, e dato che l'operatore $P$ non è limitato lavoriamo nel suo dominio $D_P = \{f,f'\in L_2(0,2\pi),f(0) = f(2\pi)\}$, dove abbiamo dimostrato che è anche autoaggiunto, per non avere problemi. Il commutatore come abbiamo già visto si comporta n questo modo:
+\[Cf = QPf-PQf = -iQ(f')x - P(xf(x)) = -ixf'(x) + if(x) + ixf'(x) = if(x)\]
+difatti avevamo definito così il commutatore nel paragrafo 1.2 parlando degli operatori coniugati.\\
+Degli elementi di $D_P$ sono ad esempio:
+\[e_n = \frac{e^{inx}}{\sqrt{2\pi}}\quad n\in\mathbb{Z}\]
+facciamo agire il commutatore su questi autovettori:
+\[Ce_n = ie_n \implies (e_n, Ce_n) = i(e_n,e_n) = i\]
+inseriamo dentro la definizione di commutatore e svolgiamo i conti:
+\begin{align*} 
+(e_n, Ce_n) &=  i \\ 
+(e_n, QPe_n-PQe_n) &= i\\ 
+(e_n, nQe_n)-(e_n,PQe_n) &= i\\ 
+n(e_n, Qe_n)-(Pe_n,Qe_n) &= i\\ 
+n(e_n, Qe_n)-n(e_n,Qe_n) &= i\\
+0&= i \quad \forall n
+\end{align*}
+evidentemente c'è qualche problema e come già anticipato il problema sta nel dominio del commuatore. $P$ non è limitato, per cui ci siamo ristretti al suo dominio, però nel commutatore si trova $PQ$, ora l'operatore $Q$ non ha problemi di dominio, mentre $P$ si, può capitare quindi che $Qf$ non appartenga al dominio di $P$ nonostante $f$ ci appartenga. Un esempio è $e_n$ come abbiamo mostrato, è evidente che nel nostro dominio di funzioni $2\pi$ periodiche dopo aver fatto agire l'operatore $Qf$ si ottiene $xf(x)$ che non soddisfa più la condizione al contorno. Ci sono due modi per sistemare il problema, uno è banalmente quello di modificare il dominio del commutatore e prendere:
+\[D_C = \{f,f'\in L_2(0,2\pi),xf(x)\,\text{periodica in}\, (0,2\pi)\, \text{con}\, f(2\pi) = 0\}\]
+Un altro modo è quello di scomodare le distribuzioni e definire la funzione $\Phi(x) = x$ su $(0,2\pi)$ estesa periodicamente.
+\begin{figure}[H]
+\centering
+\begin{tikzpicture}
+\draw [->](-4,0) -- (4,0)node[below=1.5pt] {\color{black}$x$};
+\draw[->](0,0)--(0,4)node[right=1.5pt] {\color{black}$y$};
+
+\draw[red,domain=0:3.14] plot ({\x},{\x)});
+\draw[red,domain=0:3.14] plot ({(\x-3.14)},{\x});
+\draw(0,3.14)node[left=1.5pt]{\scriptsize$2\pi$};
+%\draw(0,-2)node[right=1.5pt]{\scriptsize$-\frac{1}{2}$};
+%\draw(1.57,0)node[below=1.5pt]{\scriptsize$\pi$};
+\draw(3.14,0)node[below=1.5pt]{\scriptsize$2\pi$};
+%\draw(-1.57,0)node[above=1.5pt]{\scriptsize$-\pi$};
+\draw(-3.14,0)node[below=1.5pt]{\scriptsize$-2\pi$};
+\draw[dotted](3.14,0)--(3.14,3.14);
+\draw[dotted](-3.14,0)--(-3.14,3.14);
+\end{tikzpicture}
+\caption{La funzione $\Phi(x)$}
+\end{figure}
+il commutatore allora diventa:
+\[C = i \left(\frac{d}{dx}\Phi(x)\right)f = i\left[1+\sum_n^{salti}h_n\delta(x-2\pi n)\right]f(x) =i\left[1-\sum_n^{salti}2\pi\delta(x-2\pi n)\right]f(x) \]
+Se adesso calcoliamo il valore di aspettazione del commutatore come abbiamo fatto prima:
+\[(f,Cf) = (f,i\left[1-\sum_n^{salti}2\pi\delta(x-2\pi n)\right]f(x)) = i\|f\|^2 - 2\pi i \sum_n^{salti}\int_0^{2\pi} \overline{f}(x)f(x)\delta(x-2\pi n )dx\]
+\[ = i\|f\|^2 -2\pi i \overline{f}(2\pi)f(2\pi) \]
+riprendiamo ora in mano il paradosso sopra e calcoliamo $Ce_n$:
+\[(e_n,Ce_n) = i -2\pi i\overline{e_n(2\pi)}e_n(2\pi) = i-i = 0 \]
+Per cui l'uguaglianza di prima diventa $0=0$. Notiamo che questo problema c'è l'abbiamo solo con $L_2(0,2\pi)$, con $L_2(\R)$ non avremmo questi problemi.
+\section{Sistemi ortornomali}
+Introduciamo i concetti di base di spazi infinito dimensionali come può essere una base dello spazio di Hilbert.
+\begin{dfn}
+$\H$ si dice separabile se esistono $\{g_n\}$ linearmente indipendenti e numerabili.
+\end{dfn}
+Un esempio di tale successione in $L_2(0,1)$ potrebbe essere: $g_0 = 1,g_1=x,g_2=x^2\dots$\\
+Una successione del genere possiamo normalizzarla e farla diventare un sistema ortonormale numerabile (S.O.N) con il seguente procedimento detto di \textbf{Graham-Schmidt}. L'idea è quella di partire da una base $\{g_n\}$ e ottenere un S.O.N $\{e_n\}$, il procedimento segue i seguenti step:
+\begin{itemize}
+\item $g_1 \to e_1 = \frac{g_1}{\|g_1\|}$
+\item $\hat{e}_{n+1} = g_{n+1}-\displaystyle\sum_{k=1}^n(g_{n+1},e_k)e_k$
+\item $e_{n+1} = \frac{\hat{e}_{n+1}}{\|\hat{e}_{n+1}\|}$ 
+\end{itemize}
+e si iterano gli ultimi due step per tutti gli $n$.\\
+Grazie ad un S.O.N $\{e_n\}$ nello spazio di Hilbert $\H$ possiamo andare a generalizzare le serie di Fourier. Consideriamo infatti un $f\in H$ e chiamiamo i coefficienti di Fourier generalizzati $f_k=(e_k,f)$ e la serie di Fourier generalizzata $\sum_k f_ke_k$, si può introdurre anche una ridotta di Fourier generalizzata come $f_N = \displaystyle \sum_{k=1}^Nf_ke_k$. Ora quello che vogliamo fare è studiare la convergenza della ridotta di Fourier generalizzata e se l'elemento a cui converge è effettivamente $f$, questo fatto è legato alla completezza (alla densità) del sistema ortonormale $\{e_n\}$. Quello che vogliamo vedere è se avvengono le seguenti:
+\begin{enumerate}
+\item $f_N \xrightarrow[n\to \infty]{\H} f^* $ ?  $f^*=\displaystyle \sum_{k=1}^\infty f_ke_k$
+\item $\forall f$, $f^*=f$ ? $f=\displaystyle \sum_{k=1}^\infty f_ke_k$
+\end{enumerate}
+Iniziamo a dare dei lemmi preliminari importanti per il seguito, consideriamo 
+\[f_N = \displaystyle \sum_{k=1}^Nf_ke_k \qquad \hat{f_N} = \displaystyle \sum_{k=1}^Na_ke_k \quad a_k\in\C\]
+caloliamo allora $\|\hat{f_N}\|^2 = (\hat{f_N},\hat{f_N}) = (\displaystyle \sum_{k=1}^Na_k e_k,\displaystyle \sum_{j=1}^Na_je_j) = \sum_{k=1}^N |a_k|^2$
+tenendo conto che $(e_k,e_j) = \delta_{kj}$, otteniamo così la formula di pitagora generalizzata:
+\[\|\hat{f_N}\|^2 =\sum_{k=1}^N |a_k|^2\quad \text{se } a_k=f_k \implies \|f_N\|^2 =\sum_{k=1}^N |f_k|^2\]
+un altra identità che ci sarà utile nell'immediato futuro è la seguente:
+\[(f,\hat{f_N}) = (f,\sum_{k=1}^Na_k e_k) = \sum_{k=1}^Na_k(f,e_k) = \sum_{k=1}^Na_k\overline{(e_k,f)} = \sum_{k=1}^Na_k\overline{f_k}\]
+andiamo ora a calcolare la seguente quantità:
+\begin{equation}\label{roba}\|f-\hat{f_N}\|^2 = \|f\|^2 + \|\hat{f_N}\|^2 - 2\text{Re}(f,\hat{f_N}) = \|f\|^2+\sum_{k=1}^N |a_k|^2 - 2\text{Re}\left(\sum_{k=1}^N\overline{f_k}a_k\right)\end{equation}
+ora teniamo conto che vale anche:
+\[\sum_{k=1}^N |a_k-f_k|^2 = \sum_{k=1}^N\left[|a_k|^2+|f_k|^2-2\text{Re}(\overline{f_k}a_k)\right]\]
+che riarrangiando i termini a sinstra e a destra otteniamo:
+\[\sum_{k=1}^N\left[|a_k|^2-2\text{Re}(\overline{f_k}a_k)\right] = \sum_{k=1}^N (|a_k-f_k|^2 -|f_k|^2) \]
+ora mettendo questa nella \eqref{roba} otteniamo la seguente identità:
+\begin{equation}\label{star}\|f-\hat{f_N}\|^2 =\|f\|^2 -\sum_{k=1}^N|f_k|^2+\sum_{k=1}^N |a_k-f_k|^2\end{equation}
+facciamo il caso in cui $a_k = f_k$, la quantità appena calcolata è ovviamente non negativa ricaviamo:
+\begin{equation}\label{quasibessel}0\leq\|f-f_N\|^2  = \|f\|^2- \sum_{k=1}^N|f_k|^2 \end{equation}
+dai cui la \textbf{disuguaglianza di Bessel:}
+\[\sum_{k=1}^N|f_k|^2\leq \|f\|^2\]
+ora mettiamo la \eqref{quasibessel} nella \eqref{star} otteniamo:
+\[\|f-\hat{f_N}\|^2 = \|f-f_N\|^2 +  \sum_{k=1}^N |a_k-f_k|^2 \geq 0 \]
+dai cui essendoci a destra due termini positivi:
+\[\|f-\hat{f_N}\|^2 \geq \|f-f_N\|^2\]
+Siamo ora in grado di dare risposta alle domande che ci siamo posti prima, iniziamo dalla prima e consideriamo $f_N$, se è di Cauchy è anche convergente quindi mostriamo che è di Cauchy:
+\[\|f_N-f_M\|^2 = \| \sum_{k=1}^Nf_ke_k- \sum_{k=1}^Mf_ke_k \|^2 = \| \sum_{k=N+1}^Mf_ke_k\| = \sum_{k=N+1}^M|f_k|^2 \xrightarrow[N,M\to \infty]{}0 \]
+dove nell'ultimo passaggio si è usato pitagora generalizzato e la convergenza della serie è garantita dalla disuguaglianza di Bessel. Quindi concludiamo che esiste $f^* =\displaystyle \sum_{k=1}^\infty f_ke_k $ con $f^*\in\H$. La risposta alla seconda domanda ci porta alla seguenti definizioni:
+\begin{dfn}
+Se vale che $f^*=f$ allora diciamo che $f$ è sviluppabile in serie di Fourier rispetto a $\{e_k\}$
+\end{dfn}
+\begin{dfn}
+$\{e_k\}$ è ortonormale completo (S.O.N.C) se è denso, ovvero $\overline{\{e_k\}} = \H$, ovvero $\|f-\sum_k f_ke_k\|<\varepsilon$ $\forall f$
+\end{dfn}
+\begin{dfn}
+$\{e_k\}$ è chiuso se $\forall f$ vale \textbf{l'uguaglianza di Parseval:}
+\[\|f\|^2 = \sum_{k=1}^\infty |f_k|^2\]
+\end{dfn}\leavevmode
+\\queste definizione e i risultati ottenuti ci fanno ad arrivare alla seguente catena di implicazioni:
+\[\forall f\,\, f^*=f\iff \text{completezza di S.O.N}\iff \text{chiusura di S.O.N (Parseval)}\]
+\begin{thm}
+(Di chiusura) $\{e_k\}$ è chiuso $\iff$ 
+\[\forall f,g \quad (f,g) = \sum_{k=1}^\infty(f,e_k)(e_k,g)\]
+\end{thm}
+\hspace{-1.6em}\textbf{Dimostrazione:}\\
+$\impliedby)$ se $f=g$ otteniamo l'uguaglianza di Parseval quindi per definizione $\{e_k\}$ è chiuso.\\
+$\implies)$ consideriamo il vettore $h=g+\lambda f$ con $\lambda\in\C$ arbitrario e applichiamo Parseval:
+\[(g+\lambda f,g+\lambda f) = \sum_{k=1}^\infty(e_k,g+\lambda f)(g+\lambda f,e_k)\]
+sviluppiamo i due membri dell'equazione indipendentemente:
+\begin{align*} 
+(g+\lambda f,g+\lambda f) &= \sum_{k=1}^\infty(e_k,g+\lambda f)(g+\lambda f,e_k) \\ 
+\|g\|^2 + |\lambda|^2\|f\|^2 + 2\text{Re}(\lambda(g,f))&=\sum_{k=1}^\infty|(e_k,g)|^2 + |\lambda|^2\sum_{k=1}^\infty|(e_k,f)|^2 + 2\text{Re}\left[\lambda\sum_{k=1}^\infty (g,e_k)(e_k,f) \right]
+\end{align*}
+notiamo che $(e_k,g) = g_k$ e lo stesso $(e_k,f)=f_k$, quindi applichiamo parseval e sostituiamo nella parte di destra le sommatorie con le norme che a questo punto si semplificano con quelle a sinistra e ci rimane:
+\[\text{Re}(\lambda(g,f)) = \text{Re}\left[\lambda\sum_{k=1}^\infty (g,e_k)(e_k,f) \right] \]
+ma data l'arbitrarietà di $\lambda$ deve essere:
+\[(g,f) = \sum_{k=1}^\infty (g,e_k)(e_k,f)\]
+infatti consideriamo $z_1,z_2\in\C$, allora se in $\text{Re}(\lambda z_1) = \text{Re}(\lambda z_2)$ prendiamo $\lambda = 1$ abbiamo l'equivalenza delle parti reali del numero complesso, mentre se prendiamo $\lambda = i$ abbiamo l'equivalenza delle parti immaginarie da cui quindi l'equivalenza dei due numeri complessi.
+\begin{thm}
+(Riesz-Fischer) Sia $\{e_k\}$ S.O.N di $\H$, se esiste $\{a_k\}\in\C$ con $\sum_{k=1}^\infty|a_k|^2<+\infty$ allora esiste $h\in\H$ tale che $a_k=h_k=(e_k,h)$ e vale l'uguaglianza di Parseval $\|h\|^2 = \sum_{k=1}^\infty|a_k|^2$
+\end{thm}
+\begin{thm}
+(Criterio di chiusura-completezza) $\{e_k\}$ è S.O.N.C $\iff$ preso un $f$ tale che $(e_k,f)=0\,\forall k$ allora $f=0$
+\end{thm}
+\hspace{-1.6em}\textbf{Dimostrazione:}\\
+$\implies$) se $\{e_k\}$ è S.O.N.C allora vale Parseval quindi $\forall f$ $\|f\|^2 = \sum_{k=1}^\infty|(e_k,f)|^2$, è evidente che se $(e_k,f)=0$ per ogni $k$ allora $\|f\|^2=0$ quindi per definizione di norma $f=0$.\\
+$\impliedby)$ Procediamo per assurdo e diciamo che $\{e_k\}$ non è S.O.N.C quindi Parseval non vale, quindi esiste $g$ tale che $\sum_{k=1}^\infty|g_k|^2<\|g\|^2$ allora per Riesz-Fischer esiste un $h$ tale che $g_k=h_k=(e_k,h)$ e per il quale vale Parseval $\|h\|^2 = \sum_{k=1}^\infty|(e_k,h)|^2 = \sum_{k=1}^\infty|g_k|^2$ ma allora dato che $g_k=(e_k,g)$ abbiamo che $(e_k,g-h)=0$ da cui per ipotesi $h=g$ da cui un assurdo perchè Parseval è diverso.
+\begin{coro}
+Se $A$ è non limitato e vale $(g^*,f)=(g,Af)\, \forall f\in D_A$ con $\overline{D_A}=\H$ allora $g^*$ è unico.
+\end{coro}
+\hspace{-1.6em}\textbf{Dimostrazione:}\\
+Se esistesse $g_1^*$ tale che $(g^*,f) = (g_1^*,f)\implies (g^*-g_1^*,f)=0$ che per il criterio di chiusura ci da: $g^*_1=g^*$.\\
+\newline
+Il criterio di chiusura ci permette quindi di giustificare la richiesta della condizione $\overline{D_A}=\H$ nella definizione \eqref{aggiunto_nonlimitato}  che come avevamo già anticipato ci permette di dare una definizione univoca dell'operatore autoaggiunto.
+\begin{dfn}
+Siano $\H,\H_1$ due spazi di Hilbert, essi si dicono unitariamente equivalenti se esiste un applicazione $U:\H\to\H_1$ lineare e biunivoca che preserva il prodotto scalare, overro:
+\[(f,g)_\H = (U(f),U(g))_{\H_1}\quad \forall f,g\in\H\]
+\end{dfn}
+\begin{thm}
+(Di Schr{\"o}dinger) Ogni spazio di Hilbert separabile $\H$ è unitariamente equivalente a \[l_2 = \left\{\{z_n\}=(z_1,z_2,\dots) : \sum_{k=1}^{+\infty}|z_k|^2<+\infty\right\}\]
+\end{thm}
+\hspace{-1.6em}\textbf{Dimostrazione:}\\
+Prendiamo un S.O.N.C. $\{e_k\}$ nello spazio di Hilbert, sappiamo quindi che $\forall f\in \H$ possiamo scomporre gli elementi in serie di Fourier con coefficienti $f_k =(e_k,f)$. Possiamo allora scegliere come successione $\{x_k\}=\{f_k\}$, essa fa parte di $l_2$ in quanto per Parseval $\displaystyle\sum_{k=1}^\infty|f_k|^2<+\infty$. Inoltre notiamo che se esiste $\{x_k\}$ per Riesz-Fischer esiste $f$ tale che $x_k = f_k$, questo ci dimostra la biunivocità tenendo conto che $f$ è unico infatti se esistesse $f^*_k = x_k\implies (f,e_k)=(f^*,e_k)\implies (f-f^*,e_k)=0\implies f=f^*$.\\
+Mostriamo inoltre che questa mappa $U:f\in\H\mapsto \{f_k\}=(e_k,f)\in l_2$ è lineare:
+\[\alpha f+\beta g\in\H \mapsto (e_k,\alpha f+\beta g) = \alpha(e_k,f)+\beta(e_k,g) = \alpha U(f)+\beta U(g) \]
+Vediamo infine che preserva il prodotto scalare, ricordiamo che per $l_2$ il prodotto scalare è definito nella \eqref{innerproduct}, per dimostrare che il prodotto scalare è preservato utilizziamo il teorema di chiusura e scriviamo:
+\[\forall f,g\in\H \quad (f,g)_\H =\sum_{k=1}^\infty (f,e_k)(e_k,g) = \sum_{k=1}^\infty \overline{(e_k,f)}(e_k,g) = \sum_{k=1}^\infty \overline{x_k}^fx_k^g = (x^f,x^g)_{l_2}\]
+Questo teorema ha una grande importanza storica per la fisica, infatti agli inizi della meccanica quantistica si andavano sviluppando due diverse teorie, la meccanica della matrici di Heinsemberg, Born e Jordan e la meccanica ondulatoria di Schr{\"o}dinger. La prima utilizzava lo spazio $l_2$ e come operatori delle matrici infinito dimensionali, la meccanica ondulatoria invece utilizzava gli spazi di Hilbert e gli operatori su essi definiti. Entrambe le teorie funzionavano bene e non si capiva quale fosse quella ``giusta'', questo teorema dimostra la biunivocità di tali descrizioni della natura ponendo fine alla discussione. Nel tempo si è andata ad affermare la meccanica ondulatoria di Schr{\"o}dinger e la descrizione matematica sviluppata in questi appunti, questo perchè dal punto di vista del calcolo è molto più comoda rispetto che a lavorare con successioni infinite e matrici infinito dimensionali.
+\section{Problemi sul dominio}
+Approfondiamo al questione dei problemi di dominio negli operatori, abbiamo già visto che gli operatori limitati non hanno problemi, negli operatori non limitati invece come abbiamo visto in vari esempi la scelta del dominio è di vitale importanza.
+\begin{dfn}
+$A$ operatore si dice chiuso se presi $g_n\xrightarrow[n\to \infty]{\H}g$ con $Ag_n\xrightarrow[n\to \infty]{\H}h$ allora $h=Ag$
+\end{dfn}
+è evidente che se A è limitato allora è anche chiuso.
+\begin{thm}
+Dato $A$ non limitato con $D_A =\H$ allora $A^\dagger$ è chiuso
+\end{thm}
+\begin{coro}
+Se A è simmetrico allora $A\subseteq A^\dagger$
+\end{coro}
+Un esempio di questo l'abbiamo già visto, è l'operatore $P$ simmetrico con dominio $D_P=\{f,f'\in L_2(0,2\pi),f(0) = f(2\pi) = 0\}\supseteq D_{P^\dagger}$.\\
+Se $A$ non è chiuso esiste la sua chisura $\overline{A}$ e se vale che $\overline{A}^\dagger = \overline{A}$ alloa $A$ si dice essenzialmente autoaggiunto.\\
+A parte questa sfumatura consideriamo ora operatori autoaggiunti $A$ e definiamo quello che si chiama lo spettro di un operatore autoaggiunto.
+\begin{dfn}
+Si chiama il risolvente di $A$ il seguente operatore:
+\[R_z(A) = (z\mathbbm{1}-A)^{-1}\quad z\in\C\]
+\end{dfn}
+\begin{dfn}
+Si dice che $z$ è un valore regolare se:
+\begin{enumerate}[i.]
+\item $R_z(A)$ esiste $\iff$ $\text{Ker}(z\mathbbm{1}-A) = \{0\}$
+\item $R_z(A)$ è limitato $\iff$ $\|R_z(A)\psi\|\leq C_A \|\psi\|\, \forall \psi \in D_A$
+\end{enumerate}
+inoltre l'insieme dei valori regolari si indica con $P(A)$
+\end{dfn}
+\begin{dfn}
+\label{spettro}
+Si chiama lo spettro di $A$ il seguente insieme:
+\[\sigma(A) = \C-P(A)\]
+quindi evidentemente dalla definizione prima $z\in\sigma(A)$ se:
+\begin{enumerate}
+\item $\exists \varphi$ tale che $A\varphi = z\varphi$ con $\varphi\neq 0$ e in tal caso si dice che lo spettro è discreto
+\item $R_z(A)$ non è limitato e allora si dice che lo spettro è continuo
+\end{enumerate}
+\end{dfn}
+\begin{lem}
+Se $A^\dagger = A$ allora vale:
+\[\|(z-A)\psi\|\geq |\text{Im}(z)|\|\psi\|\implies \|R_z(A)\psi\|\leq \frac{1}{|\text{Im}(z)|\|\psi\|} \quad\forall\psi\in D_A\]
+\end{lem}
+da questo lemma segue il seguente corollario tenendo conto che per forza deve essere $|\text{Im}(z)\neq 0|$
+\begin{coro}
+Se $A=A^\dagger$ allora $\sigma(A)\subseteq \R$
+\end{coro}
+Tempo di fare alcune esempi con i nostri classici operatori $Q$ e $P$. Iniziamo da $Q$ che sappiamo essere limitato e autoaggiunto, come insieme consideriamo $L_2(0,2\pi)$. Quello che vogliamo fare è calcolare lo spettro di $Q$, $\sigma(Q)$, per farlo possiamo procedere in due modi, il primo è quello di calcolarsi il risolvente di $Q$:
+\[g(x) = (z\mathbbm{1} -Q)f(x) = zf(x) - xf(x) \implies f(x) = (z\mathbbm{1} -Q)^{-1}g(x) = \frac{1}{z-x}g(x) = R_z(Q)g(x)   \]
+vediamo dove è definito questo operatore:
+\[\|R_z(Q)f\|^2 = \int_0^{2\pi}\left|\frac{f(x)}{z-x}\right|^2dx =\int_0^{2\pi}\frac{|f(x)|^2}{|z-x|^2}dx \]
+da cui ovviamente $\sigma(Q) = [0,2\pi]$, quindi $Q$ ha uno spettro continuo. Notiamo che nel caso di $L_2(\R)$ avremmo avuto dallo stesso calcolo $\sigma(Q) = \R$.\\
+Il secondo modo è quello di trovare gli autovalori di $Q$ in modo da sfruttare la i. della definizione \eqref{spettro}. Scriviamo l'equazione agli autovalori:
+\[Qf = \lambda f \implies (x-\lambda)f(x) = 0\]
+evidentemente non esistono autovettori ne autovalori in $L_2(0,2\pi)$ per cui lo spettro è per forza continuo. Prima di passare allo studio dello spettro di $P$ soffermiamoci un attimo sull'equazione $(x-\lambda)f(x) = 0$, essa avrebbe una soluzione che equivale alla delta di Dirac $\delta(x-\lambda)$ che ovviamente non fa parte di $L_2$. Questo ha portato Gelfand all'introduzione del concetto di autovettori generalizzati che sono vettori appartenente allo spazio $\mathcal{S}'$ in questo senso si può scrivere la cosiddetta tripletta di Gelfand $\mathcal{S}\subset L_2(\R) = L_2(\R)' \subset \mathcal{S}'$.\\
+Studiamo lo spettro di $P$ con dominio $D_P=\{f,f'\in L_2(0,2\pi),f(0) = f(2\pi)\},$ abbiamo già mostrato che su questo dominio è autoaggiunto. In questo caso il primo metodo perdeterminare lo spettro di $P$ ci porta ad una rappresentazione integrale del risolvente:
+\[R_z(P)f = \int_0^{2\pi}G_z(x,y)f(y)\,dy\]
+con $G_z(x,y)$ detto nucleo integrale non facile da ricavare, per questo sfruttiamo il secondo modo e scriviamo l'equazione agli autovalori con le sue condizioni al contorno:
+\[i\frac{df}{dx}(x) = \lambda f(x)\quad f(0)=f(2\pi),\lambda\in\R\]
+la soluzione è evidentemente un esponenziale complesso $f(x) = e^{i\lambda x}$ se imponiamo le condizioni al contorno otteniamo:
+\[f(0) = A = Ae^{i\lambda 2\pi} = f(2\pi) \implies  Ae^{i2\pi n} = Ae^{i\lambda 2\pi} \implies \lambda_n = n\]
+in questo caso allora abbiamo $n$ autovalori, lo spettro è quindi discreto. Gli autovettori normalizzati associati sono oggetti che abbiamo già incontrato $e_n(x) = \frac{e^{inx}}{\sqrt{2\pi}}$.\\
+Ne caso di $P$ non limitato abbiamo visto che a seconda del dominio potrebbe o no essere autoaggiunto, esiste un modo per decidere se un operatore, aggiustando opportunamente il dominio sia autoaggiunto o meno, vediamo quindi di formalizzare questo fenomeno che abbiamo già visto nell'esempio di $P$. 
+\begin{dfn}
+Consideriamo due operatori $A,B$ simmetrici e non limitati, se $D_A \subseteq D_B$ si dice che $B$ è un estensione di $A$ ($A\subseteq B$).
+\end{dfn}
+Per operatori simmetrici vale che $A\subseteq A^\dagger$. Introduciamo a questo punto due spazi detti i \textbf{sottospazi di difetto}:
+\[\mathcal{N}_\pm = \{h,(A^\dagger\pm i \mathbbm{1})h = 0\}\]
+in pratica introduciamo l'operatore $A^\dagger\pm i \mathbbm{1}$ e questi spazi non sono altro che il suo Ker. Le dimensioni di questi sottospazi si chiamano \textbf{indici di difetto:} $n_\pm = \text{Dim}(\mathcal{N}_\pm)$.\\
+Grazie al teorema della proiezione ortogonale possiamo scrivere $\H$ in funzione di tali sottospazi:
+\[\H =\mathcal{N}_\pm \oplus \mathcal{N}_\pm^\perp \]
+\begin{lem}
+\label{lemmaacaso}
+Se $A$ è simmetrico con $\overline{D_A}=\H$ allora $D_{A^\dagger} = D_A\oplus\mathcal{N}_+\oplus \mathcal{N}_- $
+\end{lem}
+\begin{thm}
+(Di Von-Neumann) Se $A$ è chiuso e simmetrico possiamo avere la seguente casistica:
+\begin{enumerate}[i.]
+\item se $n_+ = n_- =0 \iff A^\dagger = A$
+\item se $n_+\neq n_- \iff$ non esistono estensioni autoaggiunte
+\item se $n_+=n_->0 \iff$ esistono infinite estensioni autoaggiunte parametrizzate da una matrice unitaria $U$ di dimensione $n\times n$
+\end{enumerate}
+\end{thm}
+Ricordiamo che una matrice è unitaria quando vale $U^\dagger U = U U^\dagger = \mathbbm{1}$. Non dimostriamo questo teorema a parte il caso i. estremamente banale che segue dal lemma \eqref{lemmaacaso} che ci dice $D_A = D_{A^\dagger}$ quindi $A^\dagger = A$.\\
+Diamo invece una ``ricetta'' per costruire le infinite estensioni autoaggiunte del caso iii., in particolare ci focalizzeremo nel caso in cui gli indici di difetto valgano 1 o 2.
+\begin{itemize}
+\item caso $n_+=n_- = 1$: Il domino dell'estensione autoaggiunta in questo caso è:
+\[D_A = \{\varphi(x),A\varphi(x)\in\H : \varphi = h(x) +U_+(x) + e^{i\theta}U_-(x),\,h\in D_A \}\]
+Con $U_\pm$ soluzioni dell'\textbf{equazione di Von-Neumann} con condizione al contorno:
+\[A^\dagger U_\pm(x) = \mp i U_\pm(x)\qquad \|U_+\| = \|U_-\|\]
+notiamo che la matrice unitaria $U$ in questo caso è data dall'elemento complesso $U=e^{i\theta}$
+\item caso $n_+=n_- = 2$: in questo caso la matrice unitaria è $2\times2$ contiene quindi 4 parametri complessi $a,b,c,d\in\C$:
+\[U = \begin{pmatrix}
+  a & b \\
+  c & d
+ \end{pmatrix} \quad
+	U^\dagger = \begin{pmatrix}
+  \overline{a} & \overline{b} \\
+  \overline{c} & \overline{d}
+ \end{pmatrix}
+ \]
+imponendo la condizione di unitarietà otteniamo 4 parametri reali da imporre e gli altri che parametrizzano le infinite autoestensioni.% infatti:
+%\[\begin{pmatrix}
+ % a & b \\
+ % c & d
+ %\end{pmatrix}\begin{pmatrix}
+ % \overline{a} & \overline{b} \\
+ % \overline{c} & \overline{d}
+ %\end{pmatrix} = \begin{pmatrix}
+ % 1 & 0 \\
+ % 0 & 1
+ %\end{pmatrix}\]
+ %\[\begin{cases}
+ %   a\overline{a} + b\overline{c} = 1\\
+ %   a\overline{b} + b\overline{d} = 0\\
+ %   c\overline{a} + d\overline{c} = 0\\
+ %   c\overline{d} + d\overline{d} = 1 
+ % \end{cases} \]
+\end{itemize}
+Procediamo a fare i classici esempi di $P$ e $Q$ nonostante sappiamo già i probabili risultati in quanto già parzialmente visti in esempi precedenti. Consideriamo però in questo caso 3 diversi spazi di lavoro: $L_2(\Sigma)$ con $\Sigma = \R,\R^+,[a,b]$ con $a,b\in\R$.\\
+Partiamo da $Q$, sappiamo già che nel caso $\Sigma= [a,b]$ l'operatore è limitato e autoaggiunto, studiamo quindi i casi più particolari con $\Sigma=\R,\R^+$, dove l'operatore non è limitato, utilizziamo come dominio $C_0^\infty(Q)$ e vediamo innanzitutto se è simmetrico:
+\[(Qg,f)- (g,Qf) = \int_{\Sigma}(x\overline{g}f-\overline{g}xf)dx = 0 \]
+quindi è simmetrico su questi domini, per vedere se ha estensioni autoaggiunte risolviamo l'equazione di Von-Neumann e troviamo quindi gli elementi di $\mathcal{N}_\pm$:
+\[Q^\dagger U_\pm(x) = - \pm iU_\pm(x) \quad xU_\pm(x) \pm iU_\pm(x)=0 \quad (x\pm i)U_\pm(x) = 0 \quad \forall x\in\Sigma\]
+da cui l'unica soluzione è l'elemento nullo $U_\pm = 0$ quindi le dimensioni di $\mathcal{N}_\pm$ sono nulle cosi come gli indici di difetto $n_\pm = 0$, ricadiamo quindi nel caso i. del teorema di Von-Neumann che ci dice che $Q$ è autoaggiunto su $\Sigma$, in tutti e tre i casi.\\
+Studiamo ora il caso di $P$ che in tutti e tre i casi non è limitato, prendiamo inizialmente come dominio $D_P = \{f,f'\in L_2(\Sigma)\}$. Consideriamo i tre casi separatamente:
+\begin{enumerate}
+\item caso $\Sigma = \R$:\\
+Per prima cosa vediamo se è simmetrico
+\[(Pg,f)-(g,Pf) = -i\int_{-\infty}^{\infty}(\overline{g}'f + \overline{g}f')dx = -i(\overline{g}f\big|_{-\infty}^{+\infty} =0  \]
+uguale a 0 in quanto le funzioni sono a quadrato sommabili. L'equazione di Von-Neumann in questo caso è:
+\[-i\frac{d}{dx}U_\pm(x) = \mp iU_\pm(x) \implies \frac{d}{dx}U_\pm(x) = -U_\pm(x)\]
+che è un equazione a variabili separabile che ha come soluzione $U_\pm(x) = C_\pm e^{\mp x}$ con $C\pm$ parametri. Notiamo però che le funzioni $U_\pm$ devono essere a quadrato sommabili, vediamo la norma quanto vale:
+\[\|U_\pm\|^2 = C_\pm^2 \int_{-\infty}^{+\infty} e^{\mp2x}\,dx\]
+che converge solamente quando $C_\pm = 0$ quindi in questo caso $U_\pm$ sono funzioni nulle e perciò le dimensioni di $\mathcal{N}_\pm$ sono 0, ricadiamo nel caso i. del teorema di Von-Neumann che ci dice quindi che l'operatore $P$ su $L_2(\R)$ è un operatore autoaggiunto. Il risultato era quasi scontato se si pensava che la trasformata di Fourier trasforma operazioni di derivata in operazioni di moltiplicazione, quindi il caso di $P$ sulla retta reale è equivalente al caso di $Q$ che abbiamo già visto essere autoaggiunto.
+\item caso $\Sigma = \R^+$:\\
+come al solto vediamo se è simmetrico su questo dominio:
+\[(Pg,f)-(g,Pf) = -i\int_{0}^{\infty}(\overline{g}'f + \overline{g}f')dx = -i(\overline{g}f\big|_{0}^{+\infty}\]
+questa quantità non è sempre uguale a 0, ma dobbiamo porre delle condizioni al contorno, per cui $P$ sulla semiretta reale è simmetrico solo sul seguente dominio:
+\[D_P = \{f,f'\in L_2(\R^+), f(0)=0\}\]
+La soluzione dell'equazione di Von-Neumann è la stessa di prima $U_\pm(x) = C_\pm e^{\mp x}$, quello che cambia sono le condizioni al contorno, calcoliamo la norma e vediamo quando queste soluzioni sono a quadrato sommabile:
+\[\|U_+\|^2 = C_+^2 \int_{0}^{+\infty} e^{-2x}\,dx \quad \|U_-\|^2 = C_-^2 \int_{0}^{+\infty} e^{2x}\,dx\]
+i due casi ora sono ben diversi, infatti nel caso di $U_+$ l'esponenziale va a 0 all'infinito quindi non abbiamo problemi e $C_+e^{-x}$ è un elemento di $\mathcal{N}_+$ che ha quindi dimensione 1, mentre nel caso $U_-$ l'esponenziale ci fa divergere l'integrale quindi dobbiamo imporre per forza $C_- = 0$ questo significa che $n_- = 0$ diverso da  $n_+ = 1$ quindi siamo nel caso ii. del teorema di Von-Neumann ovvero non esistono estensioni autoaggiunte per $P$ su $\R^+$.
+\item caso $\Sigma = [a,b]$:
+per semplicità mettiamoci nel caso $\Sigma =[0,2\pi]$ con il quale siamo già familiari. Abbiamo visto che l'operatore su questo insieme è simmetrico se prendiamo come dominio:
+\[D_P = \{f,f'\in L_2(\R^+), f(0)=f(2\pi)=0\}\]
+le soluzioni dell'equazione di Von-Neumann sono sempre quelle, vediamo la norma con queste condizioni al contorno:
+\[\|U_+\|^2 = C_+^2 \int_{0}^{2\pi} e^{-2x}\,dx \quad \|U_-\|^2 = C_-^2 \int_{0}^{2\pi} e^{2x}\,dx\]
+non hanno problemi di divergenza di integrali quindi le dimensioni di $\mathcal{N}_\pm$ sono $n_+=n_-=1$, siamo nel terzo caso del teorema di Von-Neumann, esistono infinite estensioni autoaggiunte, vediamo di costruirle. Innanzitutto imponiamo che le norme di $U_\pm$ siano uguali e ricaviamo quindi $C_\pm$:
+\[\|U_+\|^2 = C_+^2\Big(\frac{e^{-2x}}{-2}\Big|_0^{2\pi} = \frac{C_+^2}{2}(1-e^{-4\pi}) =\frac{C_+^2}{2}\frac{(e^{4\pi}-1)}{e^{4\pi}} \]
+\[\|U_-\|^2 = C_-^2\Big(\frac{e^{2x}}{2}\Big|_0^{2\pi} = \frac{C_-^2}{2}(e^{4\pi}-1) \]
+\[\|U_+\|^2 =\|U_-\|^2 \implies \frac{C_+^2}{2}\frac{(e^{4\pi}-1)}{e^{4\pi}} = \frac{C_-^2}{2}(e^{4\pi}-1) \implies C_+^2 = e^{4\pi}C_-^2 \implies C_+=e^{2\pi}C_- \]
+il dominio dell'operatore autoaggiunto avrà quindi come condizione:
+\[ \varphi(x) = h(x) +C_+e^{-x} + e^{i\theta}C_-e^{x} = h(x) + (e^{2\pi}e^{-x} + e^{i\theta}e^x)C_- \]
+\end{enumerate} 
+Studiamo questa funzione $\varphi(x)$ e vediamo che proprietà ha, iniziamo col calcolarla in 0 e $2\pi$:
+\[\varphi(0) = (e^{2\pi} + e^{i\theta})C_-\quad \varphi(2\pi) = (1+e^{i\theta}e^{2\pi})C_-\]
+ricordo che $h(0)=h(2\pi) = 0$ per le condizioni di simmetria dell'operatore $P$. Studiamo la relazione tra queste due quantità facendone il rapporto:
+\[\frac{\varphi(0)}{\varphi(2\pi)} = \frac{e^{2\pi} + e^{i\theta}}{1+e^{i\theta}e^{2\pi}} \doteq \gamma \in \C\]
+vediamo quanto vale il modulo di $\gamma$:
+\[\overline{\gamma} = \frac{e^{2\pi} + e^{-i\theta}}{1+e^{-i\theta}e^{2\pi}}\implies \gamma\overline{\gamma} = \left(\frac{e^{2\pi} + e^{i\theta}}{1+e^{i\theta}e^{2\pi}}\right)\left(\frac{e^{2\pi} + e^{-i\theta}}{1+e^{-i\theta}e^{2\pi}}\right)\]
+moltiplichiamo sopra e sotto per $e^{-i\theta}$ e otteniamo:
+\[|\gamma| =\left(\frac{e^{2\pi} + e^{i\theta}}{1+e^{i\theta}e^{2\pi}}\right)\left(\frac{e^{2\pi} + e^{-i\theta}}{1+e^{-i\theta}e^{2\pi}}\right)\frac{e^{-i\theta}}{e^{-i\theta}} = \left(\frac{e^{2\pi}e^{-i\theta} + 1}{e^{-i\theta}+e^{2\pi}}\right)\left(\frac{e^{2\pi} + e^{-i\theta}}{1+e^{-i\theta}e^{2\pi}}\right) = 1\]
+ottimo, $\gamma$ ha modulo unitario quindi possiamo prendere $\alpha \in\R$ e scrivere $\gamma = e^{i\alpha}$ ovvero:
+\[\frac{\varphi(0)}{\varphi(2\pi)} = e^{i\alpha} \implies \varphi(0) = e^{i\alpha} \varphi(2\pi)\]
+in definitiva $P$ è autoaggiunto sui seguenti infiniti domini:
+\[D_{P_\alpha} = \{f,f'\in L_2(0,2\pi):\varphi(0) = e^{i\alpha} \varphi(2\pi) \}\]
+notiamo che nel caso $\alpha=0$ otteniamo lo stesso dominio che avevamo dimostrato rendere $P$ autoaggiunto per calcolo diretto in un passato esempio. Ora vediamo che anche condizioni antiperiodiche $\varphi(0)=-\varphi(2\pi)$ dato da $\alpha = \pi$ ci rendono l'operatore $P$ autoaggiunto e non solo è autoaggiunto con $\alpha$ arbitrario. Queste condizioni fisicamente corrispondono a particelle diverse, nei casi di condizioni periodiche e antiperiodiche otteniamo i bosoni e i fermioni nel caso di $\alpha$ arbitario troviamo delle particelle generalizzate chiamate \emph{anyons} (in italiano qualunquoni) la cui esistenza è stata dimostrata sperimentalmente.
+\section{Teoremi spettrali}
+In questa sezione ci occupiamo dei teoremi spettrali per operatori autoaggiunti $A=A^\dagger$, in particolare vedremo il caso di operatori compatti (i quali hanno sempre spettro discreto) ed operatori limitati e non. 
+\subsection{Operatori compatti}
+Iniziamo a definire la classe degli operatori compatti e le loro proprietà
+\begin{dfn}
+$A:\H\to\H$ è compatto se, sia $\{f_n\}$ limitata cioè $\|f_n\|<M$ $\forall n$ allora da $\{Af_n\}$ è possibile estrarre una sottosuccessione convergente quindi $\{Af_{nk}\}$ è di Cauchy.
+\end{dfn}
+\begin{thm}
+\label{compatto}
+$A:\H\to\H$ è compatto $\iff$ $f_n\xrightarrow[n\to \infty]{W} f \implies Af_n \xrightarrow[n\to \infty]{\H}Af$. Ovvero $A$ trasforma successioni debolmente convergenti in successioni fortemente convergenti.
+\end{thm}
+La compattezza di un operatore e la sua limitatezza sono cose diverse, infatti un operattore limitato non è detto che sia compatto mentre un operatore compatto è limitato, vediamo meglio questa cosa con un esempio.\\
+Consideriamo l'operatore identità $A = c\mathbbm{1}$ che è banalmente limitato ma non compatto, infatti consideriamo una base ortonormale $\{\varphi_n\}$ che ha norma unitaria quindi è per forza limitata e vediamo che $\{A\varphi_n\} = c\{\varphi_n\}$ non è di Cauchy quindi non è convergente:
+\[\|A\varphi_n-A\varphi_m\|^2 = |c|^2\|\varphi_n-\varphi_m\|^2 = |c|^2 (\|\varphi_n\|^2+\|\varphi_m\|^2) = 2|c|^2 \]
+dove abbiamo sfrutatto la \eqref{identitautile} e il fatto che $(\varphi_n,\varphi_m)=0$.
+\begin{lem}
+Se $A$ è compatto allora $A$ è limitato
+\end{lem}
+un esempio importante di operatore compatto è: $A:\H\to \C^n$, questi operatori si dicono a rango finito. Un esempio è il seguente:
+\[A = \sum_{n=1}^Na_n(\varphi_n,\cdot)\varphi_n \equiv \sum_{n=1}^Na_n\ket{n}\bra{n}\]
+dove $\{\varphi_n\}$ è un S.O.N. Vediamo che è compatto, prendiamo $\{\varphi_n\}$ S.O.N. abbiamo allora che $\varphi_n\xrightarrow[n\to \infty]{W} 0$, questo perchè per definizione di convergenza debole deve valere $(f,\varphi_n)\xrightarrow[n\to \infty]{\C} 0$ $\forall f$, ma per la disuguaglianza di Bessel abbiamo che:
+\[\sum_{n=1}^\infty |(f,\varphi_n)|^2\leq \|f\|^2\]
+quindi per forza $(f,\varphi_n)$ deve tendere a 0, questo significa che ogni S.O.N converge a 0. Applichiamo l'operatore $A$ alla successione debolmente convergente:
+\[A\varphi_k = \sum_{n=1}^N a_n (\varphi_n,\varphi_k)\varphi_n \xrightarrow[k\to \infty]{} 0\]
+trivialmente per la proprietà di ortonormalità della base, quindi converge fortemente e per il teorema \eqref{compatto} $A$ è compatto.
+\begin{thm}
+Se $A$ è compatto e $B$ limitato allora $AB$ e $BA$ sono compatti
+\end{thm}
+\hspace{-1.6em}\textbf{Dimostrazione:}\\
+Triviale per la continuità di B.
+\begin{coro}
+\label{inversocompatto}
+Se $A$ è compatto e invertibile allora $A^{-1}$ non può essere compatto.
+\end{coro}
+\hspace{-1.6em}\textbf{Dimostrazione:}\\
+procediamo per assurdo e diciamo che se $A$ è compatto allora anche $A^{-1}$ è compatto, per il teorema appena enunciato allora anche $AA^{-1}$ è compatto, ma $AA^{-1}=\mathbbm{1}$ che abbiamo mostrato prima esplicitamente non essere compatto.\\
+\newline Questo teorema è molto importante nello studio di operatori non limitati, infatti pensiamo ad $A=A^\dagger$ compatto e invertibile, allora $L = A^{-1}$ in generale è non limitato, ma ha le stesse proprietà spettrali di $A$, quindi al posto di studiare operatori non limitati come $L$ possiamo studiare gli operatori inversi che sono limitati e quindi più facili da studiare.
+\begin{thm}
+Se $A:\H\to\H$ limitato e autoaggiunto allora $\|A\| = \underset{\|g\|=1}{sup}|(g,Ag)|$
+\end{thm}
+\begin{thm}(Dell'esistenza dell'autovettore)
+Se $A=A^\dagger$ è compatto allora esiste $\varphi_1$ e $\lambda_1\in\R$ tale che $A\varphi_1 = \lambda_1\varphi_1$ con $|\lambda_1| = \|A\|$
+\end{thm}
+\begin{thm}(Di Hilbert-Schmidt)
+Se $A$ è compatto e autoaggiunto $A:\H\to\H$ allora valgono:
+\begin{enumerate}[i.]
+\item $\exists \{\varphi_n\}$ S.O.N e $\{\lambda_n\}$ tale che $A\varphi_n = \lambda_n \varphi_n$
+\item $\displaystyle \lim_{n\to +\infty} \lambda_n = 0$
+\item la degenerazione di $\lambda_n$ è finita (i $\lambda_n$ hanno molteplicità finita)
+\item $\forall h\in\H$ vale $Ah = \displaystyle\sum_{n=1}^{\infty}\lambda_n (\varphi_n,h)\varphi_n$
+\end{enumerate}
+\end{thm}
+gli operatori $(\varphi_n,\cdot)\varphi_n$ vengono chiamati proiettori $P_n$ e sono utili perchè soddisfano la seguente proprietà:
+\[P_nP_m = \delta_{nm} P_n\]
+questo significa che valgono:
+\[A = \sum_{n=1}^\infty \lambda_nP_n \quad A^2 = \sum_{n=1}^\infty \lambda_n^2P_n \quad f(A)  = \sum_{n=1}^\infty f(\lambda_n)P_n\]
+\textbf{Dimostrazione Hilbert-Schmidt:}
+\begin{enumerate}[i.]
+\item Per il teorema di esistenza dell'autovettore esistono $\varphi_1,\lambda_1$ con $|\lambda_1| = \|A\|$ con le quali possiamo scrivere lo spazio di Hilbert come:
+\[\H = \{\varphi_1\} \oplus H_2\]
+dove $H_2$ è il complemente ortogonale di $\{\varphi_1\}$. Se $f\in H_2$ allora $(f,\varphi_1)=0$ e quindi $Af\in H_2$ infatti $(Af,\varphi_1) = \lambda_1(f,\varphi_1) = 0$. Consideriamo allora $A_2$ restrizione di $A$ su $H_2$, $A_2$ è autoaggiunto e compatto in quanto restrizione di $A$ autaggiunto e compatto, possiamo di nuovo evocare il teorema dell'esistenza del'autovettore e dire che esistono $\varphi_2$ e $\lambda_2$ tali che $A_2 \varphi_2 = \lambda_2\varphi_2$ e $|\lambda_2| = \|A_2\| \leq \|A\| = |\lambda_1|$ in quanto $A_2$ è restrizione, si può quindi scrivere lo spazio di Hilbert come:
+\[\H = \{\varphi_1,\varphi_2\} \oplus H_3 \]
+è evidente che possiamo reiterare il processo ed ottenere:
+\[\H =\{\varphi_1,\varphi_2,\dots,\varphi_{n-1}\} \oplus H_{n} \]
+a questo punto ci possono essere due casistiche, il caso in cui $A_{n}$ restrizione n-esima sia nulla, quindi a rango finito e possiamo scrivere che:
+\[A = \sum_{k=1}^n \lambda_k P_k\]
+nel caso io cui $A_n\neq 0$ allora vale che $A_n \varphi_n = \lambda_n \varphi_n$ con $\{\varphi_n\}$ S.O.N.
+\item  Procediamo per assurdo e diciamo che $\displaystyle \lim_{n\to +\infty} \lambda_n = \lambda_r \neq 0$, consideriamo la successione $\{\displaystyle\frac{\varphi_n}{\lambda_n}\}$, essa è limitata e vale che:
+\[A\frac{\varphi_n}{\lambda_n} = \frac{\lambda_n}{\lambda_n}\varphi_n = \varphi_n\]
+ma dato che $\{\varphi_n\}$ non è di cauchy allora $A$ non è compatto.
+\item Per assurdo poniamo degenerazione infinita, ma allora la successione porterà prima o poi ad $\displaystyle \lim_{n\to +\infty} \lambda_n = \lambda_r \neq 0$
+\item $\forall h\in\H$ prendiamo il vettore $g_{n+1} = h-\displaystyle\sum_{k=1}^n (\varphi_k,h)\varphi_k$, abbiamo che $g_{n+1}\in H_{n+1}$ infatti:
+\[(\varphi_j,g_{n+1}) = (\varphi_j,h) - \sum_{k=1}^n (\varphi_k,h)(\varphi_k,\varphi_j) =(\varphi_j,h)-(\varphi_j,h) = 0 \]
+calcoliamo l'operatore $A$ applicato a $g_{n+1}$
+\[Ag_{n+1} = Ah - \sum_{k=1}^n \lambda_k(\varphi_k,h)\varphi_k = A_{n+1} g_{n+1}\]
+vediamo la differenza tra $A$ e $\sum_{k=1}^n \lambda_k(\varphi_k,h)\varphi_k$ tende a 0 quando $n$ tende all'infinito, infatti:
+\[\|Ah - \sum_{k=1}^n \lambda_k(\varphi_k,h)\varphi_k\| = \|A_{n+1}g_{n+1}\| \leq \|A_{n+1}\|\|g_{n+1}\| = |\lambda_{n+1}| \|g_{n+1}\|\]
+ora consideriamo che vale la seguente:
+\[\|h\|^2 = \|g_{n+1} + \sum_{k=1}^n (\varphi_k,h)\varphi_k\|^2 = \|g_{n+1}\|^2 + \|\sum_{k=1}^n(\varphi_k,h)\varphi_k\|^2\]
+da cui essendoci solo quantità positivi $\|g_{n+1}\|^2 \leq \|h\|^2$. La disuguagliaza di prima allora continua con:
+\[|\lambda_{n+1}| \|g_{n+1}\| \leq |\lambda_{n+1}| \|h\|\xrightarrow[n\to \infty]{} 0\]
+per la ii. e per il fatto che $\|h\|$ è finita.
+\end{enumerate}
+\begin{coro}
+\label{basehilbertiana}
+Se abbiamo $A=A^\dagger$ compatto e invertibile allora $\{\varphi_n\}$ è un S.O.N.C (detta anche base Hilbertiana)
+\end{coro}
+\textbf{Dimostrazione:}\\
+prendiamo $h^* = \sum_n (\varphi_n,h)\varphi_n$ per ogni $h$, allora:
+\[Ah^* = A \sum_n (\varphi_n,h)\varphi_n = \sum_n (\varphi_n,h)A\varphi_n = \sum_n \lambda_n(\varphi_n,h)\varphi_n = Ah\]
+per la iv. del teorema di Hilbert-Schmidt, quindi:
+\[Ah^* - Ah = 0 \implies A(h^*-h) = 0\]
+ma dato che $A$ è invertibile e quindi l'unico elemento del nucleo è l'elemento nullo allora $h^*=h$.
+\subsection{Alternativa di Fredholm}
+Consideriamo $A$ compatto e autoaggiunto nello spazio di Hilbert $\H$ e $A\varphi_n = \lambda_n\varphi_n$. Il problema è quello di risolvere la seguente equazione:
+\[f-\mu Af=g\]
+con $f$ l'incognita, $\mu$ parametro e $g\in\H$, tale equazione si chiama equazione funzionale di Fredholm. La soluzione è data da:
+\begin{enumerate}[i.]
+\item se $1-\mu \lambda_n\neq 0$ per ogni $n$ allora esiste un unica soluzione data da:
+\[f = g + \mu \sum_{n=1}^\infty \frac{\lambda_n(\varphi_n,g)}{1-\mu\lambda_n}\varphi_n\]
+\item  se $1-\mu \lambda_j =  0$ per $j = r,\dots,r+\nu$ con condizione necessaria e sufficiente per l'esistenza della soluzione $(g,\varphi_j) = 0$ per $j = r,\dots,r+\nu$ allora esiste una soluzione non unica data da:
+\[f = g+ \mu \sum_{n\neq j}^\infty \frac{\lambda_n(\varphi_n,g)}{1-\mu\lambda_n}\varphi_n  + \sum_{l=r}^{r+\nu} c_l \varphi_l\]
+con $c_l$ costanti arbitrarie.
+\end{enumerate}
+vediamo di dimostrare il caso i., prendiamo l'equazione funzionale e facciamo il prodotto scalare per $\varphi_j$ da entrambe le parti:
+\[(\varphi_j,f) - (\varphi_j,\mu Af) = (\varphi_j,g) \implies (1-\mu \lambda_j)(\varphi_j,f) = (\varphi_j,g) \implies (\varphi_j,f) = \frac{(\varphi_j,g)}{1-\mu \lambda_j} \]
+notiamo che abbiamo trovato i coefficienti di Fourier di $f$. Ora possiamo considerare $f = g+ \mu Af$ e applichiamo la iv. di Hilbert-Schmidt:
+\[f = g + \mu \sum_{n=1}^\infty\lambda_n(\varphi_n,f)\varphi_n = g + \mu \sum_{n=1}^\infty\lambda_n\frac{(\varphi_n,g)}{1-\mu \lambda_n}\varphi_n \]
+la dimostrazione del ii. si lascia per esercizio.
+\subsection{Nuclei integrali}
+Consideriamo lo spazio di Hilbert $\H = L_2(a,b)$, dato che gli operatori sono funzioni lineari può sembrare naturale rappresentarli in forma integrale:
+\[(Af)(x) = \int_a^b A(x,y)f(y)\,dy\]
+$A(x,y)$ si dice nucleo dell'operatore $A$. In generale il nucleo di un operatore non è una funzione, infatti consideriamo l'operatore identità su $L_2(\R)$
+\[\mathbbm{1}f = \int_{-\infty}^{\infty} I(x,y)f(y)\,dy = f(x)\]
+è evidente che in questo caso $I(x,y) = \delta(y-x)$ è una distribuzione, in generale i nuclei quindi appartengono agli spazi delle distribuzioni $A(x,y) \in \mathcal{S}'\times \mathcal{S}'$. \\
+Ci si può chiedere quale sia il nucleo dell'operatore aggiunto:
+\[A^\dagger f = \int_a^bA^*(x,y)f(y)\,dy\]
+proviamo a ricavarlo sfruttando il fatto che $(A^\dagger f,g) = (f,Ag)$:
+\[\int_a^b dx\, g(x)\int_a^bdy\,\overline{A^*(x,y)f(y)} = \int_a^bdx\, \overline{f(x)}\int_a^bdy\, A(x,y)g(y) \]
+cambiando variabili $x\leftrightarrow y$ si arriva facilmente ad:
+\[A^*(x,y) = \overline{A(y,x)}\]
+allora è evidente che $A= A^\dagger$ quando $A^*(x,y) = A(x,y) = \overline{A(y,x)}$, in questo caso il nucleo si dice simmetrico. Ad esempio il nucleo $K(x,y) = xy$ con $x,y\in\R$ è simmetrico.
+\begin{dfn}
+Si chiamano i nuclei di Hilbert-Schmidt (H-S) gli elementi dell'insieme:
+\[\mathbb{L}_2(a,b) = \left\{A(x,y) : \int_a^bdx\int_a^bdy|A(x,y)|^2<+\infty\right\}\]
+dove l'integrale si intende nel senso di Lebesque.
+\end{dfn}
+Si può definire una norma in tale insieme come:
+\[\|A\|_{H-S} =  \int_a^bdx\int_a^bdy|A(x,y)|^2\]
+una proprietà importante è che se $A$ è di Hibert-Schmidt allora $A(x,y)\in L_2$.
+\\Mostriamo una disuguaglianza utile per il seguito:
+\[|Af(x)|^2 = \left|\int_a^b A(x,y)f(y)\,dy\right|^2 \leq \|f\|^2 \int_a^b |A(x,y)|^2\]
+dove è stata sfruttata la disuguaglianza di Schwarzt sapendo che $f,A(x,y)\in L_2$, quindi vale solo nel caso di nuclei di H-S.
+\begin{lem}
+Se $A(x,y)$ è di Hilbert-Schmidt allora $A$ è limitato e $\|A\| \leq \|A\|_{H-S}$
+\end{lem}
+\hspace{-1.6em}\textbf{Dimostrazione:}
+\[\|Af\|^2  =\int_a^b|Af|^2\,dx \leq \|f\|^2 \int_a^bdx\int_a^bdy|A(x,y)|^2 \implies \|Af\| \leq \|f\|\|A\|_{H-S} \]
+dove si è sfruttata la disuguaglianza appena dimostrata. La tesi segue banalmente dalla definizione di norma operatoriale.
+\begin{thm}\label{nucleihs}
+Ogni nucleo di H-S definisce un operatore compatto
+\end{thm}
+In particolare se il nucleo di H-S è simmetrico allore $A=A^\dagger$ è compatto.\\
+Facciamo un esempio interessante e prendiamo $G=G^\dagger$ compatto, per Hilbert-Schmidt lo possiamo scrivere come $G = \sum_n \lambda_n P_n$, ovviamente vale che $G\varphi_n = \lambda_n\varphi_n$. Il nucleo di questo operatore è dato da:
+\[G(x,y) = \sum_n \lambda_n \overline{\varphi}_n (y)\varphi_n(x)\] 
+infatti verifichiamolo applicandolo a $\varphi_n$:
+\[(G\varphi_n)(x) = \int_a^b G(x,y) \varphi_n(y)\,dy = \int_a^b \sum_m \lambda_m \overline{\varphi}_m (y)\varphi_m(x) \varphi_n(y)\,dy =\sum_m \lambda_m \varphi_m(x)\int_a^b \overline{\varphi}_m (y) \varphi_n(y)\,dy \]
+\[ = \sum_m \lambda_m \varphi_m(x) ( \varphi_m, \varphi_n) = \lambda_n \varphi_n\]
+Si può dimostare anche che vale al seguente:
+\[\|G\|_{H-S} =\int_a^bdx\int_a^bdy|G(x,y)|^2 =\sum_n \lambda_n^2 \]
+mettendo dentro il nucleo che abbiamo usato prima e facendo ``qualche'' conto.
+\begin{dfn}
+Si chiama traccia di $G$ la seguente:
+\[\text{Tr}(G) = \int_a^b G(x,x)\,dx\]
+\end{dfn}
+se $\int_a^b G(x,x)\,dx<\infty$ si dice che $G$ ammette traccia.\\ Facciamo un esempio, $K= xy$ in $L_2(0,1)$ allora $\text{Tr}(K) =  \int_0^1 x^2\,dx = 1/3$.\\
+Se l'operatore ha traccia e ha il nucleo simmetrico ($G=G^\dagger$) allora $\text{Tr}(G) = \sum_n \lambda_n$. Le traccie ci forniscono un criterio molto utile per stabilire la compattezza degli operatori, infatti se $G(x,y)$ è simmetrico e se ha traccia allora $G$ è compatto, la dimostrazione è semplice in quanto se ha traccia allora $\sum_n \lambda_n$ converge quindi converge anche $\sum_n \lambda_n^2$ quindi $G$ ha norma di Hilbert-Schmidt e quindi definisce un operatore compatto per il teorema \eqref{nucleihs}.\\ 
+Un esercizio utile adesso è vedere che il sistema trigonometrico $\{e_n\}$ fornisce una base completa dello spazio di Hilbert, per farlo consideriamo l'operatore $P$ di cui $e_n$ sono gli autovettori. Mettiamoci in $L_2(0,2\pi)$ e prendiamo un dominio con condizioni al contorno simmetriche. L'idea è quella di sfruttare il corollario \eqref{basehilbertiana}, quindi dato che $P$ è non limitato proviamo a vedere se ha l'inverso e nel caso l'avesse dobbiamo vedere se è compatto, questa è l'idea che viene fuori dal corollario \eqref{inversocompatto}, come abbiamo fatto notare precedentemente, questo si può fare perchè gli operatori inversi mantengono le stesse proprietò spettrali. Procediamo allora per passi e vediamo se $P$ ha l'inverso, il suo Ker purtroppo non contiene solamente l'elemento nullo, contiene anche $e_0$ come è facile vedere: $P(1/\sqrt{2\pi}) = 0$ quindi $P$ non è invertibile. Non tutto è perso però, possiamo renderlo invertibile con una translazione, consideriamo infatti l'operatore $L = P + M\mathbbm{1}$ con $M\notin\mathbb{Z}$, gli autovettori di $L$ sono gli stessi di $P$ infatti:
+\[L(e_n) = P(e_n) + Me_n = n e_n +Me_n = (n+M)e_n\]
+quelli che cambiano sono gli autovalori, ma gli autovalori non influiscono sulla complettezza del sistema trigonometrico, quindi per dimostrare la loro completezza possiamo lavorare con $L$ al posto $P$. Vediamo se $L$ è invertibile andando a vedere il suo Ker
+\[Lf = 0 \implies -i\frac{d}{dx}f+Mf = 0 \implies f(x) = Ce^{-iMx}\]
+le condizioni al contorno ci dicono che $f(0)=f(2\pi)$ quindi $C = C e^{-iM2\pi}$ con $M$ non intero, l'esponenziale a destra non si annulla mai quindi deve essere per forza $C=0$ da cui l'unica soluzione $f=0$, unico elemento del Ker di $L$, quindi è invertibile. Ora dobbiamo solo trovare l'inverso $L^{-1} = G$ e vedere se è compatto. Per trovare l'inverso cerchiamo il nucleo di $G$, si può vedere che vale $LG(x,y) = \delta(x-y)$ con naturalmente $G(x,y)$ che soddisfa le condizioni al contorno, abbiamo perciò il seguente sistema
+\[ \begin{cases}
+    LG(x,y) = \delta(x-y)\\
+    G(0,y) = G(2\pi,y) \quad \forall y\in[0,2\pi]\\
+  \end{cases}\]
+l'equazione da risolvere è quindi la seguente:
+\[\left(-i\frac{d}{dx}+M\right)G(x,y) = \delta(x-y)\]
+si tratta quindi di trovare la soluzione fondamentale dell'operatore $L$, essa sarà una combinazione lineare della soluzione anticipata e quella ritardata, quindi:
+\[G(x,y) = e^{-iM x}[\theta(y-x)a(y) + \theta(x-y)b(y)]\]
+dove $e^{-iM x}$ è semplicemente la soluzione dell'omogenea. Mettiamo questa $G(x,y)$ nel sistema e ricaviamo le condizioni su $a$ e $b$:
+\[PG(x,y) = -i[-iMG(x,y) + e^{-iMx}\delta(x-y)(b(y)-a(y))]\]
+da cui portando il primo termine a sinistra otteniamo proprio:
+\[L = PG(x,y) +MG(x,y) = -i e^{-iMx}\delta(x-y)[b(y)-a(y)] = \delta(x-y) \implies -i e^{-iMx}[b(y)-a(y)] = 1\]
+dalla condizione di periodicità otteniamo:
+\[a(y) = e^{-iM2\pi}b(y)\]
+risolvendo il sistema per $a$ e $b$ troviamo che alla fine la soluzione è:
+\[G(x,y) = \frac{e^{iM(x-y)}}{2\sin \pi M}[\theta(y-x)e^{-i\pi M} + \theta(x-y)e^{i\pi M}]\]
+questo nucleo è simmetrico come si può controllare facilmente ed inoltre è di Hilbert-Schmidt perchè la sua norma è convergente, facile da vedere anche questo dato che in $[0,2\pi]$ non c'è nessun elemento che diverge. Questo significa che per il teorema \eqref{nucleihs} $G$ definisce un operatore compatto quindi
+per il corollario \eqref{basehilbertiana} $e_n$ è una base Hilbertiana. Si può notare che questo operatore ha anche traccia, infatti prendendo come convenzione $\theta(0) = \frac{1}{2}$ abbiamo che:
+\[\text{Tr}(G) = \int_0^{2\pi} G(x,x)\,dx = \int_0^{2\pi}\frac{1}{4\sin \pi M}[e^{-i\pi M} + e^{i\pi M}]dx  = \frac{\pi}{\sin \pi M}\frac{(e^{-i\pi M} + e^{i\pi M})}{2}dx = \pi \text{cotan}(\pi M)\]
+ma noi sappiamo anche che, sia $\lambda_n = n+ M$, vale:
+\[\text{Tr}(G) = \sum_n \frac{1}{\lambda_n} = \sum_{n=-\infty}^{+\infty} \frac{1}{n+M} = \frac{1}{M} + \sum_{n=1}^\infty\left(\frac{1}{n+M} + \frac{1}{M-n}\right) = \frac{1}{M} + \sum_{n=1}^\infty\left(\frac{2M}{M^2-n^2}\right)\]
+che possiamo valutare con il metodo dei residui, infatti:
+\[\sum_{n = -\infty}^{+\infty}\frac{1}{M^2-n^2} = \frac{1}{M^2} + 2\sum_{n=1}^\infty \frac{1}{M^2+n^2} = -\pi\left(\sum_i\text{Res}\left(\text{cotan}(\pi z) \frac{1}{(M-z)(M+z)}\right)\right)\]
+da cui:
+\[\frac{1}{M^2} + 2\sum_{n=1}^\infty \frac{1}{M^2+n^2} = \frac{\pi}{M} \text{cotan}(\pi M)\]
+dalla quale moltiplicando da entrambe le parti per $M$ si ottiene lo stesso risultato di prima.\\
+Allo stesso modo si potrebbe vedere se l'operatore laplaciano $L=-\frac{d^2}{dx^2}$ in $L_2(0,1)$ ha una base Hilbertiana, ma questo si lascia per esercizio.\\
+Troviamo ora una base Hilbertiana di $L_2(\R)$, per farlo individuiamo una operatore autoaggiunto compatto invertibile come abbiamo appena fatto, i suoi autovettori saranno una base Hilbertiana. Consideriamo l'operatore  $H = -\frac{d^2}{dx^2} +x^2$, questo operatore è simmetrico e con un dominio opportuno anche autoaggiunto, prendiamo $D_{H} = \{\psi,H\psi\in L_2(\R)\}$. Gli autovalori e gli autovettori di questo operatore sono:
+\[H\psi = E \psi \quad E_n(2n+1)\quad n=0,1,2,\dots \quad \psi_n(x) = H_n(x)e^{-\frac{x^2}{2}}\]
+con $H_n$ polinomi di Hermite (ignoriamo anche la costante di normalizzazione degli autovettori). Questo operatore è invertibile perchè non ci sono autovalori nulli, dobbiamo mostrare che l'inverso $G = H^{-1}$ è compatto, per farlo vediamo se è di H-S, ricordiamo che gli autovalori di $G$ sono $\lambda_n = 1/(2n+1)$
+\[\|G\|^2_{H-S} = \sum_{n=-\infty}^{+\infty} \frac{1}{(2n+1)^2} <+\infty\]
+quindi $G$ è di H-S quindi è compatto e simmetrico per cui $\psi_n = H_n(x)e^{-\frac{x^2}{2}}$ è un S.O.N.C. di $L_2(\R)$. Ma vediamo di costruirci tale operatore inverso, per semplificare i conti e avere un risultato consideriamo però l'inverso dell'operatore $L=H+\mathbbm{1} = -\frac{d^2}{dx^2} +x^2+1$ e indichiamo il suo operatore inverso con $K=L^{-1}$. Per trovare $K$ dobbiamo risolvere il seguente sistema con le condizione al contorno:
+\[\begin{cases}
+    LK(x,y) = \delta(x-y)\\
+    K(-\infty,y) = K(+\infty,y) \quad \forall y\in\R\\
+  \end{cases}\]
+per trovare la soluzione fondamentale ricorriamo al seguente lemma
+\begin{lem}
+Sia $L = -\frac{d^2}{dx^2} + V(x)$ e siano due soluzioni dell'omogenea $L\psi_{1,2} = 0$ con wronskiano non nullo:
+\[W = \begin{vmatrix}
+  \psi_1 & \psi_2 \\
+    \psi_1' & \psi_2'
+ \end{vmatrix} = \psi_1 \psi_2' - \psi_2\psi_1' \neq 0\]
+ allora la soluzione fondamentale di $L$ è data da:
+ \[K(x,y) = -\frac{1}{W}[\theta(y-x)\psi_1(x)\psi_2(y) + \theta(x-y)\psi_1(y)\psi_2(x)]\]
+\end{lem}
+\hspace{-1.6em}\textbf{Dimostrazione:}\\
+Calcoliamo la derivata seconda di $K$, consideriamo che il wronskiano è una costante, infatti:
+\[\frac{dW}{dx} = \psi_1'\psi'_2 + \psi_1\psi''_2 - \psi_1'' \psi_2 -\psi_2\psi_1' = \psi_1\psi''_2- \psi_1'' \psi_2 = 0\]
+usando il fatto che $\psi_{1,2}$ sono soluzioni dell'omogenea.
+\[\partial_xK(x,y) = -\frac{1}{W}[\delta(x-y)[\psi_1(y)\psi_2(y) - \psi_1(y)\psi_2(y)] + \theta(y-x)\psi_1'(x)\psi_2(y) + \theta(x-y)\psi_1(y)\psi_2'(x)]\]
+\[\partial^2_xK(x,y) =  -\frac{1}{W}[\delta(x-y)[\psi_1(y)\psi_2'(y)-\psi_2(y)\psi_1'(y)]+\theta(y-x)\psi_1''(x)\psi_2(y) + \theta(x-y)\psi_1(y)\psi_2'(x)   ]\]
+\[=-\frac{1}{W}[\delta(x-y)W+\theta(y-x)\psi_1''(x)\psi_2(y) + \theta(x-y)\psi_1(y)\psi_2'(x)   ]\]
+possiamo adesso calcolare $LK$ che con alcuni conti viene essere:
+\[LK = \delta(x-y) + \theta(y-x)L\psi_1(x) \psi_2(y) + \theta(x-y)\psi_1(y)L\psi_2(x) = \delta(x-y) \]
+\newline
+grazie a questo lemma possiamo scrivere $K$ per il nostro operatore $L = -\frac{d^2}{dx^2} +x^2+1$, per farlo abbiamo bisogno di due soluzioni dell'equazione omogenea, in questo caso sono:
+\[\psi_1(x) = e^{\frac{x^2}{2}}\int_{-\infty}^xdy\, e^{-y^2} \qquad \psi_2(x) = e^{\frac{x^2}{2}}\int_{x}^{+\infty}dy\, e^{-y^2}\]
+è facile verificarlo calcolando le derivate seconde. Il wronskiano di queste due soluzioni non è nullo infatti:
+\[W = e^{\frac{x^2}{2}}\int_{-\infty}^xdy\, e^{-y^2}\left[x e^{\frac{x^2}{2}}\int_{x}^{+\infty}dy\, e^{-y^2} - e^{-\frac{x^2}{2}} \right] - \left[xe^{\frac{x^2}{2}}\int_{-\infty}^xdy\, e^{-y^2} + e^{-\frac{x^2}{2}}\right]e^{\frac{x^2}{2}}\int_{x}^{+\infty}dy\, e^{-y^2}\]
+\[= -\left(\int_{-\infty}^xdy\, e^{-y^2} + \int_{x}^{+\infty}dy\, e^{-y^2}\right) = -\int_{-\infty}^{+\infty}dy\, e^{-y^2} = -\sqrt{\pi}\]
+
+verifichiamo che il $K$ con queste due soluzioni soddisfa le condizioni al contorno, considerando che quando x va all'infinito consideriamo solo una delle due $\theta$:
+\[\lim_{x\to +\infty} K(x,y) = -\frac{\psi_1(y)}{W} \lim_{x\to +\infty} \psi_2(x) =-\frac{\psi_1(y)}{W}\lim_{x\to +\infty} \frac{\int_{x}^{+\infty}dy\, e^{-y^2}}{e^{\frac{-x^2}{2}}} = 0  \]
+utilizzando de l'Hopital, nello stesso modo si fa il limite di $x$ che tende a $-\infty$.
+\subsection{Teorema spettrale generale}
+Il nostro obbiettivo è quello di generalizzare il teorema di Hilbert-Schmidt ad operatori non compatti, sappiamo da tale teorema che vale la decomposizione spettrale $Ah = \sum_n \lambda_n P_n h$ con $A$ autoaggiunto compatto, $h\in\H$ e $P_n$ gli operatori di proiezione. Prendiamo questa proiezione e proviamo a fare il prodotto scalare da entrambe le parti:
+\[(\psi, A\psi) = \sum_n \lambda_n (\psi,P_n\psi) = \sum_n \int_{-\infty}^{+\infty}d\lambda\, \lambda \delta(\lambda -\lambda_n)(\psi,P_n\psi)=\]
+portando la delta di Dirac dentro al differenziale, tenendo conto che vale $d\lambda\,\delta(\lambda-\lambda_n) = d(\theta(\lambda - \lambda_n))$, otteniamo:
+\[ =\int_{-\infty}^{+\infty} \lambda\, d\left(\sum_n \theta(\lambda -\lambda_n)(\psi,P_n\psi)\right) = \int_{-\infty}^{+\infty} \lambda\, d(\psi,E_\lambda(A)\psi)\]
+dove abbiamo definito la \textbf{famiglia spettrale} associata ad $A$ autoaggiunto $E_\lambda(A) = \sum_n \theta(\lambda-\lambda_n)P_n$. La famiglia spettrale ha le seguenti proprietà:
+\begin{enumerate}[i.]
+\item $E_\lambda^\dagger(A) = E_\lambda(A)$, dal fatto che i $P_n$ sono autoaggiunti
+\item $E_\lambda(A)E_\mu(A) = E_\lambda(A)$ se $\lambda>\mu$, segue dal fatto che $P_nP_m = P_n\delta_{nm}$
+\item $E_\lambda(A)\xrightarrow[\lambda\to -\infty]{\H} 0$ e $E_\lambda(A)\xrightarrow[\lambda\to +\infty]{\H} \mathbbm{1}$
+\end{enumerate}
+\begin{thm}(Teorema spettrale per operatori autoaggiunti o di Von-Neumann)
+Se $A^\dagger = A$ in $\H$ allora esiste un unica famiglia spettrale $E_\lambda(A)$ tale che sia $f(\lambda)$ continua vale:
+\[(\psi,f(A)\psi) = \int_{-\infty}^{+\infty}f(\lambda)d(\psi,E_\lambda(A)\psi) \]
+con dominio $D_A = \{\psi,\displaystyle\int_{-\infty}^{+\infty} \lambda^2 d(\psi,E_\lambda(A)\psi) <+\infty\}$
+\end{thm}
+una cosa che abbiamo tralasciato fino ad ora è il senso dell'integrale con una funzione al differenziale, non si tratta dell'integrale di Riemann, ma di una sua generalizzazione, l'integrale di Stieltjes, vediamo di darne una formulazione più rigorosa.
+
+\begin{figure}[H]
+\centering
+\begin{minipage}{.5\textwidth}
+\centering
+\begin{tikzpicture}
+\draw [<->](0,0) -- (5,0)node[below=1.5pt] {\color{black}$t$};
+\draw[->](0,0)--(0,3)node[right=1.5pt] {\color{black}$y$};
+\draw[red] plot [smooth,tension=1] coordinates {(1,1) (2,1.5) (3,2.5) (4,2)};
+\draw[dotted](1,0)node[below]{\scriptsize$a$} -- (1,1);
+\draw[dotted](4,0)node[below]{\scriptsize$b$} -- (4,2);
+\draw(2,2.2) node[below]{\scriptsize$g(t)$};
+\end{tikzpicture}
+\end{minipage}%
+\begin{minipage}{.5\textwidth}
+\centering
+\begin{tikzpicture}
+\draw [<->](0,0) -- (5,0)node[below=1.5pt] {\color{black}$t$};
+\draw[->](0,0)--(0,3)node[right=1.5pt] {\color{black}$y$};
+\draw[dotted](1,0)node[below]{\scriptsize$a$} -- (1,.7);
+\draw[dotted](4,0)node[below]{\scriptsize$b$} -- (4,2);
+\draw(2,2.2) node[below]{\scriptsize$\alpha(t)$};
+\draw[blue](1,.7)--(2,.7) (2,1.3)--(3,1.3) (3,2)--(4,2) ; 
+\end{tikzpicture}
+\end{minipage}
+\end{figure}
+Sia $g(t)$ una funzione continua tra $[a,b]$ e $\alpha(t)$ una funzione non decrescente continua a tratti, partizioniamo l'intervallo $[a,b]$ insottointervalli $a = t_0 <t_1<t_2<\dots <t_n = b$, da ognuno di questi sottintervalli consideriamo il punto $\xi_k \in [t_k,t_{k+1}]$, sia $h$ la massima ampiezza degli intervalli $h = \underset{t_k}{\text{sup}}|t_{k+1}-t_k|$ allora possiamo definire le somme di Stieltjes:
+\[S_h = \sum g(\xi_k)[\alpha(t_{k+1}) -\alpha(t_k)]\]
+notiamo subito che scegliendo $\alpha(t) = t$ ci si riconduce alle somme dell'integrale di Riemann
+\begin{thm}(Di Stieltjes)
+Il seguente limite esiste:
+\[\lim_{h\to 0} S_h = \int_a^b g(t)\,d\alpha(t) \]
+e il suo limite viene detto integrale di Stieltjes.
+\end{thm}
+facciamo un esempio e prendiamo $\alpha(t) = t_1\theta(t-t_1) + t_2\theta(t-t_2)$, facciamo il seguente integrale:
+\[\int_a^b t \,d\alpha(t) = \int_a^b t[t_1\delta(t-t_1) + t_2 \delta(t-t_2)]\,dt = t_1^2+t_2^2  \]
+notiamo che l'integrale è stato ricondotto ad un integrale classico facendo uso delle distribuzioni, questo ci suggerisce che possiamo riformulare il teorema spettrale utilizzando le distribuzioni, si tratta di un approccio che viene utilizzato più frequentemente tra i fisici che permette di fare più agilmente i calcoli. Riscriviamo il teorema spettrale come segue:
+\[f(A) = \int_{-\infty}^{+\infty}d\lambda\, \delta(\lambda-A)f(\lambda)\]
+notiamo però che la delta di Dirac ha come argomento un operatore, dobbiamo quindi definire cosa sono le distribuzioni a valori operatoriali. 
+La delta di dirac possiamo scriverla utilizzando le formule di Sokhotski:
+\[\delta(x) = \frac{1}{2\pi i}\lim_{\varepsilon\to0}\left[\frac{1}{x-i\varepsilon} - \frac{1}{x+i\varepsilon} \right]\]
+possiamo definire quindi la \textbf{densità spettrale} $\rho_\lambda(A)$ come delta a valori operatoriali come:
+\[\rho_\lambda(A) = \delta(\lambda-A) = \frac{1}{2\pi i}\lim_{\varepsilon\to0}\left[\frac{1}{\lambda-i\varepsilon-A} - \frac{1}{\lambda+i\varepsilon -A} \right] = \frac{1}{2\pi i}\left[R_{\lambda-i\varepsilon}(A) - R_{\lambda+i\varepsilon}(A)\right] \]
+dove $R_z(A)$ è la risolvente. Questa definizione è nota come formula di Kodaira-Stone-Titchmarsh (KST). Si può definire anche la famiglia spettrale come distribuzione a valori operatoriali, infatti:
+\[E_\lambda(A) = \theta(\lambda-A) = \frac{1}{2\pi i}\lim_{\varepsilon\to0} \int_{-\infty}^\lambda[R_{\lambda'-i\varepsilon}(A) - R_{\lambda'+i\varepsilon}(A)]d\lambda' \]
+Possiamo ricavare anche una formula per il nucleo di $f(A)$, infatti vale che:
+\[f(A)(x,y) =  \int_{-\infty}^{+\infty}d\lambda\, \delta(\lambda-A)(x,y)f(\lambda)\]
+si tratta di trovare il nucleo della densità spettrale $\rho_\lambda(A)(x,y) = \delta(\lambda-A)(x,y)$.
+\begin{thm}(Formula di Kodaira-Stone-Titchmarsh)
+\[\rho_\lambda(A)(x,y) = \frac{1}{2\pi i}\lim_{\varepsilon\to0}[G_{\lambda-i\varepsilon}(A)(x,y) - G_{\lambda+i\varepsilon}(A)(x,y)]\]
+\end{thm}
+dove $G_z(A)(x,y)$ è la funzione di Green definita da $(A-z)G_z(x,y) = \delta(x-y)$.\\ Nel caso più generale il nucleo di $f(A)$ è dato da:
+\[f(A)(x,y) = \sum_n f(\lambda_n) P_n(x,y) + \int_{\sigma(A)}d\lambda\,f(\lambda)\rho_\lambda(A)(x,y)\]
+dove $P_n(x,y)$ è il nucleo degli operatori di proiezione che si può calcolare agevolmente usando la notazione di Dirac:
+\[P_n(x,y) = \braket{x|P_n|y}\quad P_n = \ket{\varphi_n}\bra{\varphi_n} \implies P_n(x,y) = \braket{x|\varphi_n}\braket{\varphi_n|y} = \overline{\varphi}_n(x)\varphi_n(y) \] 
+Cerchiamo ora di trovare le famiglie spettrali e le densità spettrali degli operatori $Q$ e $P$.\\ Iniziamo da $Q$ in $L_2(0,2\pi)$, sappiamo che è limitato autoaggiunto ma non compatto, abbiamo già mostrato che la sua risolvente è $R_z(Q)f(x) = \frac{f(x)}{z-x}$ e che il suo spettro è continuo $z\in[0,2\pi]$
+per la formula KST la sua densità spettrale è:
+\[\rho_\lambda(Q)f(x) =  \frac{1}{2\pi i}\lim_{\varepsilon\to0}\left[\frac{1}{\lambda-x-i\varepsilon} - \frac{1}{\lambda-x+i\varepsilon} \right]f(x)  = \delta(\lambda-x)f(x)\]
+per la formula di Sokhotski. La famiglia spettrale di conseguenza è $E_\lambda(Q)f(x) = \theta(\lambda-x)f(x)$.\\
+Studiamo $P$ sempre in $L_2(0,2\pi)$ con condizioni simmetriche al bordo $f(0)=f(2\pi)$, troviamo il nucleo della funzione di Green:
+\[\begin{cases}
+(P-z)G_z(x,y) = \delta(x-y)\\
+G_z(0,y) = G_z(2\pi,y)
+\end{cases}\]
+il problema l'avevamo già risolto quando abbiamo dimostrato la completezza del sistema trigonometrico, la soluzione era:
+\[G_z(x,y) = \frac{e^{i(x-y)z}}{2\sin(\pi z)} \left[\theta(y-x)e^{-i\pi z} + \theta(x-y)e^{i\pi z}\right]\]
+notiamo che i poli della funzione sono in $\sin(\pi z) = 0$ ovvero per $z=n$ con $n\in\mathbb{Z}$, lo spttro quindi è discreto.\\
+Più interessante è invece il caso dell'operatore $P$ in $L_2(\R)$ (l'operatore $Q$ in questo spazio ha le stesse caratteristiche spettrali che nello spazio $L_2(0,2\pi)$). In $L_2(\R)$ $P$ ha spettro continuo con autofunzioni $e^{ikx}$, per calcolare la famiglia spettrale passiamo allo spazio degli impulsi tramite trasformata di Fourier $\widetilde{Pf}(k) = k\widetilde{f}(k)$, notiamo che ci siamo ricondotti al caso di $Q$, la densità spettrale la famiglia spettrale quindi sono:
+\[\widetilde{\rho f}(k) = \delta(\lambda-k)\widetilde{f}(k) \qquad \widetilde{E_\lambda(P)}(k) = \theta(\lambda-k)\widetilde{f}(k) \]
+infatti la risolvente nello spazio degli impulsi è $\widetilde{R_z}(P) = \widetilde{f}(k)/(z-k)$. Per ritornare allo spazio delle configurazioni facciamo l'antitrasformata di Fourier:
+\[E_\lambda(P)f(x) = \frac{1}{2\pi}\int_{-\infty}^{+\infty}dk\, e^{ikx}\theta(\lambda-k)\widetilde{f}(k) =  \frac{1}{2\pi}\int_{-\infty}^{\lambda}dk\, e^{ikx}\int_{-\infty}^{+\infty}dy\, e^{-iky}f(y)\]
+cambiando ordine di integrazione:
+\[= \int_{-\infty}^{+\infty}dy\,f(y)\frac{1}{2\pi}\int_{-\infty}^{\lambda}dk\, e^{ik(x-y)} =\int_{-\infty}^{+\infty}dy\,f(y)E_\lambda(P)(x,y) \]
+dove abbiamo espresso la famiglia spettrale con il suo nucleo che abbiamo trovato essere:
+\[E_\lambda(P)(x,y) = \frac{1}{2\pi}\int_{-\infty}^{\lambda}dk\, e^{ik(x-y)}\]
+notiamo che il nucleo è simmetrico e soddisfa le 3 condizioni della famiglia spettrale.\\
+Finiamo con un ultimo esempio sempre in $L_2(\R)$, vogliamo trovare la densità spettrale dell'hamiltoniano $H_0 = -\frac{d^2}{dx^2}$. Passimo nello spazio degli impulsi dove questo operatore diventa $\widetilde{H_0f}(k) = k^2\widetilde{f}(k)$ la risolvente è quindi:
+\[\widetilde{R_zf}(k) = \frac{\widetilde{f}(k)}{z-k^2}\]
+per la KST la densità spettrale vale:
+\[\widetilde{\rho_\lambda(H_0)}f(k) = \frac{1}{2\pi i}\lim_{\varepsilon\to0}\left[\frac{1}{\lambda-k^2-i\varepsilon} - \frac{1}{\lambda-k^2+i\varepsilon} \right]\widetilde{f}(k) = \delta(\lambda-k^2)\widetilde{f}(k) = \]
+\[\frac{1}{2\sqrt{\lambda}}\left[\delta(k-\sqrt{\lambda})+\delta(k+\sqrt{\lambda})\right]\widetilde{f}(k) = \frac{1}{2\sqrt{\lambda}}\left[\delta(k-\sqrt{\lambda})\widetilde{f}(\sqrt{\lambda})+\delta(k+\sqrt{\lambda})\widetilde{f}(-\sqrt{\lambda})\right]\]
+notiamo che $\sqrt{\lambda}$ è ben definito e reale in quanto le autofunzioni di $H_0$ sono $e^{ikx}$ per cui gli autovalori sono $k^2$ che sono sempre positivi. Adesso ci rimane solo da antitrasformare:
+\[\rho_\lambda(H_0)f(x) = \frac{1}{2\pi}\int_{-\infty}^{+\infty}dke^{ixk} \widetilde{\rho_\lambda(H_0)}f(k) = \frac{1}{4\pi\sqrt{\lambda}}\int_{-\infty}^{+\infty}dk e^{ixk}\left[\delta(k-\sqrt{\lambda})\widetilde{f}(\sqrt{\lambda})+\delta(k+\sqrt{\lambda})\widetilde{f}(-\sqrt{\lambda})\right]\]
+\[= \frac{1}{4\pi\sqrt{\lambda}}\int_{-\infty}^{+\infty}dk\left[e^{ixk}\delta(k-\sqrt{\lambda})\int_{-\infty}^{+\infty}dy\,e^{-i\sqrt{\lambda}y}f(y)+e^{ixk}\delta(k+\sqrt{\lambda})\int_{-\infty}^{+\infty}dy\,e^{i\sqrt{\lambda}y}f(y)\right] = \]
+\[\frac{1}{4\pi\sqrt{\lambda}}\left[e^{ix\sqrt{\lambda}}\int_{-\infty}^{+\infty}dy\,e^{-i\sqrt{\lambda}y}f(y)+e^{-ix\sqrt{\lambda}}\int_{-\infty}^{+\infty}dy\,e^{i\sqrt{\lambda}y}f(y)\right] = \]\[\frac{1}{4\pi\sqrt{\lambda}}\left[\int_{-\infty}^{+\infty}dy\,e^{i\sqrt{\lambda}(x-y)}f(y)+\int_{-\infty}^{+\infty}dy\,e^{-i\sqrt{\lambda}(x-y)}f(y)\right] = \int_{-\infty}^{+\infty}dy\,\rho_\lambda(H_0)(x,y)f(y)  \]
+dove abbiamo scritto la densità utilizzando il suo nucleo che abbiamo trovato essere:
+\[\rho_\lambda(H_0)(x,y) = \frac{1}{4\pi\sqrt{\lambda}}\left[e^{i\sqrt{\lambda}(x-y)}+e^{-i\sqrt{\lambda}(x-y)}\right]\]
+
+\section{Gruppi abeliani di trasformazioni}
+Se prendiamo $\alpha\in\R$ possiamo considere il numero $e^{i\alpha}$, che ha $|e^{i\alpha}|=1$, esso è di particolare importanza come è ben noto. In uno spazio di Hilbert questa quantità ha un suo analogo, consideriamo infatti l'operatore $A$ e studiamo meglio l'operatore $U_t = e^{-itA}$ con $A$ operatore autoaggiunto in uno spazio di Hilbert $\H$, dove $t\in\R$, vediamo innanzitutto che è unitario, ovvero conserva la norma, infatti:
+\[\|U_t\psi\|^2 = (U_t\psi,U_t\psi) = (e^{-itA}\psi,e^{-itA}\psi) = (\psi, e^{-itA}e^{itA}\psi) = (\psi,\psi) = \|\psi\|^2\]
+notiamo che in generale $e^Ae^B\neq e^{A+B}$ con $A,B$ operatori, l'uguaglianza c'è solo nel caso i cui i due operatori commutano tra di loro, nel nostro caso $A$ commuta certamente con se stesso per cui abbiamo potuto sfruttare questa proprietà. $U_t$ viene chiamata trasformazione unitaria e si dice che $A$ è il \textbf{generatore} della trasformazione unitaria. L'unitarietà di tale operatore si poteva dimostrare anche sfruttando il seguente lemma che ci sarà piuttosto utile in seguito tra l'altro
+\begin{lem}
+\label{lemmautilesullenorme}
+\[\|f(A)\psi\|^2 = \int_{-\infty}^{+\infty}|f(\lambda)|^2(\psi,dE_\lambda(A)\psi)\]
+\end{lem}
+verifichiamo questo lemma nel caso di spettro discreto, dove il teorema spettrale ci dice che $f(A) = \sum_n f(\lambda_n) P_n $.
+\[\|f(A)\psi\| = (f(A)\psi,f(A)\psi) = \left(\sum_n f(\lambda_n) P_n\psi,\sum_m f(\lambda_m) P_m\psi\right) = \sum_{n,m}\overline{f(\lambda_n)}f(\lambda_m)(P_n\psi,P_m\psi) = \]
+\[\sum_{n,m}(\psi,P_nP_m\psi) = \sum_n |f(\lambda_n)|^2(\psi,P_n\psi)\]
+Verifichiamo sfruttando questo lemma che $U_t$ è unitaria, ricordiamo che per il teorema spettrale vale che $f(A) = \int_{-\infty}^{+\infty}f(\lambda)\,dE_\lambda(A)$, quindi:
+\[e^{-itA} = \int_{-\infty}^{+\infty}e^{-it\lambda}\,dE_\lambda(U_t) \quad \|U_t\psi\|^2 = \int_{-\infty}^{+\infty}|e^{-it\lambda}|^2(\psi,dE_\lambda(U_t)\psi) =  \int_{-\infty}^{+\infty}(\psi,dE_\lambda(U_t)\psi) = (\psi,\mathbbm{1}\psi)\]
+$U_t$, oltre che essere unitaria, è un \textbf{gruppo abeliano di trasformazioni unitarie fortemente continue} (GATUC), soddisfa infatti la legge di gruppo commutativa:
+\[U_tU_s = U_{t+s} = U_{s+t} = U_sU_t\]
+che vale per l'osservazione di prima sulla proprietà degli esponenziali. Nel gruppo esiste anche l'inverso, infatti è ovvio che vale:
+\[U_t^{-1} = U_{-t} \qquad U_tU_{-t} = \mathbbm{1}\]
+gli aggettivi fortemente continua vengono dal fatto che nello spazio di Hilbert la trasformazione tende fortemente all'operatore identità $U_t \xrightarrow[t\to 0]{\H} \mathbbm{1}$, mostriamolo verificando che la quantità $\|U_t\psi - \mathbbm{1}\psi\|$ tenda a 0 quando $t$ tende a 0
+\[\|e^{-itA}\psi -\psi\|^2 = \|(e^{-itA}-\mathbbm{1})\psi\|^2 = \int |e^{-it\lambda}-1|^2(\psi,dE_\lambda\psi) \]
+dove abbiamo sfruttato il lemma \eqref{lemmautilesullenorme}. Sarebbe carino ora passare sotto il segno di integrale con il limite e arrivare alla conclusione, per farlo consideriamo che l'integrale sia di Lebesque e sfruttiamo il teorema della convergenza dominata
+\begin{thm}
+(Della convergenza dominata)
+se $|f_n(x)|\leq g(x)$ con $g(x)$ sommabile nel senso di Lebesque allora vale:
+\[\lim_{n\to+\infty} \int f_n(x)\,dx = \int \lim_{n\to+\infty} f_n(x)\,dx\]
+\end{thm}
+nel nostro caso la funzione è dominata in quanto $|e^{-it\lambda}-1|\leq 4$ per la \eqref{disutileinseguito}, dato che 4 è sommabile secondo Lebesque vale il teorema e possiamo dire che:
+\[\lim_{t\to0}\int |e^{-it\lambda}-1|^2(\psi,dE_\lambda\psi)  = \int \lim_{t\to 0}|e^{-it\lambda}-1|^2(\psi,dE_\lambda\psi) = 0\]
+Per calcolare il generatore della trasformazione possiamo sfruttare la seguente:
+\begin{equation}\label{generatore}
+-iA = \text{s-}\lim_{t\to 0} \frac{U_t-\mathbbm{1}}{t}
+\end{equation}
+dove con $\text{s-}\lim$ si intende il limite forte. Dimostriamo questa relazione
+\[\lim_{t\to0} \|\left(\frac{U_t-\mathbbm{1}}{t} +iA\right)\psi\|^2 = \lim_{t\to 0}\int\left|\frac{e^{-it\lambda}-1}{t} +i\lambda\right|^2(\psi,dE_\lambda\psi)\]
+dove abbiamo nuovamente usato il lemma \eqref{lemmautilesullenorme}, vediamo se la funzione è dominata in modo da usare di nuovo il teorema della convergenza dominata:
+\[ \left|\frac{e^{-it\lambda}-1}{t} +i\lambda\right|^2\leq 2\left|\frac{e^{-it\lambda}-1}{t}\right|^2 + 2\lambda^2 = 2\lambda^2\left|\frac{e^{-it\lambda}-1}{t\lambda}\right|^2+ 2\lambda^2  = 2\lambda^2\left[\left|\frac{e^{-i\alpha}-1}{\alpha}\right|^2+1  \right] \leq 4\lambda^2\]
+dobbiamo vedere che $4\lambda^2$ è sommabile
+\[4\int\lambda^2(\psi,dE_\lambda\psi) = 4\|A\psi\|^2<+\infty\]
+per il teorema spettrale. Passiamo quindi passare sotto il segno di integrale e otteniamo:
+\[\int\lim_{t\to 0}\left|\frac{e^{-it\lambda}-1}{t} +i\lambda\right|^2(\psi,dE_\lambda\psi) = 0\]
+Riprendendo l'anaolgia con la quantità $e^{i\alpha}$ sui numeri complessi, è ben noto che un numero $u\in\C$ con modulo unitario $|u|=1$ è possibile esprimerlo tramite $u = e^{i\alpha}$, questà proprietà ha un analogo negli spazi di Hilbert che è data dal seguente teorema
+\begin{thm}(Di Stone)
+Se $U_t$ è un GATUC in $\H$ separabile allora esiste $A=A^\dagger$ con $\overline{D_A} =\H $ tale che $U_t = e^{-itA}$ e $A$ si può trovare con la \eqref{generatore}
+\end{thm}
+da questo teorema deriva il seguente corollario particolarmente utile ed importante per la meccanica quantistica.
+\begin{coro}
+Se $\psi_t = U_t\psi$ $\forall \psi\in\H$ allora 
+\[i\frac{d\psi_t}{dt} = A\psi_t\]
+\end{coro}
+\hspace{-1.6em}\textbf{Dimostrazione:}\\
+la definizione di derivata nello spazio di Hilbert è la seguente:
+\[\frac{d}{dt}\psi_t = \text{s-}\lim_{\varepsilon\to0} \frac{\psi_{t+\varepsilon} -\psi_t}{\varepsilon}\]
+applicando il teorema di Stone al corollario otteniamo:
+\[i\frac{d\psi_t}{dt}  = i\,\text{s-}\lim_{\varepsilon\to0} \frac{U_{t+\varepsilon}\psi -U_t\psi}{\varepsilon} = i\,\text{s-}\lim_{\varepsilon\to0} \frac{U_tU_\varepsilon\psi -U_t\psi}{\varepsilon} = \text{s-}\lim_{\varepsilon\to0} i \frac{(U_{\varepsilon} - 1)}{\varepsilon}U_t\psi = A\psi_t  \]
+\\
+Vediamo l'importanza di questo corollario in fisica considerando un sistema quantistico non relativistico descritto da $\psi\in\H$ e assumiamo che l'evoluzione nel tempo $t>0$ sia data da $U_t$ GATUC (postulato di evoluzione), allora il teorema di Stone e il corollario ci dicono che esiste un operatore autoaggiunto $H=H^\dagger$ tale che
+\[\psi_t = e^{-\frac{it}{\hbar}H}\psi \iff i\hbar \frac{d\psi_t}{dt} = H\psi_t\]
+che è l'equazione di Schr{\"o}dinger dove abbiamo reintrodotto la costante $\hbar$ che abbiamo sempre tenuto ad 1. Questo risultato è limitato alle Hamiltoniane indipendenti dal tempo, esistono alcune formulazioni più complesse che ne tengono conto, ma spesso i fisici in questi casi preferiscono postulare l'equazione di Schr{\"o}dinger.\\
+\newline Studiamo a questo punto un altro importante operatore, quello delle traslazioni di coordinate. Mettiamoci in $L_2(\Sigma)$ con $\Sigma = \R,\R^+,[0,2\pi]$, sia $\psi(x)\in L_2(\Sigma)$ definiamo l'operatore come:
+\[T_a\psi = \psi(x-a)\]
+mostriamo che $T_a$ è un gruppo abeliano fortemente continuo, la commutatività viene da:
+\[T_aT_b = T_a(\psi(x-b)) = \psi(x-b-a)\]
+\[T_bT_a = T_b(\psi(x-a)) = \psi(x-a-b)\]
+che sono chiaramente uguali. L'inverso è dato da:
+\[T_a^{-1} = T_{-a} \qquad  T_{-a}T_a\psi = \psi  \]
+verifichiamo infine la convergenza forte
+\[\|T_a-\psi\|^2 = \int_\Sigma|\psi(x-a)-\psi(x)|^2dx = \int_\Sigma |\psi(x)-a\psi'(\xi) -\psi(x)|^2dx = a^2\|\psi'(\xi)\|^2\xrightarrow[a\to0]{}0\]
+grazie al teorema di Lagrange. Troviamo ora il generatore di questa trasformazione, chiamiamo il generatore non a caso $P$ e facciamo un tentativo provando con $P = -i\frac{d}{dx}$ (l'intuizione potrebbe venire dal teorema di Nother che ci garantisce la conservazione della quantità di moto per simmetrie traslazionali)
+\[ \|\left(\frac{T_a-\mathbbm{1}}{a} +iP\right)\psi\|^2 = \int_\Sigma \left|\frac{T_a\psi-\psi}{a} +\psi' \right|^2dx = \int_\Sigma \left|\frac{\psi(x-a)-\psi(x) +a \psi'(x)}{a}\right|^2dx = \]
+sviluppando con taylor
+\[\int_\Sigma \left|\frac{\psi(x)-a\psi'(x) +O(a^2) -\psi(x)+  a \psi'(x)}{a}\right|^2dx = \int_\Sigma \left|\frac{O(a^2)}{a}\right|^2dx\xrightarrow[a\to0]{}  0\]
+notiamo che fino ad adesso abbiamo dimostrato solo la commutatività e la forte continuità, abbiamo tralasciato l'unitarietà in quanto a seconda di $\Sigma$, $T_a$ può essere unitario o meno, infatti la norma della trasformazione vale:
+\[\|T_a\psi\|^2 = \int_\Sigma|\psi(x-a)|^2dx\]
+facciamo ora i vari casi
+\begin{itemize}
+\item caso $\Sigma=\R$:
+\[\|T_a\psi\|^2 = \int_{-\infty}^{+\infty}|\psi(x-a)|^2dx = \int_{-\infty}^{+\infty}|\psi(y)|^2dy = \|\psi\|^2\]
+in questo caso $T_a$ è unitario grazie all'invarianza della misura per traslazioni, quindi grazie al teorema di Stone possiamo concludere che il generatore $P$ è autoaggiunto in $L_2(\R)$, risultato che avevamo già ottenuto in maniera differente.
+\item caso $\Sigma=\R$:
+\[\|T_a\psi\|^2 = \int_{0}^{+\infty}|\psi(x-a)|^2dx \neq \|\psi\|^2\]
+quindi $T_a$ non è unitario in questo caso e di conseguenza $P$ non è autoaggiunto come ci aspettavamo.
+\item caso $\Sigma=[0,2\pi]$:
+\[\|T_a\psi\|^2 = \int_{0}^{2\pi}|\psi(x-a)|^2dx = \int_{-a}^{-a+2\pi}|\psi(y)|^2dy =\int_{0}^{2\pi}|\psi(y)|^2dy =\|\psi\|^2\]
+questo solo perchè per condizioni sul dominio di $P$ dobbiamo prendere $\psi$ con condizioni periodiche $\psi(0) = \psi(2\pi)$, quindi l'integrale su funzioni periodiche è invariante per traslazioni, concludiamo che in questo caso $T_a$ è unitaria e quindi $P$ è autoaggiunto per Stone. Notiamo che essendoci nell'integrale il modulo quadro della $\psi$ avremmo potuto anche scegliere delle condizioni al contorno tali che $\psi(0) = e^{i\alpha}\psi(2\pi)$ con $\alpha\in\R$, e avremmo ottenuto lo stesso risultato. Questo è perfettamente in accordo con quanto ricavato quando abbiamo usato il teorema di Von-Neumann per costruire le infinite estensioni autoaggiunte dell'operatore $P$.
+\end{itemize}
+Un altro operatore da studiare in $L_2(\R)$ è il seguente $(U_\lambda\psi)(x) = e^{\lambda/2}\psi(e^\lambda x)$ con $\lambda\in\R$. Dimostriamo che $U_\lambda$ è un GUTAC e lasciamo per esercizio il calcolo del suo generatore $D$. L'operatore è unitario in quanto:
+\[\|U_\lambda\psi\|^2 = \int_{-\infty}^{+\infty}dx e^{\lambda}|\psi(e^\lambda x)|^2\]
+facendo un cambio di coordinate $e^\lambda x = y \implies dx = e^{-\lambda} dy$ arriviamo a
+\[\|U_\lambda\psi\|^2 = \int_{-\infty}^{+\infty}dy|\psi(y)|^2 = \|\psi\|^2\]
+la commutatività sfrutta la proprietà degli esponenziali che abbiamo usato ad inizio paragrafo
+\[U_{\lambda_1}U_{\lambda_2} = U_{\lambda_1}(e^{\lambda_1/2}\psi(e^{\lambda_1} x)) = e^{\lambda_2/2}e^{\lambda_1/2}\psi(e^{\lambda_2}e^{\lambda_1} x) = U_{\lambda_2}U_{\lambda_1} = U_{\lambda_1+\lambda_2}\]
+l'inverso è dato semplicemente da $U_{-(\lambda_1+\lambda_2)}$
+\input{applicazioni.tex}
+\input{es2.tex}
+%\xrightarrow[n\to \infty]{\H} 
+\end{document}

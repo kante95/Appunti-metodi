@@ -1,0 +1,1111 @@
+\chapter{Analisi complessa}
+\section{Richiami sui numeri complessi}
+Brevi richiami sui numeri complessi $z=x+iy \in \C$, la parte reale si indica con $\text{Re}(z) = x$ e quella immaginaria con $\text{Im}(z) = y$; $x,y\in \R$. Nella rappresentazione polare il numero complesso si può scrivere come $z=\rho e^{i\theta}$. Si definisce l'operazione di coniugazione complessa come $\overline{z} = x-iy$. Nei numeri complessi valgono le seguenti disuguaglianze
+\begin{itemize}
+\item $|z_1+z_2| \leq |z_1|+|z_2|\quad \forall z_1,z_2\in \C\qquad \text{(1\degree  disuguaglianza triangolare)}$
+\item $|z_1-z_2| \geq \big||z_1|-|z_2|\big|\quad \forall z_1,z_2\in \C\qquad \text{(2\degree  disuguaglianza triangolare)}$
+\item $\displaystyle\frac{1}{|z_1-z_2| } \leq \frac{1}{\big||z_1|-|z_2|\big|}\quad \forall z_1,z_2\in \C\qquad$
+\item $|\text{Re}(z)|\leq |z|\quad \forall z\in \C$
+\item $|\text{Im}(z)|\leq |z|\quad \forall z\in \C$
+\end{itemize}
+Una funzione $f:\C\to\C$ può essere scritta come $f(z=x+iy) = u(x,y)+iv(x,y)$ e si può rappresentare come serie di potenze
+\[f(z) = \Sum a_n z^n \qquad a_n\in \C\]
+Ricordiamo la serie geometrica $\Sum z^n = \frac{1}{1-z}$ che converge per $|z|<1$. Per trovare il raggio $R_0$ di convergenza di una serie esiste il criterio della radice
+\[\lim_{n\to \infty} \frac{|a_{n+1}||z|^{n+1}}{|a_n||z|^n} <1\]
+$f(z)$ è continua in $R$ semplicemente connesso se e solo se $u,v$ sono continue im $R$. Ricordiamo la nozione di derivabilità, $f(z)$ è differenziabile in $z_0\in R$ se e solo se $\exists \lambda\in\C, \omega(z_0,h)$ tali che 
+\[f(z_0+h) = f(z_0) + \lambda h+\omega(z_0,h)\quad \bigg|\frac{\omega(z_0,h)}{h}\bigg|\xrightarrow[|h|\to 0]{} 0 \quad h\in \C\]
+Se $f(z)$ è differenziabile in tutto $R$ allora $f$ è analitica in $R$ ed inoltre
+\[\d{f}{z} = \lambda = \lim_{h\to 0}\frac{f(z_0+h)-f(z_0)}{h}\]
+\begin{thm}
+(Equazioni di Cauchy-Riemman) Se $f$ è analitica in $R$ allora valgono
+\[\begin{cases}
+    u_x =v_y    \\
+   v_x=-u_y\\
+  \end{cases} \]
+\end{thm}
+\begin{thm}
+Se $u,v\in C^1(R)$ e soddisfano le equazioni di Cauchy-Riemman allora $f(z)$ è analitica in $R$
+\end{thm}
+Dimostriamo ora che una serie di potenze $f(z) =\Sum a_n z^n$ nel suo raggio di convergenza $R_0$ è analitica, infatti:
+\[\omega = f(z+h)-f(z)-h\Sum na_nz^{n-1} = \Sum a_n[(z+h)^n-z^n-hnz^{n-1}]= \Sum a_n[h^2g_n]\]
+dai cui il limite $\bigg|\frac{\omega(z_0,h)}{h}\bigg|$ tende a 0.
+\newline
+L'integrazione sul campo complesso si può ricondurre all'integrazione sul campo reale, infatti sia $f(z) = u+iv$ allora
+\[\int_\gamma f(z)\,dz = \int_\gamma (u +iv)(dx+idy) = \int_\gamma[udx-vdy] +i\int_\gamma vdx+udy\] 
+e utilizzando una parametrizzazione della curva $\gamma: [a,b]\to \phi(t)+i\psi(t)$ abbiamo
+\[\int_\gamma f(z)\,dz = \int_a^b f(\gamma(t))(\phi'(t)+i\psi'(t))\,dt\]
+\begin{lem}
+(Di Darboux) Se $f(z)$ è continua su una curva orientata $\gamma$ con lunghezza $L(\gamma)$ allora
+\[\bigg|\int_\gamma f(z)\,dz \bigg| \leq \underset{\gamma}{sup}|f(z)|\,L(\gamma)\]
+\end{lem}
+\begin{thm}
+(Di Cauchy-Goursat) Sia $f(z)$ una funzione analitica su un insieme semplicemente connesso $R$ e sia $\gamma$ una curva contenuta in $R$ allora vale
+\[\int_\gamma f(z)\,dz=0\]
+\end{thm}
+\hspace{-1.6em}\textbf{Dimostrazione:}\\
+La dimostrazione di Cauchy prevedeva anche la continuità della derivata di $f$ ma Goursat dimostrò che si può indebolire il teorema con solo l'ipotesi di analiticità di $f$. Per semplicità però
+assumiamo la derivata di $f$ continua, quindi dalla definizione di integrale e dal teorema di Gauss-Green
+\[\int_\gamma f(z)\,dz =  \int_\gamma[udx-vdy] +i\int_\gamma vdx+udy =  \iint_D[-u_ydx-v_xdy] +i\int_D -v_ydx+u_xdy\]
+Dove $\gamma = \partial D$, dalle equazioni di Cauchy-Riemman segue che gli integrandi sono nulli per cui l'integrale è nullo.\\
+\begin{lem}
+Se $f(z)$ è analitica in una regione semplicemente connessa $R$, siano $\gamma(z_0,z_1),\Gamma(z_0,z_1)$ due curve che uniscono gli stessi punti allora
+\[\int_{\gamma(z_0,z_1)}f(z)\,dz = \int_{\Gamma(z_0,z_1)}f(z)\,dz\]
+\end{lem}
+\hspace{-1.6em}\textbf{Dimostrazione:}\\
+La dimostrazione è una conseguenza del teorema di cauchy infatti si scelga la curva chiusa unione di $\gamma$ e $-\Gamma$ orientata quindi in senso contrario, l'integrale sul percorso chiuso è nullo, quindi la somma dell'integrale su $\gamma$ all'integrale su $\Gamma$ è nullo, cambiando orientazione e quindi di segno si ottiene la tesi.\\
+\begin{thm}
+(Teorema fondamentale del calcolo) Se $f(z)$ è analitica in $R$ insieme semplicemente connesso allora
+\[F(z) := \int_{z_0}^z f(z')\,dz'\]
+è analitica in $R$ e vale $F'(z) = f(z)$ 
+\end{thm}
+\hspace{-1.6em}\textbf{Dimostrazione:}\\
+Valutiamo
+\[\omega = F(z+h)-F(z)-hf(z) = \int_{z_0}^{z+h}f(z')\,dz' - \int_{z_0}^{z}f(z')\,dz' - \left(\int_{z}^{z+h}dz'\right)f(z) =   \]
+\[\int_{z_0}^{z}f(z')\,dz' +\int_{z}^{z+h}f(z')\,dz' - \int_{z_0}^{z}f(z')\,dz' - \left(\int_{z}^{z+h}dz'\right)f(z) =\int_{z}^{z+h}[f(z')-f(z)]\,dz' \]
+ora valutiamo il limite di $|\omega/h|$ per $h\to 0$ e otteniamo
+\[\bigg|\frac{1}{h}\int_{z}^{z+h}[f(z')-f(z)]\,dz'\bigg|\leq\frac{1}{|h|}\bigg| \int_{z}^{z+h}[f(z')-f(z)]\,dz'\bigg|\leq \frac{|h|}{|h|} sup|f(z')-f(z)|\to 0 \]
+per il lemma di Darboux e per la continuità.\\ 
+\begin{thm}
+(Formula integrale di Cauchy) Sia $f(z)$ analitica in $R$ semplicemente connesso e $\gamma\in R$ una curva chiusa, se $z_0\in R$ allora vale
+\[f(z_0) = \frac{1}{2\pi i}\int_\gamma \frac{f(z)}{z-z_0}\, dz\]
+\end{thm}
+\hspace{-1.6em}\textbf{Dimostrazione:}\\
+Per il principio di deformazione sui cammini abbiamo:
+\[\frac{1}{2\pi i}\int_\gamma \frac{f(z)}{z-z_0}\, dz = \frac{1}{2\pi i}\int_{C_r} \frac{f(z)}{z-z_0}\, dz = \frac{1}{2\pi i}\int_{C_r} \frac{f(z)-f(z_0)+f(z_0)}{z-z_0}\, dz\]
+dove $C_r$ è la circonferenza centrata in $z_0$ e di raggio $r$.
+\[\frac{1}{2\pi i}\int_{C_r} \frac{f(z)-f(z_0)+f(z_0)}{z-z_0}\, dz = \frac{1}{2\pi i}\int_{C_r} \frac{f(z)-f(z_0)}{z-z_0}\, dz +\frac{1}{2\pi i}\int_{C_r} \frac{f(z_0)}{z-z_0}\, dz = \]
+\[\frac{1}{2\pi i}\int_{C_r} \frac{f(z)-f(z_0)}{z-z_0}\, dz +f(z_0) \]
+infatti è facile vedere parametrizzando la circonferenza e usando la definizione di integrale che $\int_{C_r}\frac{1}{z-z_0}\, dz = 2\pi i$. Valutiamo allora
+\[\bigg|\frac{1}{2\pi i}\int_{\gamma} \frac{f(z)-f(z_0)}{z-z_0}\, dz - f(z_0)\bigg| =\bigg|\frac{1}{2\pi i}\int_{C_r} \frac{f(z)-f(z_0)}{z-z_0}\, dz\bigg|\leq \frac{1}{2\pi}\frac{\varepsilon}{r}2 \pi r \]
+per continuità della funzione e per il lemma di Darboux. Per l'arbitrarietà di $\varepsilon$ segue la tesi.
+\begin{coro}
+\[f^{(n)}(z_0) = \frac{n!}{2\pi i}\int_\gamma \frac{f(z)}{(z-z_0)^{n+1}}\, dz\] 
+Ovvero una funzione analitica è infinitamente volte derivabile.
+\end{coro}
+\hspace{-1.6em}\textbf{Dimostrazione:}\\
+La dimostrazione si fa per induzione completa, mostriamo solo per $n=1$:
+\[\frac{f(z+h)-f(z)}{h} = \frac{1}{h}\frac{1}{2\pi i}\int_\gamma f(z')\left[\frac{1}{z'-z-h}-\frac{1}{z'-z}\right] \, dz' = \frac{1}{2\pi i}\int_\gamma \frac{f(z')}{(z'-z-h)(z'-z)} \, dz'\]
+dali limite $h\to 0$ si ha il risultato.
+\begin{thm}
+(Teorema di Morera) Sia $f$ continua in $R$ semplicemente connesso, se $\int_\gamma f(z)\, dz = 0$ per ogni curva $\gamma$ chiusa in $R$ allora $f$ è analitica in $R$
+\end{thm}
+\hspace{-1.6em}\textbf{Dimostrazione:}\\
+Dato che l'integrale è nullo su ogni curva chiusa abbiamo che gli integrali non dipendono dal percorso, quindi possiamo definire $F(z) = \int_{z_0}^z f(z')\, dz'$. Mostriamo che $F(z)$ è analitica ed ha come derivata $f(z)$:
+\[\omega:= F(z+h)-F(z) -hf(z)= \int_{z_0}^{z+h} f(z')\, dz' - \int_{z_0}^z f(z')\, dz' - f(z)\int_z^{z+h}\,dz'\] 
+\[= \int_{z_0}^{z} f(z')\, dz' +\int_{z}^{z+h} f(z')\, dz' - \int_{z_0}^z f(z')\, dz' - f(z)\int_z^{z+h}\,dz' = \int_{z}^{z+h} f(z')-f(z)\, dz'\]
+\[\left|\frac{\omega}{h}\right| = \frac{1}{|h|}\left|\int_{z}^{z+h} f(z')-f(z)\, dz'\right|\leq sup[f(z')-f(z)]\]
+Che per continuità tende a 0.\\
+\begin{coro}
+Sia $f(z) = \Sum a_n (z-z_0)^n$ con raggio di covergenza $R$ allora $f$ è analitica $\forall z \in |z-z_0|\leq R $
+\end{coro}
+\hspace{-1.6em}\textbf{Dimostrazione:}\\
+$f(z)$ è continua perchè la serie converge uniformemente, calcoliamo quindi  l'integrale su ogni curva chiusa
+\[\int_\gamma f(z)\, dz = \int_\gamma \Sum a_n (z-z_0)^n\,dz =\Sum a_n \int_\gamma(z-z_0)^n\,dz = 0  \]
+Il simbola di somma e integrazione si può scambiare in quanto la convergenza è uniforme. La tesi segue dunque dal teorema di Morera.\\
+\begin{thm}
+(Teorema di Liouville) Se $f(z)$ è intera e limitata: $|f(z)|\leq M$ allora $f(z)$ è costante 
+\end{thm}
+\hspace{-1.6em}\textbf{Dimostrazione:}\\
+sfruttiamo la formula di Cauchy e scriviamo la sua derivata come integrale su un cerchio di raggio $r$ ($\gamma$)
+\[|f'(z_0)| = \left|\frac{1}{2\pi i}\oint_\gamma \frac{f(z)}{(z-z_0)^2}\right|\leq \frac{1}{2\pi}\left|\oint_\gamma\frac{f(z)}{(z-z_0)^2}\right|\leq \frac{1}{2\pi}\frac{M}{r^2}2\pi r\leq \frac{M}{r}\xrightarrow[r\to\infty]{}  0\]
+Il raggio può andare all'infinito in quanto la funzione è intera.\\
+Dal teorema di Liouville si dimostra il teorema fondamentale dell'algebra.
+\section{Singolarità e residui}
+Prendiamo una regione anulare $R-\{z_0\}$ con $z_0$ singolarità isolata. Prendiamo il percorso $\gamma$ in figura
+\begin{figure}[H]
+\centering
+\begin{tikzpicture}
+%\draw (0,0)node{\color{black}$z_0$} circle (0.5cm);
+%\draw (0,0)node{\color{black}$z_0$} circle (1cm);
+
+ % draw the two circles and decorate them with arrows
+    \draw[
+        decoration={markings, mark=at position 0.625 with {\arrow{>}}},
+        postaction={decorate}
+        ]
+        (0,0) circle (1);
+    \draw[ 
+        decoration={markings, mark=at position 0.125 with {\arrow{>}}},
+        postaction={decorate}
+        ]
+        (0,0) circle (2);
+
+    % draw the connecting line
+    \draw[ 
+        decoration={markings, mark=at position 0.5 with {\arrow{>}}, mark=at position 0.3 with {\arrow{<}}},
+        postaction={decorate}
+        ]
+        (0,1) -- (0,2);
+
+   \draw(0,0)node{$z_0$};
+   \draw(1.3,0)node[above=1.5pt]{$C_2$};
+   \draw(2,1)node[above=1pt]{$C_1$};
+   \draw(-0.3,1.4)node{$l$};
+   \draw(-1.3,1.1)node{$z$};
+\end{tikzpicture}
+\caption{$\gamma = C_1+2l+C_2$}\label{percorso}
+\end{figure}
+scriviamo la $f$ utilizzando la formula di Cauchy
+\[f(z) = \frac{1}{2\pi i}\oint_\gamma \frac{f(z')}{z'-z}\,dz' = \frac{1}{2\pi i}\int_{C_1}\frac{f(z_1)}{z_1-z}\,dz_1 + I_l -I_l - \frac{1}{2\pi i}\int_{C_2}\frac{f(z_2)}{z_2-z}\,dz_2\]
+\[f(z) =\frac{1}{2\pi i}\int_{C_1}dz_1\,f(z_1)\frac{1}{z_1-z} - \frac{1}{2\pi i}\int_{C_2}dz_2\,f(z_2)\frac{1}{z_2-z} \]
+Ora consideriamo il seguente rapporto 
+\[\frac{1}{z_{1,2}-z} =\frac{1}{z_{1,2}-z_0+z_0-z} = \frac{1}{(z_{1,2}-z_0)(1-\frac{z-z_0}{z_{1,2}-z_0})} = \frac{1}{z_{1,2}-z_0}\frac{1}{1-\xi_{1,2}} \]
+dove è stata chiamata $\xi_{1,2} = \frac{z-z_0}{z_{1,2}-z_0}$, sfruttiamo la serie geometria e scriviamo
+\[\frac{1}{1-\xi_1} = \Sum \xi_1^n \quad |\xi_1|< 1 \qquad \frac{1}{1-\xi_2} = -\sum_{n=1}^\infty \frac{1}{\xi_2^n} \quad |\xi_2|> 1 \]
+Lo si vede geometricamente dalla figura \eqref{percorso}, quindi abbiamo:
+\[\frac{1}{z_1-z} = \frac{1}{z_1-z_0}\Sum \frac{(z-z_0)^n}{(z_1-z_0)^{n}} =\Sum \frac{(z-z_0)^n}{(z_1-z_0)^{n+1}} \]
+\[\frac{1}{z_2-z} = -\frac{1}{z_2-z_0}\sum_{n=1}\frac{(z_2-z_0)^{n}}{(z-z_0)^{n}} =-\sum_{n=1}^{\infty}\frac{(z_2-z_0)^{n-1}}{(z-z_0)^{n}} \]
+la nostra funzione può essere scritta allora come:
+\[f(z) =\frac{1}{2\pi i}\int_{C_1}dz_1\,f(z_1)\Sum \frac{(z-z_0)^n}{(z_1-z_0)^{n+1}} + \frac{1}{2\pi i}\int_{C_2}dz_2\,f(z_2)\sum_{n=1}^{\infty}\frac{(z_2-z_0)^{n-1}}{(z-z_0)^{n}}\]
+\[f(z) =\Sum (z-z_0)^n  \underbrace{\frac{1}{2\pi i}\int_{C_1}dz_1\,\frac{f(z_1)}{(z_1-z_0)^{n+1}}}_{a_n} + \sum_{n=1}^{\infty}\frac{1}{(z-z_0)^{n}}\underbrace{\frac{1}{2\pi i}\int_{C_2}dz_2\,f(z_2)(z_2-z_0)^{n-1}}_{b_n}\]
+otteniamo quindi lo sviluppo di Laurent:
+\[f(z) = \Sum a_n(z-z_0)^n +\sum_{n=1}^{\infty}\frac{b_n}{(z-z_0)^{n}}\]
+\begin{coro}
+Se $f(z)$ è analitica in $z_0$ allora la serie di Laurent diventa la serie di Taylor della funzione.
+\end{coro}
+\hspace{-1.6em}\textbf{Dimostrazione:}\\
+Se $f$ è analitica in $z_0$ allora $b_n=0$ per Cauchy, inoltre abbiamo:
+\[a_n = \frac{n!}{n!}\frac{1}{2\pi i}\int_{C_1}dz_1\,\frac{f(z_1)}{(z_1-z_0)^{n+1}}= \frac{f^{(n)}(z)}{n!} \]
+Per la forumla di Cauchy per le derivate.\\
+\newline Si possono fare distinzione per i tipi di singolarità:
+\begin{itemize}
+\item \textbf{Polo di ordine $N$:} se $b_N \neq 0$ e $b_n=0 \, \forall n>N$ allora $z_0$ si dice polo di ordine $N$, il polo di ordine 1 si chiama anche polo semplice.
+\item \textbf{Singolarità essenziale} se $b_n=0\,\forall n$ allora $z_0$ è una singolarià essenziale, nell'intorno della singolarità essenziale la funzione può assumere valori arbitrariamente grandi o piccoli.
+\end{itemize}
+Possiamo ora definire il residuo di una funzione:
+\begin{dfn}
+Si chiama residuo della funzione $f$ in $z_0$ il seguente:
+\[\text{Res}f(z)\Big|_{z_0} := b_1 = \frac{1}{2\pi i}\oint_\gamma f(z)\,dz\]
+\end{dfn}
+Per calcolare il residuo ci sono diversi modi che dipendono dal tipo di singolarità:
+\begin{itemize}
+ \item  nel caso $z_0$ sia un polo semplice di ordine 1 possiamo prendere la sviluppo di Laurent e moltiplicare per $z-z_0$:
+\[f(z) = \Sum a_n(z-z_0)^{n} +\frac{b_1}{(z-z_0)} \]
+\[f(z)(z-z_0) = \Sum a_n(z-z_0)^{n+1} +b_1 \]
+e allora evidentemente abbiamo
+\[\Res{z_0} = \lim_{z\to z_0}f(z)(z-z_0)\]
+\item Si può generalizzare al polo di ordine $N$ e otteniamo:
+\[\Res{z_0} = \frac{1}{(N-1)!}\lim_{z\to z_0}\frac{d^{N-1}}{dz^{N-1}}[f(z)(z-z_0)^N]  \]
+\item Nel caso $z_0$ sia una singolarità essenziale conviene sviluppare la funzione in serie di Laurent e prendere direttamente il coefficiente $b_1$
+\end{itemize}
+si può scrivere una formula nel caso di funzioni del tipo $f(z) = h(z)/g(z)$ nel caso di singolarità di poli semplici. Fattorizziamo infatti la singolarità e scriviamo $g$ come $g(z) = (z-z_0)\tilde{g}(z)$ con $\tilde{g}(z_0)\neq 0$. Ora applichiamo la formula per il residuo semplice:
+\[f(z)(z-z_0) = \frac{h(z)}{\tilde{g}(z)}\xrightarrow[z\to z_0]{} \frac{h(z_0)}{\tilde{g}(z_0)} \]
+Ora basta capire che cos'è $\tilde{g}(z_0)$, prendiamo la derivata di $g$
+\[\d{g(z)}{z} = \tilde{g}(z) + (z-z_0)\tilde{g'}(z)\xrightarrow[z\to z_0]{} \tilde{g}(z_0)\]
+ovvero $g'(z_0) = \tilde{g}(z_0)$ dai cui il residuo di $f$ risulta:
+\[\Res{z_0} = \frac{h(z_0)}{g'(z_0)}\]
+Si può definire quello che è un residuo all'infinito prendendo una curva orientate negativamente, quindi l'idea è di prendere come interno della curva la regione esterna di un cerchio, quindi appunto quella che contiene anche ``l'infinito''
+\begin{dfn}
+Si definisce il residuo all'infinito nel modo seguente:
+\[\Res{\infty}=\frac{1}{2\pi i}\oint_{-\gamma}f(z)\,dz\]
+\end{dfn}
+Il residuo all'infinito possiamo ricondurlo ad un residuo al finito facendo una sostituzione $z\to 1/\omega$, infatti otteniamo:
+\[\Res{\infty}=\frac{1}{2\pi i}\oint_{-\gamma}f(z)\,dz = \frac{1}{2\pi i}\oint_{\gamma'}-\frac{f\left(\frac{1}{\omega}\right)}{\omega^2}\,d\omega = \text{Res}\Big(-\frac{1}{\omega^2}f\left(\frac{1}{\omega}\right)\bigg|_{0} \]
+Nota: la curva $-\gamma$ si trasforma in $\gamma'$ che oltre che ad essere una curva differente cambia anche verso di percorrenza, infatti prendendo per semplicità $\gamma$ come una circonferenza di raggio $r$ abbiamo che $\gamma:\, z = re^{-i\theta}$ cambiando variabile otteniamo $1/\omega = re^{-i\theta} $ da cui $\gamma':\, \omega =1/r e^{i\theta}$ che dato il segno dell'esponente è percorsa in senso antiorario.
+\begin{thm}
+(Teorema dei residui) Sia $f$ funzione meromorfa con singolarità in $\{z_k\}$ allora:
+\[\oint_\gamma f(z)\,dz = 2\pi i \sum_k \Res{z_k}\]
+\end{thm}
+\hspace{-1.6em}\textbf{Dimostrazione:}\\
+La dimostrazione si fa sfruttando il teorema di Cauchy per insiemi molteplicemente connessi e calcolando l'integrale su $\gamma$ come somma degli integrali su $k$ curve $\gamma_k$ che girano attorno alla singolarità $z_0$ al cui interno $z_0$ sia l'unica singolarità, allora per definizione del residuo il valore dell'integrale su $\gamma_k$ vale $2\pi i \Res{z_k}$, sommando tutti questi contributi si ottiene il teorema.\\
+%\begin{wrapfigure}[100]{r}{0.25\textwidth}
+%\begin{tikzpicture}[scale=.5]
+%\draw [<->](-5,0) -- (5,0)node[below=1.5pt] {\color{black}$x$};
+%\draw[<->](0,-5)--(0,5)node[right=1.5pt] {\color{black}$y$};
+% \draw [red,thick,domain=0:180] plot ({3*cos(\x)}, {3*sin(\x)});
+% \draw [blue,thick,domain=180:360] plot ({3*cos(\x)}, {3*sin(\x)});
+%\draw (2.6,2.6) node{\color{black}$C_R^+$};
+%\draw (2.6,-2.6) node{\color{black}$C_R^-$};
+%\end{tikzpicture}
+%\caption{Cammini di integrazione}
+%\end{wrapfigure}\leavevmode
+\begin{lem}
+(Lemma di Jordan) Sia $f(z)$ una funzione tale che abbiamo $|f(z)| \leq \varepsilon(R) \xrightarrow[R\to \infty]{} 0$, allora sia $C_R^+$ la semicirconferenza positiva di raggio $R$ e centro l'origine e $C_R^-$ la contoparte negativa, abbiamo:
+\[\lim_{R\to \infty}\int_{C_R^+}e^{ikz}f(z)\,dz = 0 \quad \forall k>0\]
+\[\lim_{R\to \infty}\int_{C_R^-}e^{ikz}f(z)\,dz = 0 \quad \forall k<0\]
+\end{lem}
+\hspace{-1.6em}\textbf{Dimostrazione:}\\
+Valutiamo il primo integrale parametrizzandolo con $z=Re^{i\theta}$
+\[I_{R^+} = \int_{C_R^+}e^{ikz}f(z)\,dz = \int_0^\pi f(Re^{i\theta})e^{ikR(\cos\theta+i\sin\theta)} iRe^{i\theta}\,d\theta \]
+\[|I_{R^+}| \leq \int_0^\pi |f(Re^{i\theta})|e^{-kR\sin\theta}R\,d\theta\leq R\varepsilon(R)\int_0^\pi e^{-kR\sin\theta}\,d\theta\leq 2R\varepsilon(R)\int_0^{\frac{\pi}{2}} e^{-kR\sin\theta}\,d\theta\]
+Ora consideriamo che nell'intervallo che ci interessa $[0,\pi/2]$: $\sin\theta \geq 2\theta/\pi$, per cui $-kR\sin\theta\leq -2kR\theta/\pi$ per cui possiamo maggiorare ancora il nostro integrale con:
+\[|I_{R^+}| \leq 2R\varepsilon(R)\int_0^{\frac{\pi}{2}} e^{-\frac{2kR}{\pi}\theta}\,d\theta = -\frac{\varepsilon(R)\pi}{k}(e^{-kr}-1) \xrightarrow[R\to \infty]{} 0\]
+La dimostrazione del secondo segue la prima.\\
+\newline
+Alcuni integrali con integrandi nella forma $f(x)/(x-x_0)$ normalmente divergerebbero se integrati in un intervallo che include $x_0$, è possibile però associare una regolarizzazione in modo che l'integrale converga, questo ci porta alla seguente definizione
+\begin{dfn}
+Se il limite esiste si chiama parte principale secondo Cauchy dell'integrale convergente la seguente regolarizzazione:
+\[P\int_a^b\frac{f(x)}{x-x_0}\,dx := \lim_{\varepsilon\to0}\left(\int_a^{x_0-\varepsilon}+\int_{x_0+\varepsilon}^b\right)\frac{f(x)}{x-x_0}\,dx\]
+\end{dfn}
+\begin{lem}
+Se $f(z)$ è analitica in $\text{Im}(z)>0$ e se ivi $|f|\xrightarrow[|z|\to \infty]{} 0$ allora vale:
+\[P\int_{-\infty}^{+\infty}\frac{f(x)}{x-x_0}\, dx = i\pi f(x_0)\]
+\end{lem}
+\hspace{-1.6em}\textbf{Dimostrazione:}\\
+consideriamo la funzione $g(z) = f(z)/(z-z_0)$ e integriamola lungo la solito semicirconferenza positiva. L'integrale è nullo perchè all'interno della curva la funzione è analitica, otteniamo quindi:
+\[\int_\gamma g(z) = I_{C_{R^+}} + \int_{-R}^{x_0-\varepsilon}g(x)\, dx + \int_{x_0+\varepsilon}^{R}g(x) + I_\varepsilon= 0\]
+\begin{figure}[H]
+\centering
+\begin{tikzpicture}
+\draw [<->](-5,0) -- (5,0)node[below=1.5pt] {\color{black}$x$};
+\draw[->](0,0)--(0,4)node[right=1.5pt] {\color{black}$y$};
+\draw [red,thick,domain=0:180] plot ({3*cos(\x)}, {3*sin(\x)});
+\draw [red,thick,domain=0:180] plot ({1.4+0.3*cos(\x)}, {0.3*sin(\x)});
+\draw[red] (-3,0)--(1.1,0);
+\draw[red] (1.7,0)--(3,0);
+\draw[fill] (1.4,0) node[below=1.5pt] {\color{black}$x_0$} circle (1pt);
+\draw (-3,0) node[below=1.5pt] {\color{black}$-R$};
+\draw (3,0) node[below=1.5pt] {\color{black}$R$};
+\draw (1.4,0.5) node {\color{black}$I_\varepsilon$};
+\end{tikzpicture}
+\caption{percorso di integrazione}
+\end{figure}
+Nel limite $R\to \infty$, $I_{C_{R^+}}$ si annulla, $I_\varepsilon$ nel limite $\varepsilon\to 0$ diventa:
+\[\int_{I_\varepsilon} \frac{f(z)}{z-z_0}\,dz = \int_{\pi}^0 \frac{f(x_0+\varepsilon e^{i\theta})}{\varepsilon e^{i\theta}}i\varepsilon e^{i\theta}\,d\theta = i\int_\pi^0f(x_0+\varepsilon e^{i\theta})\,d\theta \xrightarrow[\varepsilon\to 0]{} -i\pi f(x_0)\]
+Otteniamo quindi nel limite $R\to \infty $ e $\varepsilon\to0$, regolarizzando la funzione $g$ con la parte principale:
+\[P\int_{-\infty}^{+\infty}\frac{f(x)}{x-x_0}\, dx - i\pi f(x_0) = 0\]
+\newline
+a questo punto se consideriamo la funzione complessa: $f(x) = \text{Re}f(x) + i\text{Im}f(x)$ utilizzando questo teorema ricaviamo:
+\[P\int_{-\infty}^{+\infty}\frac{\text{Re}f(x) + i\text{Im}f(x)}{x-x_0}\, dx = i\pi(\text{Re}f(x_0) + i\text{Im}f(x_0))\]
+\[P\int_{-\infty}^{+\infty}\frac{\text{Re}f(x)}{x-x_0}\, dx + iP\int_{-\infty}^{+\infty}\frac{\text{Im}f(x)}{x-x_0}\, dx = i\pi\text{Re}f(x_0) -\pi\text{Im}f(x_0)\]
+\\da cui le \textbf{\emph{relazioni di dispersione}} o \textbf{\emph{Trasformate di Hilbert}}:
+\[\begin{cases}
+    \displaystyle\frac{P}{\pi}\int_{-\infty}^{+\infty}\frac{\text{Re}f(x)}{x-x_0}\, dx =  -\text{Im}f(x_0)   \\ \\
+   \displaystyle\frac{P}{\pi}\int_{-\infty}^{+\infty}\frac{\text{Im}f(x)}{x-x_0}\, dx = \text{Re}f(x_0)\\
+  \end{cases} \]
+\section{Sviluppo di Mittag-Leffler e serie numeriche}
+Consideriamo un funzione $f(z)$ meromorfa in $\C$ con infiniti poli semplici $z_n$ con $|z_1|<|z_2|<\dots$, inoltre la funzione è limitata sulle circonferenza di centro origine e raggio $|z_n|$: $|f(z)|\leq M\, \forall z\in C_{z_n}$. Siano i residui della funzione $\Res{z_n} = b_n$, allora se la funzione è regolare in 0 possiamo scrivere lo sviluppo di Mittag-Leffler per la funzione:
+\[f(z) = f(0) + \sum_n b_n \left(\frac{1}{z-z_n} + \frac{1}{z_n}\right)\]
+la dimostrazione procede considerando la funzione $g(z') = f(z')/z'(z'-z)$ e integrandola su una circonferenza $C_N$ che contenga $N$ poli, utilizzando il teorema dei residui abbiamo il residuo in 0, il residuo in $z$ e i restanti residui nei poli di $f$, abbiamo quindi:
+\[I_N = \frac{1}{2\pi i}\oint_{C_N} g(z')\,dz' = -\frac{f(0)}{z} + \frac{f(z)}{z} + \sum_j^N \frac{b_j}{z_j(z_j-z)}\]
+Maggioriamo l'integrale con il lemma di darboux:
+\[|I_N| \leq \frac{1}{2\pi}2\pi R\, \underset{C_N}{\text{sup}}\left|\frac{f(z')}{z'(z'-z)}\right|\leq \frac{RM}{R(R-z)}\xrightarrow[R\to \infty]{} 0  \]
+nel limite includiamo tutti i residui della funzione e ricaviamo dunque:
+\[0 = -\frac{f(0)}{z} + \frac{f(z)}{z} + \sum_n \frac{b_n}{z_n(z_n-z)} \]
+\[f(z) = f(0) + \sum_n \frac{b_nz}{z_n(z-z_n)} = f(0) + \sum_n\left(\frac{b_n}{z-z_n} + \frac{b_n}{z_n}\right) \]
+questo sviluppo di permette di ricostruire la funzione conoscendo il suo comportamente nei poli.\\
+\newline
+Sempre utilizzando il metodo dei residui possiamo valutare la somma di serie del tipo:
+\[\sum_{-\infty}^{+\infty}f(n)\qquad \sum_{-\infty}^{+\infty}(-1)^nf(n)\]
+con $f(z)$ meromorfa, con un numero finito di poli $z_i$ e tale che $f(z) \xrightarrow[|z|\to \infty]{} |z|^{-1-\alpha}$ con $\alpha>0$.
+Abbiamo allora:
+\begin{enumerate}[a)]
+\centering
+\item$\displaystyle\sum_{-\infty}^{+\infty}f(n) = -\pi \displaystyle\sum_i \text{Res}(f(z)\text{cotan}(\pi z)\Big|_{z_i}$
+\item $\displaystyle\sum_{-\infty}^{+\infty}(-1)^nf(n) = -\pi \sum_i \text{Res}\bigg(\frac{f(z)}{\sin(\pi z)}\bigg|_{z_i}$
+\end{enumerate}
+nel caso in cui $f(z)$ non sia definita in 0, la sommatoria esclude il punto $n=0$ e ovviamente nei residui ci sarà anche quello della funzione in 0.\\
+\newline\textbf{Dimostrazione (a):}\\
+Consideriamo la funzione $F(z):= f(z)\text{cotan}(\pi z)$, essa ha come singolarità i poli di $f$ e i poli della contangente in $z=k=0,\pm1,\pm2,\dots$ i residui della cotangente si possono calcolare considerando il suo sviluppo di Laurent:
+\[\text{cotan} \simeq \frac{1}{\pi z} + \frac{\pi z}{3} + \dots \implies \text{Res}\Big(\text{cotan}(\pi z)\Big|_{k} = \frac{1}{\pi}\]
+Prendiamo allora un quadrato $Q_N$ sul piano complesso centrato in 0 e lato lungo $2(N+1)$, integrando la funzione $F$ su tale quadrato e utilizzando il teorema dei residui otteniamo:
+\[I_N = \frac{1}{2\pi i} \int_{Q_N} F(z)\,dz = \frac{1}{\pi}\sum_{n = -N}^N f(n) + \sum_i \text{Res}(f(z)\text{cotan}(\pi z)\Big|_{z_i} \]
+Tentiamo ora come al solito di maggiorare l'integrale con il lemma di darboux:
+\[|I_N|\leq \frac{L(Q_N)}{2\pi}\underset{|z|\in Q_n}{\text{sup}}|f(z)\text{cotan}(\pi z)|\simeq \frac{4N}{2\pi} N^{-1-\alpha} \underset{|z|\in Q_n}{\text{sup}}|\text{cotan}(\pi z)|\]
+Ora basta mostrare che $|\text{cotan}(\pi z)|$ è un oggetto limitato indipendentemente da $N$ e quindi per $N\to \infty$ l'integrale si annulla.
+\footnotetext[1]{si trovano sulla dispensa di Cognola però}
+\[|\text{cotan}(\pi z)| = \left|\frac{e^{i\pi z} + e^{-i\pi z}}{e^{i\pi z} -e^{-i\pi z}}\right| \leq \text{conti che zerbini non fa\footnotemark} \leq A\]
+Abbiamo quindi nel limite che $N$ vada al'infinito
+\[0 = \sum_{n = -N}^N f(n) + \pi \sum_i \text{Res}(f(z)\text{cotan}(\pi z)\Big|_{z_i}\]
+da cui banalmente il risultato.\\
+\newline La dimostrazione del (b) segue la stessa dimostrazione prendendo però come funzione $F=f(z)/\sin(\pi z)$ infatti il reciproco del seno ha come residui $(-1)^n/(\pi)$ e la funzione $1/\sin(\pi z)$ è sempre limitata sul quadrato $Q_N$
+\section{Prolungamento analitico}
+Sia $f_1$ una funzione analitica in $R_1$ e $f_2$ un altra funzione analitica in una regione $R_2$, possiamo dare la seguente definizione
+\begin{dfn}
+Se $f_1 = f_2$ in $R_1 \cap R_2$ allora si dice che $f_1$ è la continuazione analitica di $f_2$ o equivalentemente che $f_2$ è la continuazione analitica di $f_1$
+\end{dfn}
+si può dimostrare che se la continuazione analitica esiste allora è unica. Ma occupiamoci di una condizione sufficiente per l'analiticità:
+\begin{thm}
+Sia $g(z,t)$ continua in $z$ e analitica in $t$ per ogni $z\in R$, se la sua rappresentazione integrale
+\[f(z) = \int_a^bg(z,t)\,dt\]
+converge uniformenente allora $f(z)$ è analitica in $R$
+\end{thm}
+\hspace{-1.6em}\textbf{Dimostrazione:}\\
+Dato che la convergenza è uniforme allora la funzione $f$ è continua, inoltre prendiamo una curva chiusa $\gamma$ e integriamoci $f(z)$:
+\[\oint_\gamma f(z)\,dz = \oint_\gamma\int_a^bg(z,t)\,dtdz = \int_a^bdt\oint_\gamma g(z,t)\,dz = 0\]
+Per il teorema di Cauchy, di conseguenza per il teorema di Morera $f(z)$ è continua.\\
+\newline
+grazie a questo teorema possiamo costruire un sacco di funzioni interessanti
+\subsection{Funzione $\Gamma$ di Eulero}
+Si definisce la funzione $\Gamma$ di Eulero come
+\[\Gamma(z) =\int_0^\infty t^{z-1}e^{-t}\,dt\]
+l'integrale converge per $\text{Re}(z)>0$ infatti 
+\[t|t^{z-1}e^{-t}| = t^{\text{Re(z)}}e^{-t} \begin{array}{l@{\ }l}
+    \raisebox{-1ex}{$\nearrow$} & 0 \quad  t\to \infty \quad \forall z \\
+    \raisebox{1ex}{$\searrow$}  & 0\quad t\to 0\quad\text{Re}(z)>0
+  \end{array}
+\]
+Possiamo trovare quindi il suo prolungamento analitico ed estendere la funzione a tutto il piano complesso, per farlo spezziamo l'integrale negli intervalli $[0,1]$ e $[1,+\infty)$, questo perchè il problema della convergenza è in $t=0$ , conviene quindi spezzare la funzione in una parte più problematica e in un pezzo intero.
+\[\Gamma(z) =\int_0^\infty t^{z-1}e^{-t}\,dt = \int_0^1 t^{z-1}e^{-t}\,dt+\int_1^\infty t^{z-1}e^{-t}\,dt= \int_0^1 t^{z-1}e^{-t}\,dt+\Gamma_1(z)\]
+con $\Gamma_1(z)$ funzione intera. Possiamo concentrarci ora solo sul primo pezzo sviluppando con Taylor l'esponenziale
+\[\int_0^1 t^{z-1}e^{-t}\,dt = \int_0^1 t^{z-1}\sum_{k=0}^\infty \frac{(-1)^k}{k!}t^k\,dt = \sum_{k=0}^\infty \frac{(-1)^k}{k!}\int_0^1 t^{z+k-1}\,dt = \sum_{k=0}^\infty \frac{(-1)^k}{k!} \frac{1}{z+k} \]
+che vale per ogni $z$, a parte nei poli della funzione in $z=-k=-1,-2,\dots$ con $k$ intero positivo ed evidentemente abbiamo che
+\[\text{Res}\,\Gamma(z)\Big|_{-k} = \frac{(-1)^k}{k!}\]
+in 0 la funzione diverge, ma ci torneremo tra un poco. Calcoliamo invece la funzione in $z=1$, l'integrale qui è convergente quindi non c'è bisogno di scomodare il prolungamento:
+\[\Gamma(1) = \int_0^\infty e^{-t}\, dt = 1\]
+più interessante è calcolarla in $z+1$
+\[\Gamma(z+1) = \int_0^\infty t^{z}e^{-t}\,dt = -t^ze^{-t}\Big|_{0}^\infty + z\int_0^\infty t^{z-1}e^{-t}\, dt = z\Gamma(z)\]
+nota come \emph{\textbf{prima relazione funzionale:}}
+\[z\Gamma(z) = \Gamma(z+1)\]
+possiamo sfruttare questa relazione per calcolare $\Gamma(-\frac{1}{2})$:
+\[-\frac{1}{2}\Gamma\left(-\frac{1}{2}\right) = \Gamma\left(\frac{1}{2}\right)\]
+ci conviene prima però effettuare un cambiamento di variabile nella definizione della funzione e porre $t=x^2$, $dt=2xdx$
+\begin{equation}\label{eq:gamma}\Gamma(z) = \int_0^\infty t^{z-1}e^{-t}\,dt = 2\int_0^\infty x^{2z-1}e^{-x^2}\,dt\end{equation}
+allora  si ha che
+\[\Gamma\left(\frac{1}{2}\right) = 2\int_0^\infty e^{-x^2}\,dt = \sqrt{\pi}\]
+da cui $\Gamma(-\frac{1}{2}) = -2\sqrt{\pi}$.\\
+Molto interessante è il caso della funzione $\Gamma$ valutata in $n+1$, com $n\in\mathbb{N}$, infatti otteniamo:
+\[\Gamma(n+1) = n\Gamma(n) = n(n-1)\Gamma(n-1) =n(n-1)(n-2)\dots1\,\Gamma(1) = n! \]
+Valutiamo ora la funzione nell'origine, per farlo sfruttiamo una funzione ausiliaria:
+\[g(\varepsilon) := \frac{1}{\Gamma(\varepsilon)} = \frac{\varepsilon}{\varepsilon\Gamma(\varepsilon)} =\frac{\varepsilon}{\Gamma(\varepsilon+1)} \xrightarrow[\varepsilon\to 0]{} 0\]
+dai cui quindi la funzione $\Gamma$ è divergente nell'origine.\\
+\newline Dimostriamo a questo punto la \emph{\textbf{formula di Stirling:}}
+\[n! = \Gamma(n+1) \simeq \sqrt{2\pi n}n^n e^{-n}\quad n\to \infty \]
+utlizziamo la funzione $\Gamma$:
+\[\Gamma(x+1) = \int_0^\infty t^{x}e^{-t}\,dt = \int_0^\infty e^{-t+x\ln t}\,dt\]
+a questo punto notiamo che la funzione $-t+x\ln t $ ha un massimo in $t=x$, possiamo quindi provare a approssimare questa funzione con il suo secondo ordine di Taylor in quel punto, questo possiamo farlo perchè il contributo maggiore all'integrale è dato dal massimo, in quanto l'esponenziale va rapidamente a 0.
+\[-t+x\ln t \simeq -x + x\ln x - \frac{1}{2}\frac{(t-x)^2}{x}\]
+\begin{figure}[H]
+\centering
+\begin{tikzpicture}
+\draw [->](0,0) -- (10,0)node[below=1.5pt] {\color{black}$t$};
+\draw[->](0,0)--(0,4)node[right=1.5pt] {\color{black}$y$};
+\draw [red,domain=0.01:10,samples = 100] plot ({\x}, {2*2.718^(-\x+3*ln(\x))});
+\draw (3,0) node[below=1.5pt] {$x$}; 
+\draw[dotted] (3,0) -- (3,2.7);
+\draw [blue,thick,domain=0.01:10,samples = 100] plot ({\x}, {2*2.718^(-3+3*ln(3)-((\x-3)^2)/6  )});
+\end{tikzpicture}
+\caption{In rosso la funzione $e^{-t+x\ln t}$, in blu la sua approssimazione con il secondo ordine di Taylor $e^{-x+x\ln x -\frac{1}{2}\frac{(t-x)^2}{x}}$, l'approssimazione diventa sempre migliore più grande è $x$}
+\end{figure}
+l'integrale diventa quindi:
+\[\int_0^\infty e^{-t+x\ln t}\,dt = \int_0^\infty e^{-x+x\ln x -\frac{1}{2}\frac{(t-x)^2}{x}}\,dt = e^{-x+x\ln x}\int_0^\infty e^{-\frac{1}{2}\frac{(t-x)^2}{x}}\,dt \]
+cambiamo di variabile $y = \frac{t-x}{\sqrt{2x}}$, $dt = dy\sqrt{2x}$ arriviamo a:
+\[e^{-x+x\ln x}\sqrt{2x}\int_{-\frac{x}{\sqrt{2x}}}^\infty e^{-y^2}\, dy \xrightarrow[x\to \infty]{} e^{-x}x^x\sqrt{2x}\int_{-\infty}^\infty e^{-y^2}\, dy = e^{-x}x^x\sqrt{2\pi x}  \]
+\subsection{Funzione $\beta$ di Eulero}
+Un altra funzione definita tramite un integrale è la $\beta$ di Eulero strettamente imparentata con la $\Gamma$ di Eulero, inziamo a definire la funzione:
+\[\beta(a,b) = \int_0^1t^{a-1}(1-t)^{b-1}\, dt \quad a,b\in \C\]
+l'integrale è covergente per $\text{Re}(a)>0,\text{Re}(b)>0$. Operando un cambiamento di variabile $t = \sin^2\theta$ all'interno dell'integrale possiamo scrivere la funzione $\beta$
+come:
+\[ \int_0^1t^{a-1}(1-t)^{b-1} =  \int_0^{\frac{\pi}{2}} (\sin\theta)^{2a-2}(\cos\theta)^{2b-2} 2\sin\theta\cos\theta\,d\theta = 2\int_0^{\frac{\pi}{2}} (\sin\theta)^{2a-1}(\cos\theta)^{2b-1}\,d\theta \]
+dimostriamo ora la relazione tra la $\beta$ e la $\Gamma$, infatti vale:
+\begin{equation}\label{eq:beta}\beta(a,b) = \frac{\Gamma(a)\Gamma(b)}{\Gamma(a+b)}
+\end{equation}
+per dimostrarlo valutiamo la seguente utilizzando la definizione di $\Gamma$ data da \eqref{eq:gamma}:
+\[\Gamma(a)\Gamma(b) = 4\int_0^\infty y^{2a-1}e^{-y^2}\,dy\int_0^\infty x^{2b-1}e^{-x^2}\,dx = 4\int_0^\infty\int_0^\infty e^{-(x^2+y^2)} x^{2b-1}y^{2a-1}\,dxdy \]
+passando in coordinate polari:
+\[\begin{cases}
+    x =\rho \cos\theta   \\
+    y=\rho \sin\theta\\
+  \end{cases}\]
+ arriviamo a:
+ \[4\int_0^{\frac{\pi}{2}}d\theta\int_0^\infty d\rho\,\rho e^{-\rho^2}\rho^{2b-1+2a-1}(\cos\theta)^{2b-1}(\sin\theta)^{2a-1} = 4\int_0^{\frac{\pi}{2}}d\theta\,(\cos\theta)^{2b-1}(\sin\theta)^{2a-1}\int_0^\infty d\rho\,e^{-\rho^2}\rho^{2b+2a-1} \]
+ \[= \underbrace{2\int_0^{\frac{\pi}{2}}d\theta\,(\cos\theta)^{2b-1}(\sin\theta)^{2a-1}}_{\beta(a,b)}\,\underbrace{2\int_0^\infty d\rho\,e^{-\rho^2}\rho^{2b+2a-1}}_{\Gamma(a+b)}\]
+ovvero:
+\[\Gamma(a)\Gamma(b) =\beta(a,b)\Gamma(a+b)\]
+questa relazione è utile per arrivare ad un altra relazione funzionale per la $\Gamma$, prendiamo infatti il caso $a=z,b=1-z$, quindi $a+b=1$ e utilizziamo la relazione \eqref{eq:beta}:
+\[\frac{\Gamma(z)\Gamma(1-z)}{1} = \beta(z,1-z) = 2\int_0^{\frac{\pi}{2}}(\cos\theta)^{-2z+1}(\sin\theta)^{2z-1}\, d\theta = 2\int_0^{\frac{\pi}{2}}(\tan\theta)^{2z-1}\,d\theta \]
+cambiamo variabile con $\sqrt{x} = \tan\theta$, quindi $\theta = \text{arctan}\sqrt{x}$ da cui $d\theta = \frac{1}{1+x}\frac{1}{2\sqrt{x}}dx$
+\[2\int_0^\infty x^{z-\frac{1}{2}}\frac{1}{1+x}\frac{1}{2\sqrt{x}}\,dx = \int_0^\infty \frac{x^{z-1}}{x+1}\,dx\]
+l'integrale si può calcolare con il metodo dei residui, infatti sfruttando il fatto che $x^{z-1} = e^{(z-1)\ln x}$ con il teorema dei residui otteniamo:
+\[I = \int_0^\infty \frac{x^{z-1}}{x+1}\,dx = \int_0^\infty \frac{e^{(z-1)\ln x}}{x+1}\,dx = 2\pi i(e^{(z-1)\ln(-1)}) = 2\pi i (e^{i\pi z} e^{-\pi i})\]
+sfruttando il taglio del logaritmo:
+\[(1-e^{(z-1)2\pi i}) I = 2\pi i (e^{i\pi z} e^{-\pi i}) = - 2\pi ie^{i\pi z} \]
+da cui:
+\[2\pi i = I(1-e^{(z-1)2\pi i}) (-e^{-i\pi z }) = I(-e^{-i\pi z }+e^{(z-1)2\pi i-i\pi z}) = I(-e^{-i\pi z }+e^{i\pi z}) \]
+\[I = \frac{\pi}{\sin(\pi z)}\]
+ovvero per concludere
+\[\Gamma(z)\Gamma(1-z) = \frac{\pi}{\sin(\pi z)}\]
+\subsection{Funzione $\zeta$ di Riemann}
+Si definisce la funzione $\zeta$ mediante una serie:
+\[\zeta(z) = \sum_{n=1}^\infty n^{-z} \qquad \text{Re}(z)>1\]
+si può sfruttare la $\Gamma$ per prolungarla analiticamente, infatti, sfruttando un cambiamento di varibili $t = nx$,$dt=ndx$ possiamo scrivere la funzione come:
+\[\Gamma(z) = \int_0^\infty t^{z-1}e^{-t}\, dt =\int_0^\infty (nx)^{z-1}e^{-nx}\,n dx = n^z\int_0^\infty x^{z-1}e^{-nx}\,dx\]
+da cui
+\[n^{-z} =\frac{1}{\Gamma(z)} \int_0^\infty x^{z-1}e^{-nx}\,dx\]
+la funzione $\zeta$ può essere riscritta sfruttando questa relazione:
+\[\zeta(z) = \sum_{n=1}^\infty \frac{1}{\Gamma(z)} \int_0^\infty x^{z-1}e^{-nx}\,dx = \frac{1}{\Gamma(z)} \int_0^\infty x^{z-1} \sum_{n=1}^\infty e^{-nx}\,dx\]
+dato che $e^{-x}<1$ per ogni $x>0$ abbiamo una serie geometrica tolto il valore in $n=0$
+\[\frac{1}{\Gamma(z)} \int_0^\infty x^{z-1} \sum_{n=1}^\infty e^{-nx}\,dx  = \frac{1}{\Gamma(z)} \int_0^\infty x^{z-1} \left(\frac{1}{1-e^{-x}}-1\right)\,dx \]
+con semplici manipolazioni algebriche:
+\[\frac{1}{1-e^{-x}}-1 = \frac{1-1+e^{-x}}{1-e^{-x}} = \frac{e^{-x}}{1-e^{-x}} \frac{e^x}{e^x} = \frac{1}{e^x-1}\]
+arriviamo a:
+\[\zeta(z) = \frac{1}{\Gamma(z)}\int_0^\infty \frac{t^{z-1}}{e^t-1}\,dt\]
+Grazie alla funzione $\zeta$ possiamo dare un senso alle serie divergenti come $\sum_{n=1}^\infty n = 1+2+3+\dots = \zeta(-1)$, ovvero facciamo convergere serie divergenti\footnote{Queste serie vengono chiamate somme di Ramanujan}. Sembra pazzo ma a quanto pare viene sfruttato nella teoria bosonica delle stringhe per calcolare l'energia del vuoto.\\
+Tentiamo allora di calcolare il valore di $\zeta(-1)$, sfruttiamo la definizione appena data della funzione e scriviamola in questo modo:
+\[\zeta(z) = \frac{1}{\Gamma(z)}\int_0^\infty t^{z-2} \frac{t}{e^t-1}\,dt\]
+definiamo la funzione $B(t) = \frac{t}{e^t-1}$ e sviluppiamola in serie:
+\[B(t) = \frac{t}{e^t-1} \simeq \frac{t}{t+\frac{t^2}{2}+\frac{t^3}{6}+\dots} \simeq \frac{1}{1+\frac{t}{2}+\frac{t^2}{6}+\dots} \simeq 1-\frac{t}{2}-\frac{t^2}{6}+ \dots + \left(\frac{t}{2}-\frac{t^2}{6}+ \dots\right)^2 \]
+\[\simeq 1-\frac{t}{2}+\frac{t^2}{12}-\frac{t^4}{720}+\dots\]
+Definiamo adesso $\hat{B}(t) = \frac{t}{2} + B(t)$, osserviamo che $\hat{B}(0) = 1$ e che $\hat{B}(t)$ è una funzione pari quindi scriviamo per comodità:
+\[\hat{B}(t) = 1+ \sum_{k=1}^\infty B_{2k}t^{2k}\]
+con $B_{2k}$ numeri di Bernoulli: $B_2 =1/12,B_4 = -1/720$.
+possiamo esprimere quindi la funzione come:
+\[\zeta(z) =  \frac{1}{\Gamma(z)}\int_0^1 t^{z-2} B(t)\,dt + \frac{1}{\Gamma(z)}\int_1^\infty t^{z-2} B(t)\,dt = \frac{1}{\Gamma(z)}\int_0^1 t^{z-2} B(t)\,dt + \frac{J_1(z)}{\Gamma(z)}\]
+con $\frac{J_1(z)}{\Gamma(z)}$ funzione intera. Utilizziamo adesso la funzione $\hat{B}$ da cui $B(t) = \hat{B}(t)-\frac{t}{2}$ e abbiamo:
+\[\zeta(z) =  \frac{1}{\Gamma(z)}\int_0^1 t^{z-2}( 1 -\frac{t}{2}+ \sum_{k=1}^\infty B_{2k}t^{2k} ) \,dt + \frac{J_1(z)}{\Gamma(z)}\]
+l'integrale a questo punto diventa immediato e otteniamo:
+\[\zeta(z)  =  \frac{1}{\Gamma(z)} \left(\frac{t^{z-1}}{z-1}\bigg|_0^1 -\frac{1}{2}\frac{t}{z}\bigg|_0^1 + \sum_{k=1}^\infty B_{2k} \frac{t^{2k+z-1}}{2k+z-1}\bigg|_0^1 \right)  + \frac{J_1(z)}{\Gamma(z)}\]
+\[= \frac{1}{\Gamma(z)} \left(\frac{1}{z-1}-\frac{1}{2z} + \sum_{k=1}^\infty \frac{B_{2k}}{2k+z-1}\right)  + \frac{J_1(z)}{\Gamma(z)}\]
+Adesso ci siamo, prendiamo $\varepsilon$ e calcoliamo quindi il limite di $\displaystyle\lim_{\varepsilon\to0}\zeta(-1+\varepsilon)$:
+\[\zeta(-1+\varepsilon) = \frac{1}{\Gamma(-1+\varepsilon)} \left(\frac{1}{-2+\varepsilon}-\frac{1}{-2+2\varepsilon} + \sum_{k=1}^\infty \frac{B_{2k}}{2k-2+\varepsilon}\right)  + \frac{J_1(-1+\varepsilon)}{\Gamma(-1+\varepsilon)}\]
+i primi due termini all'interno della parentesi con $\varepsilon$ che tende a 0 si semplificano quindi non sono un problema, consideriamo il termine $\frac{J_1}{\Gamma}$:
+\[\frac{J_1(-1+\varepsilon)}{\Gamma(-1+\varepsilon)}\frac{(-1+\varepsilon)}{(-1+\varepsilon)} =\frac{J_1(-1+\varepsilon)(-1+\varepsilon)}{\Gamma(\varepsilon)}\frac{\varepsilon}{\varepsilon} = \frac{J_1(-1+\varepsilon)(-1+\varepsilon)\varepsilon}{\Gamma(\varepsilon +1)} \xrightarrow[\varepsilon\to 0]{} 0\]
+dato che $J_1(z)$ è un integrale convergente per ogni $z.$ Consideriamo quindi il termine con la sommatoria facendo lo stesso trucco:
+\[\sum_{k=1}^\infty \frac{B_{2k}}{\Gamma(-1+\varepsilon)(2k-2+\varepsilon)} = \sum_{k=1}^\infty \frac{B_{2k}(-1+\varepsilon)}{(-1+\varepsilon)\Gamma(-1+\varepsilon)(2k-2+\varepsilon)} =  \sum_{k=1}^\infty \frac{B_{2k}(-1+\varepsilon)}{\Gamma(\varepsilon)(2k-2+\varepsilon)}\frac{\varepsilon}{\varepsilon}\]\[ = \sum_{k=1}^\infty \frac{B_{2k}(-1+\varepsilon)\varepsilon}{\Gamma(\varepsilon+1)(2k-2+\varepsilon)}\]
+adesso è facile vedere che se $k=1$, l'$\varepsilon$ al denominatore si semplifica con quello al numeratore, mentre per tutti i restanti $k$ questo non succede e quindi nel limite di $\varepsilon$ che tende a 0, sopravvive e da l'unico contributo il termine con $k=1$ pari a $-B_2$, da cui infine:
+\[\zeta(-1+\varepsilon)\xrightarrow[\varepsilon\to 0]{} -B_2 = -\frac{1}{12} = \sum_{n=1}^\infty n\]
+\section{Trasformate}
+La spazio $\R^3$ è uno spazio vettoriale funzionale in cui abbiamo a disposizione una base vettoriale data da: $\vettore{e_1},\vettore{e_2},\vettore{e_3}$. E naturalmente vale $\vettore{e_i}\cdot \vettore{e_2} = \delta_j^i$. È definito anche un prodotto scalare tra due vettori $\vettore{a}\cdot\vettore{b}$ e infine possiamo rappresentare ogni vettore dello spazio con le sue componenti $\vettore{x} = x^k \vettore{e_k}$ (con il simbolo di sommatoria implicito secondo la convenzione di Einstein). Tutto questo può essere fatto in perfetta analogia con le funzioni, prendiamo in particolare una classe di funzioni periodica ovvero che vale
+\[f(x) = f(x+2l)\]
+con $2l$ il periodo della funzione. Definiamo quindi il prodotto scalare:
+\[f\cdot g := (f,g) = \int_l^l \overline{f(x)}g(x)\,dx\] 
+come sistema ortonormale quindi come base possiamo prendere:
+\[\vettore{e_i} = e_n(x) = \frac{e^{i\frac{\pi}{l}nx}}{\sqrt{2l}}\]
+infatti se facciamo il prodotto scalare tra due componenti della base:
+\[(e_n,e_m) = \frac{1}{2l}\int_l^l e^{-\frac{\pi}{l}(n-m)xi}\,dx \begin{array}{l@{\ }l}
+    \raisebox{-1ex}{$\nearrow$} & 1 \quad  n=m\\
+    \raisebox{1ex}{$\searrow$}  & 0\quad n\neq m\\
+  \end{array}\]
+definiamo quindi i coefficienti di Fourier e la sua serie:
+\[f_n = (e_n,f) = \frac{1}{\sqrt{2\pi}}\int_l^l e^{-i\frac{\pi}{l}nx}f(x)\,dx\qquad \sum_n f_n e_n(x)\]
+nel caso $l = \pi$ abbiamo la classica serie di Fourier. Tenendo conto che vale:
+\[f(x) = \sum_{-\infty}^\infty f_n \frac{e^{i\frac{\pi}{l}nx}}{\sqrt{2l}} \qquad f_n = \frac{1}{\sqrt{2\pi}}\int_l^l e^{-i\frac{\pi}{l}nx}f(x)\,dx\]
+Studiamo il problema della convergenza della serie, ricordiamo le seguenti definizioni e risultati:
+\begin{itemize}
+\item \textbf{Convergenza puntuale:} $|f_n(x)-f(x)|<\varepsilon \quad \forall n(\varepsilon,x)$
+\item \textbf{Convergenza uniforme:} $|f_n(x)-f(x)|<\varepsilon \quad \forall n$
+\end{itemize}
+\begin{thm}
+(Teorema di Weierstrass) se $|g_n(x)|\leq a_n$ e $\sum_n a_n$ converge allora $g_n$ converge uniformemente.
+\end{thm}
+\begin{thm}
+Se $f(x)$ è limitata, periodi di periodo $2l$ e continua a tratti allora:
+\[f(x) = \sum_{-\infty}^\infty f_n \frac{e^{i\frac{\pi}{l}nx}}{\sqrt{2l}}\]
+nei punti $x$ in cui la funzione è continua, invece nei punti in cui la funzione è discontinua la sommatoria converge alla semisomma
+\[\frac{f(x_0+0^+)+f(x_0+0^-)}{2}\]
+\end{thm}
+\begin{thm}
+Se $f$ periodica è continua, $f'$ continua a tratti, allora la serie di Fourier converge uniformemente.
+\end{thm}
+\subsection{Trasformata di Fourier}
+Si può passare dalla serie di Fourier alla trasformata di Fourier mandando il periodo $l$ all'infinito in modo che possiamo trasformare qualsiasi funzione non necessariamente periodica. Facendo i limiti si ottiene:
+\[k_n = \frac{\pi}{l}n \xrightarrow[l\to \infty]{} k\in\R\quad\Delta k =\frac{\pi}{l} \xrightarrow[l\to \infty]{} dk  \quad\sum_n \Delta k \xrightarrow[l\to \infty]{}\int_{-\infty}^\infty dk\]
+per cui la serie diventa
+\[f(x) = \sum_n \frac{e^{ik_nx}}{\sqrt{2l}}\frac{l}{\pi}\Delta k = \sum_n \Delta k e^{ik_nx}\frac{\tilde{f_n}}{2\pi}\]
+con $\tilde{f_n} = f_n\sqrt{2l}$ e vale:
+\[\tilde{f_n} = \int_{-l}^l e^{-ik_nx}f(x)\,dx\]
+che prendendone il limite all'infinito otteniamo la trasformata di Fourier!
+\[\tilde{f_n}\xrightarrow[l\to \infty]{} \tilde{f}(k) = \int_{-\infty}^\infty e^{-ikx}f(x)\,dx\]
+e con trasformata inversa data da:
+\[f(x) = \frac{1}{2\pi}\int_{-\infty}^\infty e^{ikx}\tilde{f}(x)\,dx\]
+\begin{thm}
+Se $f(x)\in L_1(\R)$ ovvero è convergente (nel senso di Lebesque) l'integrale:
+\[\int_{-\infty}^\infty|f(x)|\,dx<+\infty\] 
+allora la trasformata di Fourier $\mathcal{F}(f) = \tilde{f}(k)$ esiste ed è continua.
+\end{thm}
+\hspace{-1.6em}\textbf{Dimostrazione:}\\
+dimostriamo che esiste ovvero che l'integrale di Fourier è convergente:
+\[| \tilde{f}(k)| = \left|\int_{-\infty}^\infty e^{-ikx}f(x)\,dx \right| = \int_{-\infty}^\infty |f(x)|\,dx <+\infty \]
+per dimostrare la continuità prendiamo il limite di $k\to k_0$
+\[\lim_{k\to k_0} \tilde{f}(k) = \int_{-\infty}^\infty \lim_{k\to k_0}  e^{-ikx}f(x)\,dx =  \int_{-\infty}^\infty e^{-ik_0x}f(x)\,dx = \tilde{f}(k_0)\]
+per il teorema della convergena dominata.
+\begin{lem}
+(Lemma di Riemann- Lebesque) se $f(x)\in L_1(\R)$ allora:
+\[\lim_{|k|\to +\infty} \tilde{f}(k) = 0\]
+\end{lem}
+\hspace{-1.6em}\textbf{Dimostrazione:}\\
+Per dimostrarlo è sufficiente dimostrare il lemma per le funzioni caratteristiche in un generico intervallo $[a_j,b_j]$:
+\[\chi_j =\begin{cases}
+    1 \qquad a_j<x<b_J  \\
+   0\qquad \text{altrove}\\
+  \end{cases} \]
+infatti una funzione sommabile può essere vista come una somma di funzioni caratteristiche per modulate da un fattore $f = \sum_j f_j \chi_j$
+\[\tilde{\chi_j}(k) = \int_{-\infty}^\infty \chi_j e^{-ikx}\,dx = \int_{a_j}^{b_j}e^{-ikx}\,dx = -\frac{e^{-ikx}}{ik}\bigg|_{a_j}^{b_j} \xrightarrow[k\to \infty]{} 0\]
+\\
+\newline
+Ricaviamo le proprietà della trasformata di Fourier, oltre a quella ovvia di linearità.
+\begin{enumerate}[a)]
+\item se $f,f'\in L_1(\R)$ allora:  $\mathcal{F}(\d{f}{x}) = ik\mathcal{F}(f)$
+\item $\d{\mathcal{F}(f)}{k} = \mathcal{F}(-ixf)$
+\end{enumerate}
+\textbf{Dimostrazione (a):}\\
+\[\mathcal{F}\left(\d{f}{x}\right)= \int_{-\infty}^\infty e^{-ikx}\d{f}{x}\,dx =fe^{-ikx}\Big|_{-\infty}^\infty+ik \int_{-\infty}^\infty e^{-ikx}f(x)\,dx =  ik\mathcal{F}(f) \]
+\textbf{Dimostrazione (b):}\\
+\[\d{\mathcal{F}(f)}{k} =  \frac{d}{dk}\int_{-\infty}^\infty e^{-ikx}f(x)\,dx = -ix \int_{-\infty}^\infty e^{-ikx}f(x)\,dx  =  \mathcal{F}(-ixf)\]
+\\
+Verifichiamo la formula di inversione della trasformata di Fourier:
+\[f(x) = \frac{1}{2\pi}\int_{-\infty}^\infty e^{ikx}\tilde{f}(k)\,dk\]
+per farlo introduciamo $f_N(x)$
+\[f_N(x) = \frac{1}{2\pi}\int_{-N}^N e^{ikx}\tilde{f}(k)\,dk\]
+e vediamo cosa succede per $N$ che tende all'infinito, per definizione di trasformata abbiamo:
+\[f_N(x) = \frac{1}{2\pi}\int_{-N}^N e^{ikx}\int_{-\infty}^\infty e^{-iky}f(y)\,dydk = \frac{1}{2\pi}\int_{-\infty}^\infty f(y)\,dy\int_{-N}^N e^{ikx-iky}\,dk = \]
+\[\frac{1}{2\pi}\int_{-\infty}^\infty f(y) \frac{e^{ik(x-y)}}{i(x-y)}\bigg|_{-N}^N \,dy =  \frac{1}{2\pi}\int_{-\infty}^\infty f(y) \frac{e^{iN(x-y)}-e^{-iN(x-y)}}{i(x-y)}\,dy \]
+Definiamo a questo punto la seguente funzione:
+\[\delta_N(x) = \frac{\sin(Nx)}{\pi x} = \frac{e^{iNx}-e^{-iNx}}{2\pi ix}\]
+il nostro integrale diventa semplicemente:
+\[\int_{-\infty}^\infty f(y) \delta_N(x-y)\,dy = \int_{-\infty}^\infty (f(y)-f(x))\delta_N(x-y)\,dy + \int_{-\infty}^\infty f(x) \delta_N(x-y)\,dy \]
+vediamo meglio come si comporta questa funzione $\delta$ al tendere di $N$ all'infinto, abbiamo che con un cambio di variabile:
+\[\int_{-\infty}^\infty \delta_N(x)\,dx =\int_{-\infty}^\infty \frac{\sin(Nx)}{\pi x}\,dx  = \int_{-\infty}^\infty \frac{\sin(y)}{\pi y}\,dy = 1\]
+quindi otteniamo che:
+\[\int_{-\infty}^\infty (f(y)-f(x))\delta_N(x-y)\,dy +  f(x) \int_{-\infty}^\infty\delta_N(x-y)\,dy  =  f(x) + \int_{-\infty}^\infty (f(y)-f(x))\delta_N(x-y)\,dy \]
+usiamo il teorema di Lagrange e scriviamo:
+\[\int_{-\infty}^\infty (f(y)-f(x))\frac{\sin(N(x-y))}{\pi (x-y)}\,dy =\int_{-\infty}^\infty f'(\xi) \frac{e^{iN(x-y)}-e^{-iN(x-y)}}{2\pi i}\,dy \xrightarrow[N\to \infty]{} 0 \]
+\newline A questo punto definiamo meglio uno spazio di funzioni in cui l'operatore di trasformata è definito.
+\begin{dfn}
+Si chiama lo spazio dellle funzioni a decrescita rapita il seguente:
+\[\mathcal{S} = \{f(x)\in C^\infty(\R):\, |x^\alpha f^{(\beta)}(x)|\xrightarrow[|x|\to \infty]{} 0 \;\forall\alpha,\beta  \}  \]
+\end{dfn}
+allora l'operatore di trasformata è un operazioni chiusa su questo insieme, $\mathcal{F}:\mathcal{S}\to\mathcal{S}$. Possiamo allora prendere due funzioni $f,g\in \mathcal{S}$ è definire il prodotto di convuluzione:
+\[(f*g)(x) = \int_{-\infty}^\infty f(x-y)g(y)\,dy = g*f\]
+questa operazione è di particolare utilità perchè vale il seguente teorema
+\begin{thm}
+Siano $f,g\in \mathcal{S}$ allora vale:
+\[\mathcal{F}(f*g) =\mathcal{F}(f)\mathcal{F}(g) \]
+\end{thm}
+\hspace{-1.6em}\textbf{Dimostrazione:}\\
+\[\mathcal{F}(f*g) = \int_{-\infty}^\infty dy\,e^{-iky}\int_{-\infty}^\infty f(y-t)g(t)\,dt = \]
+con un cambiamento di variabile $y-t = x$,$dy=dx$:
+\[\int_{-\infty}^\infty e^{-ikx}e^{-ikt}\, dx \int_{-\infty}^\infty f(x)g(t)\,dt = \int_{-\infty}^\infty e^{-ikx} f(x)\, dx \int_{-\infty}^\infty e^{-ikt} g(t)\,dt =  \mathcal{F}(f)\mathcal{F}(g)\]
+\begin{thm}
+(Teorema di Plancherel) Siano $f,g\in \mathcal{S}$ e sia il loro prodotto scalere
+\[(f,g) = \int_{-\infty}^\infty\overline{f}(x)g(x)\,dx\]
+allora abbiamo che:
+\[(\tilde{f},\tilde{g}) = 2\pi(f,g)\]
+\end{thm}
+\hspace{-1.6em}\textbf{Dimostrazione (a):}\\
+prendiamo come nella formula di inversione $N$ finito e facciamone poi il limite:
+\[\int_{-N}^N \overline{\tilde{f}}(k) \tilde{g}(k)\,dk = \int_{-N}^N\,dk \int_{-\infty}^\infty e^{ikx} \overline{f}(x)\, dx  \int_{-\infty}^\infty e^{-iky} g(y)\,dy = \int_{-\infty}^\infty \overline{f}(x)\, dx \int_{-\infty}^\infty g(y)\,dy \int_{-N}^Ndk \,e^{ik(x-y)}\]
+\[\int_{-\infty}^\infty \overline{f}(x)\, dx \int_{-\infty}^\infty g(y)\,dy \frac{e^{iN(x-y)} - e^{-iN(x-y)}}{i(x-y)} = 2\pi\int_{-\infty}^\infty \overline{f}(x)\, dx \int_{-\infty}^\infty g(y)\delta_N(x-y)\,dy\]
+che nel limite $N\to\infty$ passando sotto il segno di integrale:
+\[\lim_{N\to\infty}2\pi\int_{-\infty}^\infty \overline{f}(x)\, dx \int_{-\infty}^\infty g(y)\delta_N(x-y)\,dy =  2\pi\int_{-\infty}^\infty \overline{f}(x)g(x)\, dx = (f,g) \]
+\\
+siccome ai fisici non piace molto quel fattore $2\pi$ allora si preferisce usare un altra convenzione in modo che quando si passa nello spazio delle trasformate di Fourier il prodotto scalare viene preservato senza quindi avere quel fastidioso fattore $2\pi$ 
+\[\tilde{f}(k) = \frac{1}{\sqrt{2\pi}} \int_{-\infty}^\infty e^{-ikx}f(x)\, dx \quad f(x) = \frac{1}{\sqrt{2\pi}} \int_{-\infty}^\infty e^{ikx}\tilde{f}(k)\, dk \]
+La trasformata di Fourier si può generalizzare in spazi del tipo $\R^n$ in modo da poter applicarle alle equazioni alle derivate parziali, brevemente abbiamo:
+\[\tilde{f}(\vettore{k}) =  \int_{\R^n} e^{-i\vettore{k}\cdot\vettore{x}}f(\vettore{x})\, d\vettore{x} \qquad f(\vettore{x}) =  \frac{1}{(2\pi)^n}\int_{\R^n} e^{i\vettore{k}\cdot\vettore{x}}\tilde{f}(\vettore{k})\, d\vettore{k} \]
+valgono i seguenti risultati:
+\begin{itemize}
+\item $\mathcal{F}(f*g)=\mathcal{F}(f)\mathcal{F}(g) $
+\item $(\tilde{f},\tilde{g}) = (2\pi)^n(f,g)$
+\item $\mathcal{F}(\vettore{\nabla}f) = i\vettore{k}\mathcal{F}(f)$
+\item $\mathcal{F}(\nabla^2f) = -k^2\mathcal{F}(f)$
+\end{itemize}
+Dimostriamo la terza formula considerando che:
+\[\vettore{\nabla}(e^{-i\vettore{k}\cdot\vettore{x}}f) = e^{-i\vettore{k}\cdot\vettore{x}}\vettore{\nabla}f + fe^{-i\vettore{k}\cdot\vettore{x}}\vettore{\nabla}(-i\vettore{k}\cdot\vettore{x}) =   e^{-i\vettore{k}\cdot\vettore{x}}\vettore{\nabla}f -i\vettore{k} fe^{-i\vettore{k}\cdot\vettore{x}} \]
+da cui l'integrale:
+\[\int_{\R^n} e^{-i\vettore{k}\cdot\vettore{x}}\vettore{\nabla}f(\vettore{x})\, d\vettore{x}  = \int_{\R^n} [i\vettore{k} fe^{-i\vettore{k}\cdot\vettore{x}} + \vettore{\nabla}(e^{-i\vettore{k}\cdot\vettore{x}}f)]d\vettore{x} = i\vettore{k}\mathcal{F}(f)\]
+in quanto l'integrale del secondo termine è nullo.
+\subsection{Trasformata di Laplace unilatera}
+La trasformata di Fourier può essere generalizzata, consideriamo il fattore $e^{-ikt}$ e prendiamo un numero complesso $p = \eta +ik$ il termine esponenziale di Fourier diventa quindi $e^{-pt}$. Definiamo quindi la trasformata di Laplace unilatera di una funzione per cui vale $f(t) = 0 $ per $t<0$ come:
+\[\mathcal{L}[f](p) = \hat{f}(p) := \int_0^\infty e^{-pt} f(t)\,dt \]
+\begin{thm}
+Se $|f(t)|\leq A e^{\gamma_0t}$ allora la sua trasformata di Laplace unilatera esiste ed è analitica per $\text{Re}(p)>\gamma_0$
+\end{thm} 
+\hspace{-1.6em}\textbf{Dimostrazione:}\\
+\[\hat{f}(p)| = \int_0^\infty |e^{-pt}|\, |f(t)|\,dt\leq \int_0^\infty Ae^{\gamma_0t} e^{-\eta t}\,dt = \int_0^\infty Ae^{(\gamma_0-\eta)t}\,dt< \infty \]
+L'analiticità si ricava facendo l'integrale su una curva chiusa e osservando che fa 0, quindi per il teorema di Morera è analitica.\\
+\newline Per la trasformata di Laplace valgono le seguenti proprietà oltre alla ovvia linearità, se $f,f'$ ed $f''$ sono $\mathcal{L}$-trasformabili allora:
+
+\begin{enumerate}[a)]
+\item $\mathcal{L}[\d{f}{t}] = p\mathcal{L}[f]-f(0)$
+\item $\mathcal{L}[\dd{f}{t}] = p^2\mathcal{L}[f]-pf(0)-f'(0)$
+\item $\mathcal{L}[\int_0^t f(t')\,dt'] = \frac{1}{p}\mathcal{L}[f]$
+\end{enumerate}
+\textbf{Dimostrazione (a):}\\
+dalla definizione si integra per parti e si ottiene:
+\[\hat{\d{f}{t}}(p) := \int_0^\infty e^{-pt}\d{f}{t}\,dt =  f(t)e^{-pt}\Big|_0^\infty + p\int_0^\infty e^{-pt} f(t)\,dt = p\mathcal{L}[f]-f(0)  \]
+\textbf{Dimostrazione (c):}\\
+Sia $F(t) = \int_0^t f(t')\,dt'$, notiamo che $F(0) = 0$ e che $F'(t) = f(t)$ usiamo quindi la proprietà (a):
+\[\mathcal{L}[f] = \mathcal{L}\left[\d{F}{t}\right] = p\mathcal{L}[F] = \mathcal{L}\left[\int_0^t f(t')\,dt'\right]    \]
+\begin{thm}
+(Teorema dell'attenuazione) Sia $h\in\C$ se $\mathcal{L}[e^{ht}f]$ esiste allora:
+\[\mathcal{L}[e^{ht}f] = \mathcal{L}[f](p-h)  \]
+\end{thm}
+\hspace{-1.6em}\textbf{Dimostrazione:}\\
+Autoevidente quando metti $e^{ht}f$ nella definizione di trasformata di Laplace
+\begin{thm}
+(Teorema di convoluzione) 
+\[\L[f*g] = \L[f]\L[g]\]
+\end{thm}
+\hspace{-1.6em}\textbf{Dimostrazione:}\\
+prendiamo $N$ finito e facciamone il limite che va all'infinito:
+\[\L[f*g] = \lim_{N\to\infty}\int_0^N e^{-pt}f*g\,dt = \int_0^N e^{-pt}\,dt\int_0^t f(t-y)g(y)\,dy\]
+per il teorema di Fubini vale che:
+\[\int_0^Ndt\int_0^tdy = \int_0^Ndy\int_y^Ndt\]
+quindi possiamo scrivere il nostro integrale come
+\[\int_0^N e^{-pt}\,dt\int_0^t f(t-y)g(y)\,dy = \int_0^N g(y)\,dy\int_y^N f(t-y)e^{-pt}\,dt\]
+cambiamo variabile $\tau = t-y$:
+\[ \int_0^N g(y)\,dy\int_0^{N-y} f(\tau)e^{-p\tau}e^{-py}\,d\tau = \int_0^N g(y)e^{-py}\,dy\int_0^{N-y} f(\tau)e^{-p\tau}\,d\tau \xrightarrow[N\to \infty]{} \L[f]\L[g] \]
+\\
+sarebbe interessante anche avere una formula di inversione per la trasformata di Laplace, ci si può condurre in qualche modo a quella di Fourier, infatti:
+\[ \hat{f}(p) := \int_0^\infty e^{-pt} f(t)\,dt =  \int_0^\infty e^{-\eta t}e^{-ikt} f(t)\,dt = \mathcal{F}(e^{-\eta t}f(t))  \]
+possiamo ora sfruttare l'antitrasformata di Fourier e scrivere:
+\[e^{-\eta t}f(t) = \mathcal{F}^{-1}(\hat{f}(p)) = \frac{1}{2\pi}\int_{-\infty}^\infty e^{ikx}\hat{f}(p)\,dk\]
+dai cui:
+\[f(t) = \frac{1}{2\pi}\int_{-\infty}^\infty e^{ikt}e^{\eta t}\hat{f}(p)\,dk = \frac{1}{2\pi}\int_{-\infty}^\infty e^{pt}\hat{f}(p)\,dk\]
+cambiamo di variabile tenendo conto ch e $p = \eta + ik$,$dp = idk$:
+\[f(t) = \frac{1}{2\pi i }\int_{\eta-i\infty}^{\eta+i\infty} e^{pt}\hat{f}(p)\,dp\]
+
+\section{Equazione differenziale del secondo ordine}
+Consideriamo la seguente equazione differenziale:
+\[(a_2+xb_2)y'' + (a_1+xb_1)y'+(a_0+xb_0)y =0\]
+Possiamo risolverla con il metodo di Laplace. Esso ci dice che proviamo a prendere:
+\[y(x) = \int_{C_{ab}}e^{sx}Z(z)\,ds \quad y'(x) = \int_{C_{ab}}se^{sx}Z(z)\,ds \quad y''(x) = \int_{C_{ab}}s^2e^{sx}Z(z)\,ds\]
+dove $C_{ab}$ è una generica curva sul piano complesso con estremi $a$ e $b$. Mettiamo nell'equazione differenziale e otteniamo:
+\[0 = \int_{C_{ab}}[((a_0+xb_0)+(a_1+xb_1)s+(a_2+xb_2)s^2)e^{sx}Z(z)]\,ds = \int_{C_{ab}}[(A(s)+xB(s))e^{sx}Z(z)]\,ds\]
+dove abbiamo definito:
+\[ \begin{cases}
+   A(s) := a_0+sa_1+s^2a_2  \\
+   B(s) := b_0+sb_1+s^2b_2\\
+  \end{cases} \]
+cerchiamo ora di integrare per parti il termine $xB(s)Z(s)e^{sx}$:
+\[\frac{d}{ds}(B(s)Z(s)e^{sx}) = xB(s)Z(s)e^{sx} + e^{sx}\frac{d}{ds}(B(s)Z(s))\]
+l'integrale lo facciamo diventare allora:
+\[\int_{C_{ab}}xB(s)e^{sx}Z(z)\,ds = B(s)Z(s)e^{sx}\Big|_a^b - \int_{C_{ab}}e^{sx}\frac{d}{ds}(B(s)Z(s))ds \]
+aggiungendo il termine con la $A(s)$:
+\[\int_{C_{ab}}[(A(s)+xB(s))e^{sx}Z(z)]\,ds =  B(s)Z(s)e^{sx}\Big|_a^b + \int_{C_{ab}}e^{sx}[A(s)Z(s)-\frac{d}{ds}(B(s)Z(s))]ds = 0 \]
+se vogliamo che si annulli ci vogliono 2 condizioni, la prima ci fornisce le condizioni al contorno:
+\[B(s)Z(s)e^{sx}\Big|_a^b = 0 \quad B(b)Z(b)e^{bx}= B(a)Z(a)e^{ax}\]
+la quale ci permette di scegliere i due estremi $a,b$. La seconda condizioni è che si annulli l'integrale, ovvero si annulli l'integrando:
+\[A(s)Z(s) =\frac{d}{ds}(B(s)Z(s))  \]
+da cui integrando per parti:
+\[\frac{A(s)}{B(s)}ds =\frac{dB(s)Z(s)}{B(s)Z(s)} \quad \int\frac{A(s)}{B(s)}ds =\int\frac{dB(s)Z(s)}{B(s)Z(s)} \quad \int\frac{A(s)}{B(s)}ds =\ln(B(s)Z(s))\]
+ovvero:
+\[Z(s) = \frac{e^{\int\frac{A(s)}{B(s)}}}{B(s)}\]
+\section{Equazione di propagazione in una dimensione}
+Si tratta di risolvere la seguente equazione differenziale
+\begin{equation}
+\label{eq}
+\begin{cases}
+    \pdd{u(x,t)}{t}-c^2\pdd{u(x,t)}{x}=0  \\
+   u(x,0) = 0\\
+   \pd{u}{t}(x,0) = g(x)
+  \end{cases} 
+\end{equation}
+Applichiamo la trasformata di Fourier all'equazione per lo spazio e otteniamo
+\[\mathcal{F}\left(\pdd{u(x,t)}{t}-c^2\pdd{u(x,t)}{x}\right) = 0\]
+\[\pdd{\mathcal{F}(u(k,t)}{t}+c^2k^2\mathcal{F}(u(k,t)) =0\]
+infatti la derivata rispetto al tempo passa fuori dalla trasformata di Fourier in quanto fatta solo rispetto allo spazio e la derivata rispetto allo spazio per proprietà della trasformata diventa un fattore $-k^2$ davanti. Scriviamo la trasformata cosi: $\mathcal{F}(u(k,t)) \equiv \tilde{u}(k,t)$ e otteniamo l'equazione
+\[\pdd{\tilde{u}(k,t)}{t}+c^2k^2\tilde{u}(k,t)=0\]
+definito $\omega = kc$ abbiamo
+\[\pdd{\tilde{u}(k,t)}{t}+\omega^2\tilde{u}(k,t)=0\]
+che è l'equazione armonica con soluzione nota:
+\begin{equation}
+\label{sol}
+\tilde{u}(k,t) = A(k)\sin(\omega t+\phi)
+\end{equation}
+con $A(k)$ da determinare secondo le condizioni iniziali e $\phi=0$ per la prima condizione inziale. Per trovare $A(k)$ prendiamo la seconda condizione dell'equazione \eqref{eq} e applichiamo la trasformata di Fourier in modo da avere la condizione iniziale nello spazio di Fourier
+\[\mathcal{F}\left(\pd{u}{t}(k,0)\right) = \mathcal{F}(g(k)) \qquad \pd{\tilde{u}}{t}(k,0) = \tilde{g}(k)\]
+quindi prendiamo la soluzione \eqref{sol} deriviamola rispetto al tempo e imponiamo la condizione in $t=0$
+\[\pd{\tilde{u}}{t}(k,t) = A(k)\omega \cos(\omega t)\]
+\[\pd{\tilde{u}}{t}(k,0) =A(k)\omega = \tilde{g}(k) \]
+da cui $A(k) = \tilde{g}(k)/\omega$
+La nostra soluzione finale quindi è:
+\[\tilde{u}(k,t) = \frac{\tilde{g}(k)}{\omega}\sin(\omega t)\]
+Ora l'unica cosa che ci rimane è antitrasformare la $\tilde{u}(k,t)$ in modo da avere l'originale $u(x,t)$
+\begin{equation}\label{f}
+\mathcal{F}^{-1}(\tilde{u}(k,t)) = u(x,t) = \mathcal{F}^{-1}\left(\frac{\tilde{g}(k)}{\omega}\sin(\omega t)\right)
+\end{equation}
+Per il secondo membro utilizziamo il teorema della convoluzione, ovvero:
+\[\mathcal{F}(f*\chi) = \mathcal{F}(f)\mathcal{F}(\chi)\]
+infatti se nel nostro caso troviamo una $f$ e una $\chi$ in modo che: $\mathcal{F}(f) \equiv \tilde{g}(k)$ e $\mathcal{F}(\chi) \equiv \sin(\omega t)/\omega$, possiamo scrivere l'equazione \eqref{f} come:
+\[u(x,t) = \mathcal{F}^{-1}\left(\mathcal{F}(f*\chi)\right) = f*\chi\]
+trovare $\mathcal{F}(f) \equiv \tilde{g}(k)$ è facile, per definizione di trasformata di Fourier $f\equiv g$. Dobbiamo ora trovare una $\chi$ tale che 
+\[\mathcal{F}(\chi)=\tilde{\chi} = \frac{\sin(\omega t)}{\omega}\]
+Facciamo che magicamente sappiamo che è: \[\chi = \frac{1}{2c}\theta(ct-|x|)\] e verifichiamo che effettivamente la sua trasformata sia $\sin(\omega t)/\omega$
+Consideriamo che la funzione $\theta(x)$ è definita come:
+\[\theta(x) =\begin{cases}
+    1 \qquad x>0  \\
+   0\qquad x<0\\
+  \end{cases}\]
+quindi $\theta(ct-|x|) = 1$ quando $ct-|x|>0$ e $\theta(ct-|x|) = 0$ quando $ct-|x|<0$. Abbiamo quindi:
+\[\theta(ct-|x|) = 1 \implies ct-|x|>0 \implies |x|<ct \implies -ct<x<ct\]
+ovviamente allora:
+\[\theta(ct-|x|) = 0 \implies x<-ct \quad\&\quad x>ct\]
+Graficamente abbiamo quindi:
+\begin{figure}[H]
+\centering
+\begin{tikzpicture}
+\draw [->](-5,0) -- (5,0)node[below=1.5pt] {\color{black}$x$};
+\draw[->](0,0)--(0,5)node[right=1.5pt] {\color{black}$\theta(ct-|x|)$};
+\draw[blue](-5,0)--(-2.5,0)node[below=1.5pt] {\color{black}$-ct$};
+\draw[blue](2.5,0)node[below=1.5pt,yshift=-3pt] {\color{black}$ct$}--(5,0);
+\draw[blue](-2.5,0)--(-2.5,2.5);
+\draw[blue](2.5,0)--(2.5,2.5);
+\draw[blue](-2.5,2.5)--(0,2.5)node[above=1.5pt,xshift=-3pt] {\color{black}$1$}--(2.5,2.5);
+\end{tikzpicture}
+\end{figure}
+Per definizione di trasformata abbiamo:
+\[\tilde{\chi}(k) = \int_{-\infty}^{+\infty}e^{-ikx}\chi(x)\,dx =\frac{1}{2c}\int_{-\infty}^{+\infty}e^{-ikx}\theta(ct-|x|)\,dx \]
+ma per come abbiamo appena mostrato essere $\theta$, l'integrando è nullo per $x<-ct$ e $x>ct$, mentre vale $e^{-ikx}$ altrimenti, ci riduciamo quindi a:
+\[\frac{1}{2c}\int_{-\infty}^{+\infty}e^{-ikx}\theta(ct-|x|)\,dx = \frac{1}{2c}\int_{-ct}^{+ct}e^{-ikx}\,dx = \frac{1}{c}\left(\frac{e^{-ikx}}{-ik}\right)\bigg\vert_{-ct}^{ct}\]
+\[= \frac{1}{2c}\left(\frac{e^{-ikct}-e^{ikct}}{-ik} \right) =\frac{1}{ck}\left(\frac{e^{ikct}-e^{-ikct}}{2i} \right) \]
+tenendo conto che:
+\[\sin(x) = \frac{e^{ix}-e^{-ix}}{2i}\]
+sapendo che $\omega=ct$ otteniamo come ci aspettavamo:
+\[\tilde{\chi}(k) =\frac{\sin(\omega t)} {\omega}\]
+Torniamo all'equazione \eqref{f} abbiamo ottenuto che:
+\[u(x,t) = g*\chi\]
+che per definizione di prodotto di convuluzione:
+\[u(x,t) = \int_{-\infty}^{+\infty}g(x-y)\chi(y)\,dy = \frac{1}{2c}\int_{-\infty}^{+\infty}g(x-y)\theta(ct-|y|)\,dy\]
+che per le considerazioni già fatte prima:
+\[\frac{1}{2c}\int_{-\infty}^{+\infty}g(x-y)\theta(ct-|y|)\,dy=\frac{1}{2c}\int_{-ct}^{+ct}g(x-y)\,dy = u(x,t)\]
+\chapter{Teoria delle distribuzioni}
+\section{Spazi vettoriali topologici}
+In uno spazio vettoriale $V$ con campo $\C$ sono definite le operazioni di somma e prodotto per scalare:
+\begin{itemize}
+\item $v+w:V\times V\to V$
+\item $\lambda V:V\to V$ con $\lambda\in C$ 
+\end{itemize}
+un esempio di spazio vettoriale a dimensione infinita è l'insieme delle funzioni continue in un intervallo $[a,b]$
+\begin{dfn}
+Si dice spazio metrico $E$ uno spazio vettoriale in cui è definita la distanza $d:E\times E\to E$ che soddisfa:
+\begin{enumerate}[i.]
+\item $d(f,g) = d(g,f)$
+\item $d(f,g) = 0 \iff f=g$
+\item $d(f,g)\leq d(f,h) + d(f,g)$
+\end{enumerate}
+\end{dfn}
+Un esempio di metrica poterebbe essere in $\C$ il modulo.\\ Vediamo cosa significa una successione convergente in $E$.
+Prendiamo una successione $\{f_n\}\in E$ allora si dice che questa successione converge a $f$ in $E$ se:
+\[f_n \xrightarrow[n\to \infty]{E} f \iff d(f_n,f) \xrightarrow[n\to \infty]{}0 \]
+si dice inoltre che una successione è di Cauchy se:
+\[d(f_n,f_m) \xrightarrow[n,m\to \infty]{}0 \]
+ogni successione convergente è anche di Cauchy, infatti usando la terza proprietà della metrica:
+\[d(f_n,f_m) \leq d(f_n,f)+d(f_m,f)\to 0\]
+non è vero il contrario però, e se succede, quindi se in uno spazio ogni successione di Cauchy è convergente allora si dice che lo spazio è completo.
+\begin{thm}
+(Teorema del completamento) Ogni spazio metrico $E$ non completo si può completare.
+\end{thm}
+\hspace{-1.4em}Un applicazione $A:E_1\to E_2$ è continua quando:
+\[\forall \{f_n\}\quad f_n \xrightarrow[n\to \infty]{E_1} f \implies A(f_n) \xrightarrow[n\to \infty]{E_2} A(f) \]
+ovvero se si può scambiare il limite con la funzione $A$: $\displaystyle\lim_{n\to\infty}A(f_n) = A(\displaystyle\lim_{n\to\infty} f_n)$
+nel caso in cui $E_1=E_2=E$ e per l'applicazione $A$ vale:
+\[d(A(f_1),A(f_2))\leq\alpha d(f_1,f_2)\]
+con $\alpha\in(0,1)$ allora si dice che $A$ è una contrazione. È immediato che ogni contrazione è anche continua, infatti presa una successione $\{f_n\}$
+\[d(f_n,f)\to0 \qquad d(A(f_n),A(f))\leq\alpha d(f_n,f)\]
+\begin{thm}
+(Teorema di Banach-Caccioppoli) Se $A:E\to E$ è completo allora esiste $f^*$ unico tale che $A(f^*) = f^*$
+\end{thm}
+\begin{dfn}
+Si dice spazio vettoriale normato uno spazio vettoriale $V$ su $\C$ dotato di una norma $\|\cdot \|:V\to\R^+$
+per cui valgono le seguenti
+\begin{enumerate}[i.]
+\item $\|f\| = 0\iff f=0$
+\item $\|\lambda f\|= |\lambda| \|f\|$
+\item $\|f+g\|\leq \|f\|+\|g\|$
+\end{enumerate}
+\end{dfn}
+è possibile ammorbidire la prima condizione mettendo solo l'implicazione ovvero:\\ ib. $f=0\implies \|f\|=0$\\
+in questo caso si parla allora di seminorma e di spazio seminormato.
+\begin{thm}
+per ogni $V$ normato, allora è anche uno spazio metrico con distanza
+\[d(f,g) = \|f-g\|\]
+\end{thm}
+\hspace{-1.6em}\textbf{Dimostrazione:}\\
+le prime due condizioni della distanza sono ovviamente verificate, vediamo la terza:
+\[d(f,g) =  \|f-g\| =  \|f-h+h-g\|\leq  \|f-h\|+ \|h-g\| = d(f,h) + d(g,h)\]
+\\
+vediamo il significato di convergenza in uno spazio metrico, prediamo una successione $\{f_n\}$ si dice che converge a $f$ in $V$ se:
+\[f_n  \xrightarrow[n\to \infty]{V} f\iff \|f_n-f\| \xrightarrow[n\to \infty]{} 0\]
+inoltre si dice che una successione è di cauchy se:
+\[ \|f_n-f_m\| \xrightarrow[n,m\to \infty]{} 0\]
+di nuovo se tutte le successioni di Cauchy convergono allora si dice che lo spazio è completo, uno spazio normato completo si chiama \emph{Spazio di Banach}.\\
+La norma è un applicazione continua, infatti:
+\[|\,\|f_n\|-\|f\|\,|\leq \|f_n-f\|\xrightarrow[n\to \infty]{} 0 \implies \|f_n\|\xrightarrow[n\to \infty]{} \|f\|\]
+un esempio di spazio di Banach è l'insieme $C([a,b])$ delle funzioni continue in $[a,b]$ dotato con la norma:
+\[\|f\| = \underset{x\in[a,b]}{max}|f(x)|\]
+si può definire una convergenza uniforme su tale insieme come:
+\[f_n \rightrightarrows f\iff \underset{x\in[a,b]}{max}|f_n-f|\xrightarrow[n\to \infty]{} 0 \]
+\begin{dfn}
+Sia un applicazione lineare $A:V_1\to V_2$ con $V_1,V_2$ spazi di Banach allora si dice:
+\begin{enumerate}
+\item se $V_1=V_2=V$ allora $A$ si chiama operatore
+\item se $V_1 = V$ e $V_2=\C$ allora $A$ si chiama funzionale lineare
+\end{enumerate}
+\end{dfn}
+la continuità su $A$ è definiti come per gli spazi metrici ovvero $A$ è continua se presa una successione $f_n\xrightarrow[n\to \infty]{V_1} f$ allora vale:
+\[A(f_n) \xrightarrow[n\to \infty]{V_2} A(f)\]
+\begin{dfn}
+$A$ si dice limitata se
+\[\|Af\|_{V_2}\leq C_A\|f\|_{V_1}\quad \forall f\in D\subseteq V_1\]
+\end{dfn}
+\begin{thm}
+Sia $A$ lineare $A:V_1\to V_2$  allora $A$ è continua se e solo se $A$ è limitata
+\end{thm}
+\hspace{-1.6em}\textbf{Dimostrazione:}\\
+Iniziamo a mostrare l'implicazione diretta. Se $A$ è limitata allora
+ \[\|A(f_n)-A(f)\|_{V_2} = \|A(f_n-f)\|_{V_2} \leq C_A \|f_n-f\|_{V_1}\xrightarrow[n\to \infty]{} 0 \]
+L'implicazione inversa invece, se $A$ è continua poniamo per assurdo che non è limitata allora esiste $\{g_n\}$ tale che $\|A(g_n)\|_{V_2}\geq \eta\|g_n\|_{V_1}$
+definiamo una nuova successione $\hat{g_n} = g_n/\|g_n\|$ la cui norma è unitaria. Definiamo un altra successione $h_n = \hat{g_n}/n$, $\|h_n\| = 1/n \xrightarrow[n\to \infty]{} 0$. A questo punto allora:
+\[\|A(h_n)\|_{V_2} = \|A\left(\frac{\hat{g_n}}{n}\right)\|_{V_2} = \frac{1}{n}\|A(\hat{g_n})\|_{V_2}\geq \|g_n\|_{V_1}\xrightarrow[n\to \infty]{} \neq0\]
+
+\section{Spazio delle distribuzioni}
+Preso uno spazio vettoriale $F$ possiamo assegnarli una famiglia numerabile di seminorme
+\[\|\cdot\|_\alpha:F\to \R^+\]
+con la seguente prescrizione di convergenza:
+\[\varphi_n \xrightarrow[n\to \infty]{F} \varphi \iff \|\varphi_n-\varphi\|_\alpha \xrightarrow[n\to \infty]{} 0 \quad \forall\alpha\]
+Allora diremo che $F$ è uno \emph{spazio vettoriale numerabilmente seminormato} (SVNS). Nel caso in cui uno spazio SVNS sia anche completo allora viene detto \emph{spazio di Frechet}. Il duale di una spazio di Frechet è lo \emph{spazio delle distribuzioni}. 
+\begin{dfn}
+Sia $f\in F$ e $\varphi\in F$ allora $f$ si dice limitato se esiste un $\beta$ tale che
+\[|f(\varphi)|\leq C_f \|\varphi\|_\beta\]
+\end{dfn}
+Su $F$ vale ancora che per ogni funzionale lineare vale che la continuità implica la limitatezza su $F$ e viceversa.\\
+Prendiamo ora come spazio l'insieme delle funzioni infinitamente differenziabili a supporto compatto:
+\[\mathcal{D} = \{\varphi(x),\varphi(x)\in C_0^\infty(\R) : \;\varphi(x)\,\text{a supporto compatto} \}\]
+dotiamolo delle seguenti seminorme
+\[\|\varphi\|_\alpha = \underset{k\leq\alpha}{sup}|f^{(k)}(x)|\]
+dotato della seguente convergenza:
+\[\varphi_n \xrightarrow[n\to \infty]{\mathcal{D}} \varphi \iff \varphi_n^{(k)}  \rightrightarrows \varphi^{(k)}\quad \forall k\]
+Allora $\mathcal{D}$ è uno spazio di Frechet, il suo duale è lo spazio delle distribuzioni.
+Definiamo la convergenza in $\mathcal{D}'$ come:
+\[f_n \xrightarrow[n\to \infty]{\mathcal{D}'} f \iff (f_n,\varphi) \xrightarrow[n\to \infty]{} (f,\varphi)\]
+Nel caso una funzione sia localmente sommabile ovvero $\int_K |f(x)|\,dx<\infty$ allora $f(x)\in\mathcal{D}'$ e vale:
+\[(f,\varphi) = \int_{-\infty}^\infty f(x)\varphi(x)\,dx\]
+in questo caso si dice che $f$ è un funzionale regolare. Un esempio invece di funzionale singolare è:
+\begin{dfn}
+Si definisce la delta di Dirac come il funzionale tale che:
+\[(\delta,\varphi) = \varphi(0)\]
+\end{dfn}
+Banalmente si vede che la $\delta$ è limitata. Un altra distribuzione singolare è la parte principale definita come:
+\[\left(P\frac{1}{x},\varphi\right) = P\int_{-\infty}^\infty \frac{\varphi(x)}{x}\, dx = P\int_{-N}^N \frac{\varphi(x)}{x}\, dx = P\int_{-N}^N \frac{\varphi(0)+x\varphi'(\xi)}{x}\, dx \]\[ =\varphi(0)P\int_{-N}^N \frac{dx}{x} + \int_{-N}^N \varphi'(\xi) \,dx  =  \int_{-N}^N \varphi'(\xi) \,dx\]
+ dove si è usata la compattezza di $\varphi$ ed il teorema di Lagrange. Questa funzione è anche limitata infatti:
+ \[\left|\left(P\frac{1}{x},\varphi\right)\right| = \left|\int_{-N}^N \varphi'(\xi) \,dx\right|\leq \|\varphi\|_1 \int_{-N}^N \,dx \]
+dato che è limitata è anche continua.\\
+Tra la parte principale di Cauchy e la delta di Dirac valgono le formule di Sokhotski:
+\[ \frac{1}{x\pm i\varepsilon}  \xrightarrow[\varepsilon\to 0]{\mathcal{D}'} \frac{1}{x\pm i0} = P\frac{1}{x} \mp i\pi\delta(x) \]
+per dimostrarle prendiamo una funzione test e valutiamo:
+\[\left(\frac{1}{x + i\varepsilon},\varphi\right) =\int_{-N}^N \frac{\varphi(x)}{x + i\varepsilon}\, dx  = \int_{-N}^N \frac{\varphi(x)-\varphi(0)+\varphi(0)}{x+ i\varepsilon}\, dx = \varphi(0)\int_{-N}^N \frac{1}{x + i\varepsilon}\, dx + \int_{-N}^N \frac{\varphi(x)-\varphi(0)}{x+ i\varepsilon}\, dx\]
+\[= \varphi(0)\int_{-N}^N \frac{x-i\varepsilon}{x^2+ \varepsilon^2}\, dx +  \int_{-N}^N \frac{x\varphi'(\xi)}{x+ i\varepsilon}\, dx = \varphi(0)\int_{-N}^N \frac{x}{x^2+ \varepsilon^2}\, dx -i\varepsilon\varphi(0)\int_{-N}^N \frac{1}{x^2+ \varepsilon^2}\, dx +  \int_{-N}^N \frac{x\varphi'(\xi)}{x+ i\varepsilon}\, dx \]
+adesso il primo termine si annulla perche è dispari, l'ultimo termine per $\varepsilon\to 0$ tende alla funzione parte principale il secondo termine invece:
+\[-i\varepsilon\varphi(0)\int_{-N}^N \frac{1}{x^2+ \varepsilon^2}\, dx = -i\varphi(0)\int_{-N}^N \frac{\frac{1}{\varepsilon}}{1+ \left(\frac{x}{\varepsilon}\right)^2}\, dx  = -i\varphi(0) \int_{-\frac{N}{\varepsilon}}^\frac{N}{\varepsilon} \frac{dy}{1+y^2}  \xrightarrow[\varepsilon\to 0]{} -i\pi\varphi(0) = (-i\pi\delta,\varphi) \]
+da cui quindi:
+\[\left(\frac{1}{x + i\varepsilon},\varphi\right) = \left(P\frac{1}{x} - i\pi\delta(x),\varphi\right)\]
+Da questa formula girandola otteniamo anche:
+\[\delta(x) = \frac{1}{2\pi i }\left(\frac{1}{x-i0} -\frac{1}{x+i0} \right) \qquad P\frac{1}{x} = \frac{1}{2}\left(\frac{1}{x+i0}+\frac{1}{x-i0}\right)\]
+\subsection{Operazioni su distribuzioni}
+Definiamo il prodotto di una distribuzione per una funzione $y\in C^\infty$ come
+\[(yf,\varphi) = (f,y\varphi)\]
+possiamo definire una traslazione:
+\[(f(x-x_0),\varphi) = (f,\varphi(x-x_0))\]
+il prodotto tra due distribuzioni non è definito infatti è facile arrivare ad un assurdo:
+\[0 = 0P\frac{1}{x} = (x\delta(x))P\frac{1}{x} = \delta(x)xP\frac{1}{x} = \delta(x)\]
+le distribuzioni si possono derivare però, infatti:
+\[\left(\d{f}{x},\varphi\right) = \int_{-\infty}^\infty\d{f}{x}\varphi(x)\,dx = f(x)\varphi(x)\Big|_{-\infty}^\infty - \int_{-\infty}^\infty\d{\varphi}{x}f\,dx =-\left(f,\d{\varphi}{x}\right) \]
+e vale ancora la regola di leibniz:
+\[\left(\d{af}{x},\varphi\right) = -\left(f,\d{a\varphi}{x}\right)  = -(f,a'\varphi+a\varphi') = (fa' + af' ,\varphi)\]
+la funzione di derivazione nel senso delle distribuzioni è lineare e continua infatti:
+\[\left(\d{f_n}{x},\varphi\right) = - \left(f_n,\d{\phi}{x}\right)  \xrightarrow[n\to \infty]{\mathcal{D}'} -\left(f,\d{\phi}{x}\right) =  \left(\d{f}{x},\varphi\right)\]
+Calcoliamo a titolo di esempio la derivata della funzione di Heavside:
+\[(\theta',\varphi) = -(\theta,\varphi') = -\int_0^\infty\varphi'(x)\,dx = \varphi(0) = (\delta,\varphi)\]
+Possiamo ora estendere il concetto di derivazione classica anche a funzioni discontinue che hanno un salto, ad esempio prendiamo una funzione che in $x_1$ ha un salto, possiamo scriverla come:
+\[f(x) = A(x)\theta(x_1-x) + B(x)\theta(x-x_1)\]
+la sua derivata vale:
+\[f'(x) = A'(x)\theta(x_1-x)-A(x)\delta(x_1-x) + B'(x)\theta(x-x_1) + B(x)\delta(x-x_1)\]
+il primo e il terzo termine ci fornisco la derivata classica che indichiamo come $\{f'(x)\}$ mentre gli altri termini ci danno;
+\[f'(x)= \{f'(x)\} + \delta(x)[A(x_1)-B(x_1)] =  \{f'(x)\} + h\delta(x-x_1)\]
+dove $h$ è il salto che la funzione fa nel punto $x_1$. Se la funzione ha più salti si può facilmente generalizzare come:
+\[f'(x) = \{f'(x)\} +\sum_i h_i\delta(x-x_i)\]
+\begin{thm}
+Sia $h(x)$una funzione localmente sommabile, tale che sia $xh(x)\in L_1$ allora sia $c =\int_{-\infty}^\infty h(x)dx$ vale:
+\[\frac{1}{c\varepsilon}h\left(\frac{x}{\varepsilon}\right)  \xrightarrow[\varepsilon\to 0]{\mathcal{D'}} \delta(x) \qquad \frac{n}{c}h(nx)   \xrightarrow[n\to \infty]{\mathcal{D}'}\delta(x)\] 
+\end{thm}
+\hspace{-1.6em}\textbf{Dimostrazione:}\\
+Definiamo per comdità $h_\varepsilon = \frac{1}{c\varepsilon}h\left(\frac{x}{\varepsilon}\right)$ allora:
+\[|(h_\varepsilon,\varepsilon)-(\delta,\varepsilon)| = \left|\frac{1}{c}\int_{-\infty}^\infty \frac{h\left(\frac{x}{\varepsilon}\right)\varphi(x) }{\varepsilon}\,dx -\varphi(0)\right| =\left|\frac{1}{c}\int_{-\infty}^\infty \frac{h\left(\frac{x}{\varepsilon}\right)\varphi(x) }{\varepsilon}\,dx -\frac{\varphi(0)}{c}\int_{-\infty}^\infty h(y)\,dy\right|  \]
+cambiando variabile nel primo integrale $y = \frac{x}{\varepsilon}$ otteniamo:
+\[\left|\frac{1}{c}\int_{-\infty}^\infty h(y)\varphi(y\varepsilon)\,dy -\frac{\varphi(0)}{c}\int_{-\infty}^\infty h(y)\,dy\right| = \left|\frac{1}{c}\int_{-\infty}^\infty h(y)[\varphi(y\varepsilon)-\varphi(0)]dy \right| = \left|\frac{1}{c}\int_{-\infty}^\infty h(y)[y\varepsilon\varphi'(\xi)]dy \right|\]
+\[ \leq \frac{\varepsilon}{|c|}\int_{-\infty}^\infty |h(y)y||\varphi'(\xi)|dy \leq \frac{\varepsilon}{|c|}\|\varphi\|_1\int_{-\infty}^\infty |h(y)y|dy \xrightarrow[\varepsilon\to 0]{} 0\]
+\begin{thm}
+Sia $F(x)\in C^\infty$ con $F(x_k) = 0$ e  $F'(x_k)\neq 0$ allora vale:
+\[\delta(F(x)) = \sum_k\frac{\delta(x-x_k)}{|F'(x_k)|}\] 
+\end{thm}
+\hspace{-1.6em}\textbf{Dimostrazione:}\\
+\[\varphi(0) = (\delta,\varphi) = \lim_{\varepsilon\to 0} \int_{-\infty}^\infty h_\varepsilon(t)\varphi(t)\,dt\]
+con un cambiamento di variabile $t = F(x)$,$dt = F'(x)dx$
+\[ \lim_{\varepsilon\to 0}\int_{-\infty}^\infty h_\varepsilon(t)\varphi(t)\,dt =  \lim_{\varepsilon\to 0}\int_{-\infty}^\infty h_\varepsilon(F(x))\varphi(F(x))F'(x)\,dx\]
+definiamo ora $\psi(x) =  \varphi(F(x))F'(x)$, allora:
+\[ \lim_{\varepsilon\to 0}\int_{-\infty}^\infty h_\varepsilon(F(x))\varphi(F(x))F'(x)\,dx =  \lim_{\varepsilon\to 0}\int_{-\infty}^\infty h_\varepsilon(F(x))\psi(x)\,dx = (\delta(F),\psi)\]
+ovvero $\varphi(0) = (\delta(F(x)),\varphi)$ ma noi sappiamo che:
+\[\varphi(F(x)) = \frac{\psi(x)}{F'(x)} \implies \varphi(0) = \varphi(F(x_k)) = \frac{\psi(x_k)}{F'(x_k)} = \left(\frac{\delta(x-x_k)}{|F'(x_k)|},\psi \right) = (\delta(F(x)),\varphi)\]
+\subsection{Applicazioni alle serie di Fourier}
+\begin{lem}
+Se $\{f_n\}$ è localmente sommabile allora 
+\[f_n \rightrightarrows f \implies f_n(x) \xrightarrow[n\to \infty]{\mathcal{D}'} f(x)\]
+\end{lem}
+\hspace{-1.6em}\textbf{Dimostrazione:}\\
+Valutiamo $|(f_n,\varphi)-(f,\varphi)|$, esso è uguale a:
+\[|(f_n-f,\varphi)| = \left|\int_{-N}^N (f_n(x)-f(x))\varphi\,dx\right| \leq \|\varphi\|_0 \int_{-N}^N |f_n(x)-f(x)|\,dx \leq \varepsilon  \|\varphi\|_0 2N  \xrightarrow[n\to \infty]{} 0\]
+\begin{coro}
+dato che la derivazione nell'ambito delle distribuzioni è una funzione continua abbiamo che:
+\[\frac{d^j f_n}{dx^j} \xrightarrow[n\to \infty]{\mathcal{D}'} \frac{d^j f}{dx^j}\]
+\end{coro}
+\begin{thm}
+Se abbiamo in $\mathcal{D}'$ la serie $\displaystyle\sum_jf_je^{ijx}$ con $|f_j|\leq A(1+|j|)^m$ con $m\geq0$ allora la serie $\displaystyle\sum_jf_je^{ijx}$ è covergente in $\mathcal{D}'$
+\end{thm}
+\hspace{-1.6em}\textbf{Dimostrazione:}\\
+Consideriamo la serie data da
+\[G(x) = \frac{f_0 x^{m+2}}{(m+2)!}+\sum_{j\neq0} \frac{f_je^{ijx}}{(ij)^{m+2}}\]
+studiamo la sua convergenza utilizzando il criterio di Weierstrasse:
+\[\sum_{j\neq0}\left| \frac{f_je^{ijx}}{(ij)^{m+2}}\right| = \sum_{j\neq0}\left| \frac{f_j}{(j)^{m+2}}\right|\leq \sum_{j\neq0}\frac{A(1+|j|)^m}{(|j|)^{m+2}}<\infty\]
+Allora dato che $G$ converge utilizzando il lemma convergono anche le sue derivate, in particolare converge:
+\[\frac{d^{m+2}G}{dx^{m+2}} = f_0 + \sum_{j\neq0} f_je^{ijk}\]
+\\
+\newline Dimostriamo ora la formula Poisson-Jacobi. Consideriamo la funzione $f(x) = \frac{1}{2}-\frac{x}{2\pi}$ con $x\in[-\pi,\pi]$ estesa su periodo $2\pi$ e sviluppiamola in serie di Fourier.
+\begin{figure}[H]
+\centering
+\begin{tikzpicture}
+\draw [->](-4,0) -- (4,0)node[below=1.5pt] {\color{black}$x$};
+\draw[->](0,-3)--(0,3)node[right=1.5pt] {\color{black}$y$};
+\draw[red,domain=0:6.28] plot ({\x*0.5},{4*(0.5-\x/6.28)});
+\draw[red,domain=0:6.28] plot ({0.5*(\x-6.28)},{4*(0.5-\x/6.28)});
+\draw(0,2)node[left=1.5pt]{\scriptsize$\frac{1}{2}$};
+\draw(0,-2)node[right=1.5pt]{\scriptsize$-\frac{1}{2}$};
+\draw(1.57,0)node[below=1.5pt]{\scriptsize$\pi$};
+\draw(3.14,0)node[below=1.5pt]{\scriptsize$2\pi$};
+\draw(-1.57,0)node[above=1.5pt]{\scriptsize$-\pi$};
+\draw(-3.14,0)node[below=1.5pt]{\scriptsize$-2\pi$};
+\draw[dotted](3.14,-2)--(3.14,2);
+\draw[dotted](-3.14,-2)--(-3.14,2);
+\end{tikzpicture}
+\caption{$f(x) = \frac{1}{2}-\frac{x}{2\pi}$ estesa periodicamente con periodo $2\pi$}
+\label{serie}
+\end{figure}
+Lo sviluppo in serie di Fourier è del tipo:
+\[f(x) = \sum_j f_j e^{ijx}\]
+con i coefficienti $f_j$ dati da:
+\[f_j = \frac{1}{2\pi}\int_0^{2\pi} f(x)e^{-ijx}\, dx\]
+calcoliamo il primo:
+\[f_0 = \frac{1}{2\pi}\int_0^{2\pi}\left(\frac{1}{2}-\frac{x}{2\pi}\right)\, dx = 0\]
+lo si vede anche facilmente dalla figura \eqref{serie}. GLi altri termini invece
+\[f_j = \frac{1}{2\pi}\int_0^{2\pi} \left(\frac{1}{2}-\frac{x}{2\pi}\right)e^{-ijx}\, dx  =  \frac{1}{4\pi}\int_0^{2\pi}e^{-ijx}\, dx - \frac{1}{4\pi^2}\int_0^{2\pi} xe^{-ijx}\, dx\]
+il primo termine è nullo perchè l'esponenziale complesso è periodico di periodo $2\pi$ il secondo termine si integra per parti:
+\[- \frac{1}{4\pi^2}\int_0^{2\pi} xe^{-ijx}\, dx = - \frac{1}{4\pi^2}\left(-\frac{xe^{-ijx}}{ij}\bigg|_0^{2\pi}+\frac{1}{ji}\int_0^{2\pi}e^{-ijx}\, dx\right) =\frac{1}{2\pi i j}\]
+in quanto di nuovo l'ultimo integrale è nullo e perchè $e^{-i2j\pi} = 1$ per ogni $j$. In definitiva quindi abbiamo che la funzione si può scrivere come:
+\[f(x) = \sum_{j\neq 0} \frac{e^{ijx}}{2\pi i j}\]
+Prendimone la derivata, dato che la funzione è discontinua nei punti $x=2\pi j$ con un salto pari a $h=1$ dobbiamo derivarla nel senso delle distribuzioni:
+\[\d{f}{x} = \frac{1}{2\pi}\sum_{j\neq 0} e^{ijx} = \bigg\{\d{f}{x}\bigg\} + \sum_j \delta(x-2\pi j) = -\frac{1}{2\pi}  + \sum_j \delta(x-2\pi j)\]
+da cui quindi la \emph{Resonmation Formula}:
+\[\frac{1}{2\pi}\sum_{j} e^{-ijx} = \sum_j \delta(x-2\pi j)\]
+%da questa formula moltiplicando da entrambe le parti per $e^{-\lambda x^2}$ con $\lambda>0$ otteniamo l'identità di Poisson:
+%\[ \frac{1}{2\pi}\sum_{j} e^{-ijx}e^{-\lambda x^2} = \sum_j \delta(x-2\pi j)e^{-\lambda x^2} \]
+%dove il secondo termine diventa:
+%\[\sum_j \delta(x-2\pi j)e^{-\lambda x^2} = \sum_j e^{-\lambda (2\pi j)^2} = \sum_j e^{-4\pi^2\lambda j^2} \]
+%mentre il primo:
+%\[\frac{1}{2\pi}\sum_{j} e^{-ijx}e^{-\lambda x^2} = \frac{1}{2\pi}\]
+\section{Distribuzioni temperate}
+Se definiamo la trasformata di Fourier di una distribuzione come:
+\[(\F(f),\varphi) = (f,\F(\varphi))\]
+allora può capitare che $\F(\varphi)$ non sia più a supporto compatto. Per questo si introduce un nuovo spazio di distribuzioni rispetto al quale l'operazione di trasformata di Fourier è chiusa.
+Iniziamo a descrivere lo spazio delle funzioni test:
+\[\mathcal{S} = \{f(x)\in C^\infty(\R):\, |x^\alpha f^{(\beta)}(x)|\xrightarrow[|x|\to \infty]{} 0 \;\forall\alpha,\beta  \} \]
+Ora l'operatore di trasformata è: $\F:\mathcal{S}\to\mathcal{S}$. Vediamo però meglio lo spazio che abbiamo appena definito, esso è SVNS completo, quindi di Frechet non appena definiamo le seguenti seminorme:
+\[\|\varphi\|_{p,r} =  \underset{r\leq p }{sup}\left|(1+|x|^2)^{\frac{p}{2}}\varphi^{(r)}(x)\right|\]
+con la seguente convergenza:
+\[\varphi_n \xrightarrow[n\to \infty]{\mathcal{S}} \varphi \iff \|\varphi_n(x)-\varphi(x)\|_{r,p} \xrightarrow[n\to\infty]{} 0\quad \forall p,r \]
+Si può dimostrare inoltre che la Trasformata di Fourier $\F:\mathcal{S}\to\mathcal{S}$ è lineare e continua. Inoltre si vede facilmente che $\mathcal{D}\subset\mathcal{S}$.\\
+A questo punto prendiamo il duale $\mathcal{S}'$, esso è lo spazio dei funzionali lineari continui su $\mathcal{S}$, e si chiama \emph{spazio delle funzioni temperate}. In $\mathcal{S}'$ $f(x)$ è limitata se esistono $r,p$ tali che:
+\[|(f,\varphi)|\leq C_f \|\varphi\|_{r,p}\]
+Ancora la limitatezza implica la continuità e viceversa.\\
+Se $f(x)$ è una funzione a crescita lenta ovvero se:
+\[\exists m :\quad \int_{-\infty}^\infty \frac{|f(x)|}{(1+|x|^2)^{m}}\,dx <\infty\]
+allora $f(x)$ determina una distribuzione temperata regolare come:
+\[(f,\varphi) = \int_{-\infty}^\infty f(x)\varphi(x)\,dx\]
+si può vedere che tale funzione è limtata e continua infatti:
+\[ \left|\int_{-\infty}^\infty f(x)\varphi(x)\,dx\right|\leq \int_{-\infty}^\infty |f(x)||\varphi(x)|\frac{(1+|x|^2)^{m}}{(1+|x|^2)^{m}}\,dx \leq \|\varphi\|_{2m,1}\int_{-\infty}^\infty |f(x)| \frac{|f(x)|}{(1+|x|^2)^{m}}\,dx = C_f\|\varphi\|_{2m,1}\]
+Quindi ogni funzione a crescita lenta è una distribuzione temperate, ma non è detto che lo siano anche le funzioni sommabili, per cui:
+\[\mathcal{S}'\subset\mathcal{D}'\]
+Sono distribuzioni temperate anche la $\delta,P\frac{1}{x},\theta(x)$, infatti:
+\[|(\delta,\varphi)| = |\varphi|\leq \|\varphi\|_{0,0}\]
+\[\left|\left(P\frac{1}{x},\varphi\right)\right| = \left|\int_{-\infty}^\infty \varphi'(\xi)\,dx \right| \leq \int_{-\infty}^\infty |\varphi'(\xi)|\frac{(1+|x|^2)}{(1+|x|^2)} \,dx\leq C\|\varphi\|_{2,1}\]
+in $\mathcal{S}'$ valgono ancore le stesse operazioni di $\mathcal{D}'$ come il prodotto per una funzione e la derivazione.
+\subsection{Trasformata di Fourier di distribuzioni temperate}
+Lo scopo dell'introduzione dello spazio $\mathcal{S}$ è stato proprio quello di permetterci di lavorare sempre nello stesso spazio usando le trasformate di Fourier. Cerchiamo allora di definire la trasformata di una distribuzione temperata.
+\[(\F(f),\varphi)  = \int_{-\infty}^\infty\F(f)(k)\varphi(k)\,dk =  \int_{-\infty}^\infty dk\, \int_{-\infty}^\infty f(x)e^{-ikx}\varphi(k)\,dx = \int_{-\infty}^\infty dx\,f(x) \int_{-\infty}^\infty e^{-ikx}\varphi(k)\,dk  \]
+\[ = \int_{-\infty}^\infty f(x) \F(\varphi)(x)\,dx = (f,\F(\varphi))  \]
+viene cosi naturale definire la trasformata di una distribuzione in questo modo:
+\[(\F(f),\varphi) = (f,\F(\varphi))\]
+La trasformata $\F:\mathcal{S}'\to\mathcal{S}'$ così definita è lineare e continua, infatti:
+\[(\F(f_n),\varphi) =(f_n,\F(\varphi)) \xrightarrow[n\to\infty]{} (f,\F(\varphi)) = (\F(f),\varphi) \]
+Nel caso $f$ sia una funzione sommabile e a crescita lenta vale l'usuale trasformata di Fourier:
+\[\tilde{f}(k) = \int_{-\infty}^\infty e^{-ikx}f(x)\,dx\qquad f(x) = \frac{1}{2\pi}\int_{-\infty}^\infty e^{ikx}\tilde{f}(x)\,dx\]
+vediamo invece la trasformata della $\delta$:
+\[(\F(\delta),\varphi) = (\delta,\F(\varphi)) = \tilde{\varphi}(0) = \int_{-\infty}^\infty e^{-ikx}\varphi(x)\,dx \bigg|_0 = \int_{-\infty}^\infty\varphi(x)\,dx =(1,\varphi)\]
+con la formula di inversione troviamo una definizione alternativa di $\delta$
+\[\delta(x) = \frac{1}{2\pi}\int_{-\infty}^\infty e^{ikx}\,dk\]
+Per la trasformata valgono le seguenti proprietà:
+\begin{enumerate}[a)]
+\item $\F\left(\d{f}{x}\right) = ik\F(f)$
+\item $\frac{d}{dx}\F(f) = \F(-ixf)$
+\end{enumerate}
+\textbf{Dimostrazione (a):}\\
+\[\left(\F\left(\d{f}{x}\right),\varphi\right) =\left(\d{f}{x},\F(\varphi)\right) = - \left(f,\frac{d}{dx}\F(\varphi)\right) = -(f,\F(-ik\varphi)) = -(\F(f),-ik\varphi) = (ik\F(f),\varphi)\]
+\textbf{Dimostrazione (b):}\\
+\[\left(\d{}{x}\F(x),\varphi\right) = - \left(\F(f),\d{\phi}{x}\right) = - \left(f,\F\left(\d{\phi}{x}\right)\right) = -(f,ix\F(\varphi)) = (-ixf,\F(\varphi)) = (\F(-ixf),\varphi)\]
+\\
+Definiamo il prodotto di convuluzione tra due distribuzioni notando che:
+\[(f*g,\varphi) = \int_{-\infty}^\infty f*g(u)\varphi(u)\,du = \int_{-\infty}^\infty\varphi(u)\,du  \int_{-\infty}^\infty f(u-y)g(y)\,dy \]
+cambiamo variabile $x = u-y$, $du = dx$ otteniamo:
+\[\int_{-\infty}^\infty\varphi(x+y)\,dx  \int_{-\infty}^\infty f(x)g(y)\,dy  =  \int_{-\infty}^\infty f(x)\,dx  \int_{-\infty}^\infty \varphi(x+y)g(y)\,dy = (f_x,(g_y,\varphi(x+y))) \]
+il prodotto di convoluzione quindi è definito come:
+\[(f*g,\varphi) = (f_x,(g_y,\varphi(x+y)\eta(y)))\]
+dove $\eta$ è stata introdotta per questioni tecniche ed è una funzione $C_0^\infty$ e vale $\eta(y)=1$ se $y$ appartiene al supporto di $g$.
+\begin{thm}
+Se $f,g\in\mathcal{S}'$ e se $g$ è a supporto compatto allora $f*g$ esiste e $\delta$ ne è l'identità.
+\end{thm}
+\hspace{-1.4em}\textbf{Dimostrazione:}\\
+\[(f*\delta,\varphi) = (f_x,(\delta_y,\varphi(x+y)\eta(y))) = (f_x,\varphi(x)) = (f,\varphi)\]
+\begin{thm}
+Se $f,g\in\mathcal{S}'$  allora valgono:
+\begin{enumerate}[i.]
+\item $\F(f*g) = \F(f)\F(g)$
+\item $\partial_{x_i}(f*g) = (\partial_{x_i}f*g)$
+\end{enumerate}
+\end{thm}
+\section{Equazioni differenziali con le distribuzioni}
+\subsection{Soluzione fondamentale}
+Consideriamo la seguente equazione differenziale:
+\[L\mathcal{E} =\delta(t)\]
+con $L = a_0\frac{d^n}{dt^n}+a_1(t)\frac{d^{n-1}}{dt^{n-1}}\dots a_n(t)$ operatore lineare a coefficienti non costati (a parte $a_0$). Allora $\mathcal{E}$ si dice \emph{soluzione fondamentale} di $L$ e vale:
+\[\mathcal{E}_R(t) = \theta(t)Z(t)\qquad \text{Soluzione fondamentale ritardata}\]
+\[\mathcal{E}_A(t) = -\theta(-t)Z(t)\qquad \text{Soluzione fondamentale anticipata}\]
+con $Z(t)$ soluzione dell'equazione omogenea $LZ=0$ con le seguenti condizioni inziali:
+\[\begin{cases}
+    Z(0)=Z'(0)=\dots=Z^{N-2}(0) = 0\\
+   Z^{N-1}(0)=\frac{1}{a_0}\\
+  \end{cases} \]
+La cosa si può verificare nel caso $n=2$, $L=a_0\frac{d^2}{dt^2}+a_1(t)\frac{d}{dt}+a_2(t)$ per verifica diretta, infatti:
+\[\frac{d}{dt}\mathcal{E} = \delta(t)\mathcal{E}(t)+\theta(t)\frac{d}{dt}\mathcal{E} = \theta(t)\frac{d}{dt}\mathcal{E}\]
+\[\frac{d^2}{dt^2}\mathcal{E} = \delta(t)\frac{d}{dt}\mathcal{E} + \theta(t)\frac{d^2}{dt^2}\mathcal{E} = \frac{\delta(t)}{a_0} + \theta(t)\frac{d^2}{dt^2}\mathcal{E}\]
+da cui $L\mathcal{E} = \delta(t)$
+\subsection{Metodo di Hormander e della discesa}
+Sia $L = \sum_{\alpha}C_\alpha D^\alpha$ un operatore differenziale a coefficienti costanti proviamo a studiare il problema inomogeneo
+\[Lu = g\]
+La soluzione sarà data da:
+\[u=u_0+u_1\]
+dove $u_0$ è la soluzione del problema omogeneo associato, mentre $u_1$ è una soluzione particolare. Si può vedere che:
+\[u_1 = \mathcal{E}*g\]
+dove $\mathcal{E}$ è la soluzione fondamentale dell'operatore. Infatti:
+\[Lu_1 = L(\mathcal{E}*g) =  \sum_{\alpha}C_\alpha D^\alpha (\mathcal{E}*g) = ( \sum_{\alpha}C_\alpha D^\alpha\mathcal{E})*g = L\mathcal{E}*g = \delta*g=g\]
+Un problema che può sorgere è il fatto che $\mathcal{E}$ non è unicamente determinata infatti se prendiamo:
+\[\mathcal{E}^* = \mathcal{E}+u_0 \implies L\mathcal{E}^* = L\mathcal{E} +Lu_0 = L\mathcal{E}\]
+Per risolvere il problema di trovare la soluzione fondamentale ci sono due modi. Descriviamo per primo il cosiddetto metodo di Hormander.\\
+Si tratta di prendere
+\[L\mathcal{E}=\delta\]
+e applicare la trasformata di Fourier nel senso delle distribuzioni temperate, in modo che otteniamo:
+\[\F(L\mathcal{E}) = 1 \]
+\[\F(L\mathcal{E}) = \F(\sum_{\alpha}C_\alpha D^\alpha\mathcal{E}) = \sum_{\alpha}C_\alpha \F(D^\alpha\mathcal{E}) =  \sum_{\alpha}C_\alpha (ik)^\alpha\F(\mathcal{E})\]
+Definito $P(k) =\sum_{\alpha}C_\alpha (ik)^\alpha$ otteniamo:
+\[\tilde{\mathcal{E}} = \frac{1}{P(k)}\]
+in generale la frazione potrebbe non essere definita nel senso delle distribuzioni quindi è necessario assegnarli una certa regolarizzazione. Se invece non abbiamo troppi problemi il teorema di Hormander ci dice che esiste sempre una soluzione non unica di questa equazione.\\
+\newline Il secondo modo viene chiamato \emph{metodo della discesa}. Si tratta sempre di un modo per trovare la soluzione fondamentale associata all'operatore $L$ se quest'ultimo è di tipo ellittico. Definiamo innanzitutto cos'è un operatore ellittico. Definiamo il simbolo di $L$ come:
+\[\sigma(L) = e^{i\vettore{k}\cdot \vettore{x}}L(e^{-i\vettore{k}\cdot \vettore{x}})\]
+se $\sigma(L)$ è una forma quadratica in $\vettore{k}$ definita allora $L$ è un operatore ellittico.\\
+Il metodo della discesa dice di passare dall'operatore del calore $P =\partial_t + L$. Allora sia $k_t(\vettore{x})$ una funzione $t-$integrabile in $\R$, possiamo scrivere l'equazione:
+\[Pk_t = \partial_tk_t +Lk_t= 0\]
+se $k_t$ soddisfa:
+\[\lim_{t\to0^+}k_t=\delta(\vettore{x})\qquad \lim_{t\to\infty}k_t = 0\]
+Allora la soluzione fondamentale di $L$ è data da:
+\[G(\vettore{x}) = \int_0^\infty k_t(\vettore{x})\,dt\]
+infatti:
+\[LG(\vettore{x}) =  \int_0^\infty Lk_t(\vettore{x})\,dt = - \int_0^\infty \partial_tk_t(\vettore{x})\,dt = \lim_{t\to0^+}k_t - \lim_{t\to\infty}k_t = \delta(\vettore{x})\]

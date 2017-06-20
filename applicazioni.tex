@@ -1,0 +1,665 @@
+\chapter{Applicazioni alla fisica}
+\section{Principio di indeterminazione di Heisenberg}
+Il famoso principio di indeterminazione della meccanica quantistica può essere visto come teorema nella formulazione matematica qui presentata, vediamo come. Per prima cosa introduciamo la definizione di indeterminazione di un operatore simmetrico, prendiamo quindi $A=A^\dagger$ e $B=B^\dagger$, ricordiamo la definizione di valore d'attesa $\braket{A}_\psi = (\psi,A\psi)$.
+\begin{dfn}
+Si chiama scarto quadratico o indeterminazione di un operatore $A$ la quantità:
+\[\Delta_\psi A = \|\hat{A}\psi\| \quad\text{con}\quad \hat{A} = A-\braket{A}_\psi\mathbbm{1}\]
+\end{dfn}
+e facile vedere che vale:
+\[(\Delta_\psi A)^2 = \|\hat{A}\psi\|^2 = (A\psi-\braket{A}_\psi \psi,A\psi-\braket{A}_\psi \psi) = \|A\psi\|^2 + (A\psi,-\braket{A}_\psi \psi) + (-\braket{A}_\psi \psi,A\psi) + \braket{A}_\psi^2\|\psi\|^2\]
+\[ = \|A\psi\|^2 +  \braket{A}_\psi^2\|\psi\|^2 - \braket{A}_\psi (A\psi,\psi) - \braket{A}_\psi (\psi,A\psi) = \|A\psi\|^2 +  \braket{A}_\psi^2\|\psi\|^2 -2\braket{A}_\psi^2 \]
+ora tenendo conto che nel caso fisico la funzione d'onda è normalizzata quindi $\|\psi\|^2 = 1$ ed inoltre notiamo che il primo termine diventa:
+\[\|A\psi\|^2 = (A\psi,A\psi) = (\psi,AA\psi) = (\psi,A^2\psi) = \braket{A^2}_\psi\]
+otteniamo come conclusione:
+\[(\Delta_\psi A)^2 =\braket{A^2}_\psi -\braket{A}_\psi^2 \]
+Consideriamo ora la quantità $(\hat{A}\psi,\hat{B}\psi) - (\hat{B}\psi,\hat{A}\psi)$ calcoliamo il suo valore, iniziando dal primo termine e notando che il secondo è il primo con $A$ e $B$ scambiati:
+\[(\hat{A}\psi,\hat{B}\psi)  = (A\psi-\braket{A}_\psi\psi,B\psi-\braket{B}_\psi\psi) = (A\psi,B\psi) - 2\braket{A}_\psi\braket{B}_\psi + \braket{A}_\psi\braket{B}_\psi \|\psi\|^2\]
+\[= (A\psi,B\psi) - \braket{A}_\psi\braket{B}_\psi \]
+otteniamo perciò che:
+\[(\hat{A}\psi,\hat{B}\psi) - (\hat{B}\psi,\hat{A}\psi) =(A\psi,B\psi) - \braket{A}_\psi\braket{B}_\psi - (B\psi,A\psi) + \braket{B}_\psi\braket{A}_\psi = (A\psi,B\psi) -(B\psi,A\psi) \]
+a questo punto potremmo scambiare gli operatori, ma ci potrebbereo essere problemi di dominio per cui li lasciamo cosi come sono. Prendiamo il modulo di questa quantità e maggioriamola:
+\[|(A\psi,B\psi) -(B\psi,A\psi)| = |(\hat{A}\psi,\hat{B}\psi) - (\hat{B}\psi,\hat{A}\psi)| \leq |(\hat{A}\psi,\hat{B}\psi)| +|(\hat{B}\psi,\hat{A}\psi)| \]
+la quale può essere maggiorata con Schwarzt e otteniamo:
+\[ |(A\psi,B\psi) -(B\psi,A\psi)| \leq 2 \|\hat{A}\psi\|\|\hat{B}\psi\| = 2\Delta_\psi A \Delta_\psi B \]
+da cui quindi:
+\[\Delta_\psi A \Delta_\psi B\geq \frac{1}{2}|(A\psi,B\psi) -(B\psi,A\psi)| = \frac{1}{2}|(\psi,C\psi)| \]
+dove l'uguaglianza con il commutatore $C=[A,B]$ si può fare solamente prestando particolare attenzione al dominio.\\
+Se come opertori prendiamo $Q$ e $P$ (prendiamo in questo caso $P$ definito anche con la costante di Planck ridotta) in $L_2(\R)$ dove entrambi sono autoaggiunti la disuguaglianza diventa:
+\[\Delta_\psi Q \Delta_\psi P\geq \frac{1}{2}|(P\psi,Q\psi) -(Q\psi,P\psi)| = \frac{\hbar}{2}\left|-i\int_{-\infty}^{+\infty}(\overline{\psi}'x\psi - x\overline{\psi}\psi')\,dx\right|\]
+andiamo avanti con i conti dell'integrale facendolo per parti:
+\[-i\int_{-\infty}^{+\infty}(\overline{\psi}'x\psi - x\overline{\psi}\psi')\,dx = -i\int_{-\infty}^{+\infty}(x(\overline{\psi}\psi)'\,dx = -i\overline{\psi}\psi\Big|_{-\infty}^{+\infty} +i\int_{-\infty}^{+\infty}\overline{\psi}\psi\,dx =\]
+\[i\int_{-\infty}^{+\infty}|\psi|^2dx = i\]
+quindi concludiamo che:
+\[\Delta_\psi Q \Delta_\psi P\geq \frac{\hbar}{2}\]
+\section{Operatore tempo}
+In meccanica quantistica può venire naturale voler introdurre il tempo come operatore, quindi come osservabile, questa cosa non avviene in quanto si può dimostrare che un tale operatore non è autoaggiunto. Iniziamo considerando l'equazione di evoluzione del valore medio di un operatore $A$ autoaggiunto:
+\[\frac{d}{dt}\braket{A} = \frac{i}{\hbar}\braket{[H,A]}\]
+dove $t$ è un parametro di evoluzione temporale ed $H$ è l'hamiltoniana del sistema. Notiamo che tale equazione è uguale a quella classica con al posto delle parentesi di Poisson il commutatore. Se introduciamo l'operatore $T$ canonicamente coniugato ad $H$ ovvero $[T,H] = i\hbar$ si può vedere che sarebbe consistente con il parametro $t$ di evoluzione temporale, infatti:
+\[\frac{d}{dt}\braket{T} = -\frac{i}{\hbar}\braket{[T,H]} = 1  \implies \braket{T} = t + c\]
+l'operatore $H$ si può mostrare essere autoaggiunto e inferiormente limitato, ovvero: $\braket{H}\geq 0$, per il teorema spettrale quindi esiste una trasformazione unitaria tale che $H$ è diagonale questo implica che possiamo scrivere la relativa equazione agli autovalori:
+\[H\psi(E) = E\psi(E)\]
+se introduciamo l'operatore $T$ si può vedere che otteniamo:
+\[T= -i\hbar\frac{\partial}{\partial E}\]
+questo operatore è simmetrico, ma utilizzando il teorema di Von-Neumann, si dimostra non avere estensioni autoaggiunte, quindi non è un osservabile della meccanica quantistica.
+\section{Operatori di Schr{\"o}dinger}
+\subsection{Potenziali elementari}
+Mettiamoci nello spazio di Hilbert $L_2(\Sigma)$ con $\Sigma=\R,\R^+,[0,1]$ e studiamo diversi opertori Hamiltoniani $H = -\nabla^2 + V(\mathbf{x})$. Notiamo che innanzitutto $H$ è simmetrico solo quando $V(\mathbf{x})$ è una quantità reale, inoltre non è limitato quindi per evitare problemi ci prendiamo come dominio $C_0^\infty(\Sigma)$: le funzioni infinitamente derivabili e a supporto compatto. 
+\begin{itemize}
+\item caso $V(\mathbf{x}) = 0$, particella libera.\\
+\newline In questo caso l'operatore di Hamilton è semplicemente $H_0 = -\nabla^2$ e in una dimensione dove noi lavoreremo per semplicità vale $H_0 = -\frac{d^2}{dx^2}$. Questo operatore è simmetrico, vediamo se è autoaggiunto. Per determinarlo ricorriamo al teorema di Von-Neumann, calcoliamo perciò gli indici di difetto:
+\[H_0U_\pm(x) = \mp iU_\pm(x) \implies U''_\pm \pm iU_\pm = 0 \]
+si tratta dell'equazione di un oscillatore armonico le cui soluzioni sono:
+\[\begin{cases}
+U_+(x) = a_+e^{\sqrt{i}x} + b_+e^{-\sqrt{i}x} \\
+U_-(x) = a_-e^{\sqrt{-i}x} + b_-e^{-\sqrt{-i}x} 
+\end{cases} 
+\implies
+\begin{cases}
+U_+(x) = a_+e^{\frac{x}{\sqrt{2}}}e^{\frac{ix}{\sqrt{2}}} + b_+e^{-\frac{x}{\sqrt{2}}}e^{-\frac{ix}{\sqrt{2}}} \\
+U_-(x) = a_-e^{\frac{x}{\sqrt{2}}}e^{\frac{-ix}{\sqrt{2}}} + b_-e^{-\frac{x}{\sqrt{2}}}e^{\frac{ix}{\sqrt{2}}} 
+\end{cases}
+\]
+facciamone la norma per stabilire quando converge:
+\[|U_\pm|^2 = a_\pm^2e^{\sqrt{2}x} + b_\pm^2e^{-\sqrt{2}x} + 2\text{Re}(a_\pm b_\pm) \implies \|U_\pm\|^2 = \int_\Sigma|U_\pm|^2dx\]
+vediamo i vari casi  di $\Sigma$
+\begin{enumerate}
+\item caso $\Sigma = \R$:\\
+la norma di $U_\pm$ in questo caso vale:
+\[ \|U_\pm\|^2 = \int_{-\infty}^{+\infty}[a_\pm^2e^{\sqrt{2}x} + b_\pm^2e^{-\sqrt{2}x} + 2\text{Re}(a_\pm b_\pm)]dx\]
+abbiamo gli esponenziali che divergono sia da una parte che dall'altra della retta reale per cui necessariamente deve essere $a_\pm=b_\pm = 0$ quindi gli indici di difetto sono uguali e nulli, cioè $H_0$ è autoaggiunto. Questo significa che l'energia cinetica è una quantità osservabile.
+\item caso $\Sigma = \R^+$:\\
+\[ \|U_\pm\|^2 = \int_{0}^{+\infty}[a_\pm^2e^{\sqrt{2}x} + b_\pm^2e^{-\sqrt{2}x} + 2\text{Re}(a_\pm b_\pm)]dx\]
+in questo caso il termine che diverge all'infinito è il primo quindi deve essre $a_\pm = 0$, questo significa che gli indici di difetto sono uguali e valgono 1, esistono infinite estensioni autoaggiunte. Si possono trovare come abbiamo fatto nel caso di $P$ e otteniamo il seguente domino:
+\[D_{H_0} = \{\varphi,H_0\varphi\in L_2(\R^+), \varphi(0) = \beta \varphi'(0)\}\]
+la condizione al contorno è detta condizione di Robin.
+\item caso $\Sigma = [0,1]$:\\
+l'integrale in questo caso non ha nessun problema di convergenza quindi $n_+=n_-=2$, esistono infinite estensioni autoaggiunte parametrizzate da una matrice unitaria di dimensione $2\times2$. La condizione del dominio si può dimostrare essere:
+\[\begin{pmatrix}
+  \varphi(0) +i \varphi'(0) \\
+  \varphi(1) -i \varphi'(1)
+ \end{pmatrix} = \begin{pmatrix}
+  a &b\\
+  c & d
+ \end{pmatrix}\begin{pmatrix}
+  \varphi(0) -i \varphi'(0) \\
+ \varphi(1) +i \varphi'(1)
+ \end{pmatrix}\]
+ con la matrice $2\times2$ unitaria, quindi con 4 parametri reali liberi. Alcuni esempi di matrici unitarie che si possono utilizzare sono:
+ \[UU^\dagger = \begin{pmatrix}
+  e^{i\alpha} &0\\
+  0 & e^{i\beta}
+ \end{pmatrix} =\begin{pmatrix}
+  e^{-i\alpha} &0\\
+  0 & e^{-i\beta}
+ \end{pmatrix} = \begin{pmatrix}
+  1 &0\\
+  0 & 1
+ \end{pmatrix}\quad \alpha,\beta=\R\]
+ con la quale otteniamo le condizioni di Robin ai bordi:
+ \[\begin{cases}
+ \varphi(0) = \tan\left(\frac{\alpha}{2}\right) \varphi'(0) \\
+ \varphi(1) = \tan\left(\frac{\beta}{2}\right) \varphi'(1)
+\end{cases} \]
+che con $\alpha=\beta=0$ si riducono alle condizione di Richlet di cui è un bell'esercizio calcolarne lo spettro associato. Oppure la matrice unitaria:
+\[UU^\dagger = \begin{pmatrix}
+  0 &e^{i\alpha}\\
+  e^{-i\alpha} & 0
+ \end{pmatrix} =\begin{pmatrix}
+   0 &e^{i\alpha}\\
+  e^{-i\alpha} & 0
+ \end{pmatrix} = \begin{pmatrix}
+  1 &0\\
+  0 & 1
+ \end{pmatrix}\quad \alpha\in\R\]
+con la quale otteniamo le condizioni al contorno periodiche generalizzate:
+\[\begin{cases}
+ \varphi(0) = e^{-i\frac{\alpha}{2}} \varphi'(0) \\
+ \varphi(1) = e^{-i\frac{\alpha}{2}} \varphi'(1)
+\end{cases} \]
+di cui per $\alpha=0$ potrebbe essere un simpatico esercizio trovare lo spettro dell'operatore.
+\end{enumerate}
+\item caso $V(x) = \xi x$ con $\xi\in\R$, studiamo solo il caso $\Sigma=\R$:\\ \newline
+L'equazione di Von-Neumann associata è in questo caso:
+\[-U_\pm''(x) + \xi x U_\pm(x) = \mp i U_\pm(x)\]
+le cui soluzioni sono le cosiddette funzioni di Airy, complicate da studiare. Possiamo ricorrere ad un trucco però tenendo conto che gli indici di difetto sono invarianti sotto trasformazioni unitarie come ad esempio la trasformata di Fourier, questo ci permette di passare l'equazione nello spazio $\tilde{L}_2(\R)$ dove l'equazione e le sue soluzioni sono molto più semplici da studiare. Vediamo come si trasformano i vari membri:
+\[\F\left(-\frac{d^2}{dx^2}U_\pm\right) = p^2\tilde{U}_\pm(p)\quad \F(\xi x U_\pm) = \xi i \frac{d\tilde{U}_\pm}{dp}\]
+l'equazione diventa:
+\[p^2\tilde{U}_\pm(p) +\xi i \frac{d\tilde{U}_\pm}{dp} = \mp i \tilde{U}_\pm(p)\implies \xi\frac{d\tilde{U}_\pm}{dp}=(\mp1+ip^2)\tilde{U}_\pm\]
+che si può svolgere per separazione di variabili e otteniamo come soluzione:
+\[\tilde{U}_\pm(p) = C_\pm e^{\mp\frac{p}{\xi}}e^{\frac{ip^3}{3\xi}}\]
+la cui norma è:
+\[\|\tilde{U}_\pm(p) \|^2 = |C_\pm|^2\int_{-\infty}^{+\infty} e^{\mp\frac{2p}{\xi}}e^{\frac{2ip^3}{3\xi}}\,dp \]
+che ha dei seri problemi di convergenza, quindi ci tocca porre $C_\pm=0$ quindi sono nulli pure gli indici di difetto e quindi l'operatore è autoaggiunto.
+\item caso $V(x) = \frac{g}{x^2}$ con $g\in\R$, studiamo solo il caso $\Sigma=\R^+$:\\ \newline
+dato che il potenziale è reale l'operatore è simmetrico, scriviamo l'equazione di Von-Neumann:
+\[-U''_\pm(x) + \frac{g}{x^2}U_\pm(x) = \mp i U_\pm(x)\implies U''_\pm(x) - \left(\pm i+\frac{g}{x^2}\right)U_\pm(x)=0\]
+la soluzione di questa equazione sono:
+\[U_\pm(x) = C_\pm\sqrt{x} K_\nu(\sqrt{\pm i}x)\]
+dove $K_\nu(z)$ è la funzione di Macdonald (dette anche di Bessel modificate) con $\nu = \sqrt{\frac{1}{4}+g}$. Per studiare la convergenza dell'integrale ci servono i seguenti comportamenti asintotici di $K_\nu(z)$:
+\[K_\nu(z)\xrightarrow[z\to +\infty]{} e^{-z} \qquad K_\nu(z)\xrightarrow[z\to 0]{} \frac{z^{-\nu}}{\Gamma(\nu+1)}\]
+la norma quindi è:
+\[\|U_\pm\|^2 = C_\pm^2\int_0^{+\infty}x\left|K_\nu\left(\frac{1\pm i}{\sqrt{2}}x\right)\right|^2dx\]
+all'infinito non ci sono problemi perchè l'integrando tende a $e^{-\frac{1\pm i}{\sqrt{2}}x}$, in 0 l'integrando va come $ x x^{-2\sqrt{\frac{1}{4}+g} }$ che può divergere o meno a seconda di $g$. Se l'integrale divergesse saremmo costretti a imporre le costanti nulle quindi gli indici di difetto sarebbero nulli e avremo un operatore autoaggiunto, vediamo con quali condizioni su $g$ otteniamo questo. L'integrale diverge quando
+\[x^2 x^{-2\sqrt{\frac{1}{4}+g}}\xrightarrow[x\to 0]{}\infty \implies 2-2\sqrt{\frac{1}{4}+g}\leq 0 \implies g\geq \frac{3}{4}\]
+nel caso in cui $g<\frac{3}{4}$ possono esserci altri casi in cui l'operatore è autoaggiunto.
+\end{itemize}
+Questo ultimo esempio in cui abbiamo trovato delle condizioni su $g$ per l'autoaggiunzione poteva essere visto come esempio particolare di un teorema più generale che pone delle condizioni su $V(x)$ affinchè l'hamiltoniana sia autoaggiunta, vediamolo ora.
+\begin{thm}(Del punto fisso o di Weyl)
+Sia lo spazio di Hilbert $L_2(\R^+)$ e l'operatore di Hamilton $H = -\frac{d^2}{dx^2} + V(x)$ con $V(x)$ reale continuo e con derivata continua, allora se:
+\begin{enumerate}[i.]
+\item $V(x)\geq \frac{3}{4}\frac{1}{x^2}$ quando $x\to 0$ (si dice che il potenziale è nel punto limite in $x=0$)
+\item $V(x)$ è limitato $|V(x)|\leq k^2$ e valgono:
+\[\lim_{x\to\infty}\frac{x}{\sqrt{k^2-V(x)}} = \infty \quad \lim_{x\to \infty} \left|\frac{V'(x)}{V^{\frac{3}{2}}(x)}\right|<+\infty\]
+(si dice che $V$ è nel punto limite in $x=\infty$)
+\end{enumerate}
+allora $H$ è autoaggiunto e $n_+=n_-=0$
+\end{thm}
+Vediamo come l'ultimo esempio di prima è un caso particolare di questo teorema, $V(x) = \frac{g}{x^2}$: è reale, continuo e con derivata continua in $\R^+$, inoltre $V(x)\geq \frac{3}{4}\frac{1}{x^2}$ solo quando $g\geq \frac{3}{4}$, vediamo se sono sempre soddisfatti i limiti:
+\[\lim_{x\to\infty}\frac{x}{\sqrt{k^2-\frac{g}{x^2}}} = \infty \qquad  \lim_{x\to \infty} \left|\frac{2gx^{-3}}{g^{\frac{3}{2}}x^{-3} }\right| = 2\sqrt{g}\qquad \forall g \]
+quindi l'unica condizione è $g\geq \frac{3}{4}$ nella quale rientriamo nelle ipotesi del teorema che ci dice che $H$ è autoaggiunto con indici di difetto nulli.\\
+\subsection{Potenziali a simmetria sferica}
+Studiamo adesso un altra importante hamiltoniana, quella con il potenziale a simmetria centrale $H = -\nabla^2 + V(\mathbf{x})$ e studiamola in $L_2(\R^n)$. Per farlo è comodo passare a delle coordinate sferiche generalizzate $r,\Omega^\alpha$ in modo tale che il potenziale dipenda solo da $V(r)$.\\
+Facciamo allora una piccola digressione sulle coordinate sferiche generalizzate che ci sarà utile per il calcolo. Quello che ci servirà sarà la metrica euclidea che nel caso di coordinate cartesiane è semplicemente:
+\[ds^2  =d\mathbf{x}^2 = dx_1^2 + dx_2^2 +\dots + dx_n^2 = \delta_{ij}dx^idx^j\]
+dove si è usata la convenzione di Einstein sugli indici ripetuti, convenzione adottata per tutto il seguito della trattazione. Nel caso generale possiamo esprimere la metrica euclidea con una matrice $g_{\mu\nu}$:
+\[ds^2 = g_{\mu\nu} dx^\mu dx^\nu\]
+che nel caso delle coordinate cartesiane è l'identità. Vediamo invece nel caso di coordinate polari $(r,\varphi)$ come esprimere tale matrice:
+\[ds^2 = g_{\mu\nu} dx^\mu dx^\nu \implies ds^2 = dr^2+r^2d\varphi^2 \implies g_{\mu\nu} = \begin{pmatrix}
+  1 & 0  \\
+  0 & r^2
+ \end{pmatrix} \]
+per prendere dimestichezza vediamo anche le coordinate sferiche $(r,\theta,\varphi)$:
+\[ds^2 = dr^2+r^2d\theta^2 +r^2\sin^2\theta d\varphi^2\implies g_{\mu\nu} = \begin{pmatrix}
+  1 & 0 & 0 \\
+  0 &r^2 & 0\\
+  0 & 0 & r^2sin^2\theta
+ \end{pmatrix}\]
+in generale nelle coordinate sferiche in $n$ dimensioni $(r,\Omega^\alpha)$ abbiamo che la matrice vale:
+\[g_{\mu\nu} = \begin{pmatrix}
+  1 & 0  \\
+  0 &r^2h_{ab}\\
+ \end{pmatrix} \qquad ds^2 = dr^2 + r^2h_{ab} d\Omega^ad\Omega^b \qquad a,b=2,\dots,n\]
+ con evidentemente $h_{ab}$ matrice di dimensione $(n-1)\times (n-1)$ diagonale. Se identifichiamo il determinate di $g_{\mu\nu}$ e di $h_{ab}$ come:
+ \[g = \text{det}(g_{\mu\nu}) \qquad h = \text{det}(h_{ab})\]
+possiamo allora esprimere il laplaciano in qualsiasi sistema di coordinate:
+\[\nabla^2\psi = \frac{1}{\sqrt{g}}\partial_\mu(\sqrt{g}g^{\mu\nu}\partial_\nu \psi)\qquad \mu,\nu=1,\dots,n\]
+stando attendi alla posizione degli indici che in questa formula sono in alto per il tensore metrico, ma sappiamo che vale $g_{\mu\alpha}g^{\nu\alpha} = \delta_\mu^\nu$. Verifichiamo che questa formula per le coordinate cartesiane ci ritorna il classico laplaciano, sappiamo che per le coordinate cartesiane vale:
+\[ g_{\mu\nu} =  g^{\mu\nu} =
+ \begin{pmatrix}
+  1 & 0 &  0 \\
+  0 & \ddots & 0\\
+  0 & 0 & 1
+ \end{pmatrix}\qquad g = 1 \]
+il laplaciano diventa allora quello che conosciamo:
+\[\nabla^2\psi = \partial_\mu(g^{\mu\nu}\partial_\nu \psi) = \partial_\mu\partial_\mu \psi\]
+Facciamo ora il conto in coordinate sferiche generalizzate dove abbiamo:
+\[g_{\mu\nu} = \begin{pmatrix}
+  1 & 0  \\
+  0 &r^2h_{ab}\end{pmatrix}
+  \qquad g^{\mu\nu} = \begin{pmatrix}
+  1 & 0  \\
+  0 &\frac{1}{r^2}h^{ab}\end{pmatrix} \qquad g = r^{2(n-1)}h \implies \sqrt{g} = r^{n-1}\sqrt{h}\]
+mettiamo dentro alla formula del laplaciano:
+\[\nabla^2\psi = \frac{1}{r^{n-1}\sqrt{h}}\partial_\mu(r^{n-1}\sqrt{h} g^{\mu\nu}\partial_\nu \psi)  =  \frac{1}{r^{n-1}\sqrt{h}}\left[\partial_r(r^{n-1}\sqrt{h}\partial_r \psi) + \partial_a\left(\frac{r^{n-1}}{r^2}\sqrt{h} h^{ab}\partial_b\psi\right)\right] \]
+dove abbiamo iniziato ad espandere il tensore metrico, adesso raccogliamo $\sqrt{h}$ e svolgiamo la derivata rispetto ad $r$ del prodotto che abbiamo:
+\[\nabla^2\psi = \frac{1}{r^{n-1}}\left[r^{n-1}\partial_r^2\psi +(n-1)r^{n-2}\partial_r \psi + \partial_a\left(\frac{r^{n-1}}{r^2} h^{ab}\partial_b\psi\right)\right]  = \partial_r^2\psi + \frac{n-1}{r}\partial_r\psi + \frac{1}{r^2}(\partial_a h^{ab}\partial_b\psi)\]
+tenendo conto che nell'ultimo pezzo compare il laplaciano sulla superficie $S^{n-1}$ possiamo scrivere:
+\[\nabla^2\psi = \partial_r^2\psi + \frac{n-1}{r}\partial_r\psi + \frac{1}{r^2}\nabla_{S^{n-1}}^2\psi\]
+vediamo meglio quest'ultimo termine, per $n=2$ coordinate polari sul piano abbiamo semplicemente che:
+\[\nabla_{S^{1}}^2\psi =\frac{\partial^2}{\partial \varphi^2}\]
+questo operatore è autoaggiunto e come autofunzioni e autovalori ha:
+\[Y_{n}(\varphi) = \frac{e^{in\varphi}}{\sqrt{2\pi}}\quad \lambda_n = - n^2\]
+nel caso $n=3$ come autofunzioni abbiamo le armoniche sferiche $Y_{l,m}$ e vale:
+\[-\nabla^2_{S^2}Y_{l,m} = l(l+1)Y_{l,m}\]
+nel caso $n$ dimensionale abbiamo le armoniche sferiche generalizzale $Y_{\alpha}$
+\[-\nabla^2_{S^{n-1}}Y_{\alpha}(\Omega^\alpha) = \lambda^2_\alpha Y_\alpha(\Omega^\alpha)\]
+questo ci permette di scrivere la $\psi$ fattorizzata come:
+\[\psi = \varphi(r)Y_\alpha(\Omega)\]
+con la quale è più facile calcolare l'hamiltoniana, infatti:
+\[H_\alpha\psi = V(r)\varphi(r)Y_\alpha - Y_\alpha\left[\varphi''(r) + \frac{n-1}{r}\varphi'(r)\right] + \frac{\varphi(r)}{r^2}\lambda_\alpha^2Y_\alpha\]
+\[ = \left[-\varphi''(r) - \frac{n-1}{r}\varphi'(r) + \frac{\lambda_\alpha^2}{r^2}\varphi(r)+V(r)\varphi(r)  \right]Y_\alpha\]
+con le coordinate sferiche il nostro spazio di Hilbert è diventato una cosa del tipo $L_2(\R^+)\times L_2(S^{n-1})$ la norma in tale spazio vale:
+\[\|\psi\|^2 = \int dS^{n-1}\int_0^\infty dr\,r^{n-1}|\varphi(r)|^2|Y_\alpha|^2 = V(S^{n-1})\int_0^\infty dr\,r^{n-1} |\varphi|^2\]
+questo perchè nell'integrale bisogna tenere conto dello Jacobiano della trasformazione delle coordinate. Il problema ora è che nella norma si trova un fattore scomodo, conviene per simmetrizzare fare un cambio di variabile e scegliere come funzioni d'onda radiali $U = r^{\frac{n-1}{2}}\varphi$ in questo modo si può vedere la norma di $U$ vale:
+\[\|U\| =  V(S^{n-1})\int_0^\infty dr |U|^2\]
+facciamo la sostituzione anche nell'hamiltoniana, calcoliamo per prima cosa le derivate di $\varphi$ tenendo conto che vale $\varphi(r) = U(r)r^{\frac{1-n}{2}}$:
+\[\frac{d\varphi}{dr} = \frac{dU}{dr}r^{\frac{1-n}{2}} + \frac{(1-n)}{2}U(r)r^{\frac{1-n}{2}-1} = \frac{dU}{dr}r^{\frac{1-n}{2}} + \frac{(1-n)}{2}U(r)r^{\frac{-1-n}{2}}  \]
+\[\frac{d^2\varphi}{dr^2} = \frac{d^2U}{dr^2}r^{\frac{1-n}{2}} +  \frac{(1-n)}{2}\frac{dU}{dr}r^{\frac{-1-n}{2}} + \frac{(1-n)}{2}\frac{dU}{dr}r^{\frac{-1-n}{2}} + \frac{(-1-n)}{2}\frac{(1-n)}{2}U(r)r^{\frac{-3-n}{2}}=\]
+\[\frac{d^2U}{dr^2}r^{\frac{1-n}{2}} + (1-n)\frac{dU}{dr}r^{\frac{-1-n}{2}} + \frac{(n^2-1)}{4}U(r)r^{\frac{-3-n}{2}}\]
+all'interno dell'hamiltoniana la derivata prima di $\varphi$ compare con un fattore $\frac{n-1}{r}$, calcoliamola:
+\[\frac{(n-1)}{r}\frac{d\varphi}{dr} = (n-1)\frac{dU}{dr}r^{\frac{-1-n}{2}} -\frac{(n-1)^2}{2}U(r)r^{\frac{-3-n}{2}}\]
+tempo di mettere dentro all'hamiltoniana:
+\[H_\alpha U = \Big[-\frac{d^2U}{dr^2}r^{\frac{1-n}{2}} - (1-n)\frac{dU}{dr}r^{\frac{-1-n}{2}} - \frac{(n^2-1)}{4}U(r)r^{\frac{-3-n}{2}} - (n-1)\frac{dU}{dr}r^{\frac{-1-n}{2}} +\]\[\frac{(n-1)^2}{2}U(r)r^{\frac{-3-n}{2}} + \frac{\lambda_\alpha^2}{r^2}U(r)r^{\frac{1-n}{2}}+V(r)U(r)r^{\frac{1-n}{2}}  \Big]Y_\alpha  \]
+\[ =\Big[-\frac{d^2U}{dr^2}r^{\frac{1-n}{2}} + U(r)\frac{r^{\frac{1-n}{2}}}{r^2}\left(\frac{(n-1)^2}{2}- \frac{(n^2-1)}{4}\right) + \frac{\lambda_\alpha^2}{r^2}U(r)r^{\frac{1-n}{2}}+V(r)U(r)r^{\frac{1-n}{2}}  \Big]Y_\alpha \]
+con semplici conti algebrici calcoliamo:
+\[\frac{(n-1)^2}{2}- \frac{(n^2-1)}{4} = \frac{n^2-4n+3}{4} = \frac{(n-1)(n-3)}{4} \]
+mettiamo dentro e raccogliamo il fattore comune $r^{\frac{1-n}{2}}$ e concludiamo:
+\[H_\alpha U = r^{\frac{1-n}{2}}\Big[-\frac{d^2U}{dr^2} + \frac{(n-1)(n-3)}{4} \frac{U(r)}{r^2}+ \frac{\lambda_\alpha^2}{r^2}U(r)+V(r)U(r)\Big]Y_\alpha\]
+teniamo conto che sia $T$ una trasformazione unitaria tale che $U=T\varphi$ l'operatore $H$ si trasforma come\footnote{infatti sia $g=Af$ e $\tilde{g} = Tg$, $\tilde{f} = Tf$ allora $T^{-1}\tilde{g} = AT^{-1}\tilde{f} \implies \tilde{g} = TAT^{-1}\tilde{f}$ per cui evidentemente $\tilde{A} = TAT^{-1}$} $\widetilde{H} = THT^{-1}$, quindi avendo noi calcolato appena adesso $HT^{-1}\varphi$ basta applicare di nuovo $T$ che nel nostro caso corrisponde a moltiplicare per $r^{\frac{n-1}{2}}$ per ottenere la nuova Hamiltoniana che possiamo scrivere introducendo il potenziale efficace:
+\[\widetilde{H_\alpha} =-\frac{d^2}{dr^2} + V_{eff}(r)\qquad V_{eff}(r) = V(r) + \frac{\lambda_\alpha^2}{r^2} + \frac{(n-1)(n-3)}{4r^2} \]
+notiamo che in $n=3$ l'ultimo termine non c'è e il secondo termine è il potenziale centrifugo.\\ Studiamo adesso il caso in cui $\lambda_\alpha^2 = 0$ che corrisponde fisicamente all'assenza di momento angolare. Vediamo il caso di $V(r)=0$ ovvero l'hamiltoniana della particella libera in $\R^n$, in questo caso il potenziale efficace è:
+\[V_{eff}(r) = \frac{(n-1)(n-3)}{4r^2}\]
+applichiamo Weyl, otteniamo la condizione che:
+\[V_{eff}\geq \frac{3}{4r^2} \implies (n-1)(n-3) \geq 3 \implies n\geq 4 \]
+quindi per $n\geq4$ $H$ in $L_2(\R^n)$ è autoaggiunto, non sappiamo niente però nei casi $n=1,2,3$.\\
+Un caso più interessante è quello del potenziale coulombiano $V(r) = z/r$, vediamolo nel caso $n=3$ e proviamo ad applicare Weyl:
+\[V_{eff} = \frac{z}{r}\geq \frac{3}{4r^2}\]
+non otteniamo nulla di fatto, non possiamo applicare Weyl purtroppo e perciò non possiamo dire nulla sull'hamiltoniana con potenziale coulombinao in tre dimensione. Per dire qualcosa ci serve un altro teorema che andremo ad enunciare, vediamone un altro prima
+\begin{thm}
+(Di Kato-Rellich) Sia l'hamiltoniana $H =H_0 +V$ con $V$ reale e $H_0 = -\nabla^2$ in $L_2(\R^n)$ se $\forall \psi\in D$ con $D$ dominio dell'operatore vale:
+\[\|V\psi\|\leq a\|H_0\psi\|+b\|\psi\|\quad\text{con}\quad 0\leq a<1\,\, b>0\]
+allora $H$ è autoaggiunto.
+\end{thm}
+\hspace{-1.6em}\textbf{Dimostrazione:}\\(\textbf{WARNING: Alcuni punti oscuri, maneggiare con cura!} da rivedere)\\
+$H$ autoaggiunta corrisponde agli indici di difetto uguali a 0, ovvero che l'operatore:
+\begin{equation}\label{ciao}(H^\dagger \pm i\lambda)f=g\end{equation}
+ha un unica soluzione (notiamo che dal paragrafo 1.5 si è aggiunto $\lambda>0$, si può dimostrare che gli inidici di difetto non dipendono da tale quantità)
+per ipotesi del teorema abbiamo che:
+\[\|V\psi\|\leq a\|H_0\psi\|+b\|\psi\|\quad\text{con}\quad 0\leq a<1\,\, b>0\]
+$\forall \psi$, scegliamo in particolare $\psi = \frac{1}{H_0\pm i \lambda} U$ possiamo scrivere allora:
+\[V\psi = V\frac{1}{H_0\pm i \lambda} U = BU\]
+dove abbiamo definito $B = \frac{V}{H_0\pm i \lambda}$, la norma di questo operatore vale:
+\[\|V\psi\| = \|BU\| \leq a\|H_0\frac{1}{H_0\pm i \lambda}U\| + b\|\frac{1}{H_0\pm i \lambda}U\|\]
+vediamo di maggiorare il primo termine passando allo spazio degli impulsi per facilitare i conti:
+\[\|H_0\frac{1}{H_0\pm i \lambda}U\|^2 = \int d\mathbf{p}\, \frac{\mathbf{p}^2}{|\mathbf{p} \pm i\lambda|}|U|^2 \leq \|U\|^2\]
+calcoliamo ora il secondo termine delle disuguglianza:
+\[\|\frac{1}{H_0\pm i \lambda}U\|^2 = \frac{1}{\lambda^2}\|U\|^2\]
+otteniamo in definitiva:
+\[ \|BU\|  \leq (a+\frac{b}{\lambda})\|U\|\]
+si può scegliere opportunamente un $\lambda$ tale che $a+\frac{b}{\lambda}$ sia minore di 1 e quindi:
+\[ \|BU\| \leq \|U\|\]
+l'operatore $B$ è quindi limitato e $\|B\|<1$. Consideriamo ora l'operatore $C = \mathbbm{1} + B$, esso è limitato e invertibile e possiamo scrivere:
+\[C^{-1} = \frac{1}{\mathbbm{1}+B} = \sum_{k=0}^\infty (-1)^k B^k\]
+mostriamo ora che l'unica soluzione all'equazione \eqref{ciao} è:
+\[f = \frac{1}{H_0\pm i\lambda}C^{-1}g\]
+infatti:
+\[(H_0 \pm i\lambda +V)\frac{1}{H_0 \pm i\lambda} C^{-1}g = \left(\mathbbm{1}+\frac{V}{H_0 \pm i\lambda}\right)C^{-1}g = (\mathbbm{1} + B)C^{-1}g = CC^{-1}g=g\]
+\begin{thm}(Di Kato)
+Sia l'hamiltoniana $H=-\nabla^2 + V(\mathbf{x})$ in $L_2(\R^3)$ con potenziale reale e:
+\[V(\mathbf{x}) = V_2(\mathbf{x}) + W(\mathbf{x})\quad\text{con}\quad V_2(\mathbf{x})\in L_2(\R^3)\]
+e $|W(\mathbf{x})|\leq M$ allora $H$ è autoaggiunto.
+\end{thm}
+vediamo due casi in cui possiamo applicare questo teorema:
+\begin{itemize}
+\item Potenziale di Yukawa $V_{yuk}(r) = \frac{Ae^{-\mu r}}{r}$ con $\mu>0$\\
+Consideriamo con le stesse notazione del teorema $W = 0$ e $V_2 = V_{yuk}$, controlliamo che sia in $L_2(\R^3)$:
+\[\|V_{yuk}\|^2 = 4\pi\int_0^\infty dr\, r^2\frac{A^2e^{-2\mu r}}{r^2} = \frac{2\pi A^2}{\mu}\]
+conludiamo che per il teorema di Kato l'hamiltoniana è autoaggiunta.
+\item Potenziale di Coulumb $V_c = \frac{z}{r}$\\
+sfortunatamente $V_c\notin L_2(\R^3)$ ma possiamo scriverlo come:
+\[V_c(r) = \frac{ze^{-\mu r}}{r} + \frac{z}{r}(1-e^{-\mu r})\] 
+dove adesso il primo termine fa parte di $L_2(\R^3)$ è sarà quindi il nostro $V_2$ mentre il secondo termine sarà la nostra $W$, dobbiamo controllare che sia limitata
+\[W(r) = \frac{z}{r}(1-e^{-\mu r}) \qquad r\geq 0 \]
+ma è evidente che lo sia essendoci un esponenziale decrescente. Quindi possiamo concludere per il teorema di Kato che l'hamiltonia con il potenziale di Coulomb è autoaggiunta.
+\end{itemize}
+\subsection{Potenziali singolari}
+In questa sezione vogliamo studiare i cosiddetti potenziali singolari, ovvero rappresentati da distribuzioni come vedremo in seguito. Per farlo, come vedremo a breve, è più conveniente studiare l'hamiltoniana nello spazio degli impulsi $\mathcal{F}(L_2(\R^n)) =  \widetilde{L}_2(\R^n)$. Iniziamo dunque a ricavarci l'hamiltoniana generica $H = -\mathbf{\nabla}^2 +V(\mathbf{x})$ nello spazio degli impulsi. Le convenzioni per la trasformata di Fourier che useremo sono:
+\[\widetilde{\psi}(\mathbf{p}) = \int_{\R^n}e^{-i\mathbf{p}\cdot \mathbf{x}}\psi(\mathbf{x})\,d\mathbf{x} \qquad \psi(\mathbf{x}) = \frac{1}{(2\pi)^n}\int_{\R^n}e^{i\mathbf{p}\cdot \mathbf{x}}\widetilde{\psi}(\mathbf{p})\,d\mathbf{p} \]
+applichiamo $H$ ad un generico stato $\psi$ e facciamo la trasformata di Fourier
+\[(\widetilde{H\psi})(\p) = \p^2 \widetilde{\psi}(\p) + \int_{\R^n} d\x\, e^{-i\p\cdot\x}V(\x)\psi(\x) = \p^2 \widetilde{\psi}(\p) + \frac{1}{(2\pi)^n}\int_{\R^n} d\x\, e^{-i\p\cdot\x}V(\x)\int_{\R^n}d\mathbf{k}\,e^{i\mathbf{k}\cdot \mathbf{x}}\widetilde{\psi}(\mathbf{k}) \]
+scambiando ordine di integrazione otteniamo
+\[(\widetilde{H\psi})(\p)= \p^2 \widetilde{\psi}(\p) + \frac{1}{(2\pi)^n}\int_{\R^n} d\mathbf{k}\,\widetilde{\psi}(\mathbf{k})\int_{\R^n}d\mathbf{x}\, V(\x)e^{-i\x(\mathbf{p}- \mathbf{k})}  =   \p^2 \widetilde{\psi}(\p) + \frac{1}{(2\pi)^n}\int_{\R^n} d\mathbf{k}\,\widetilde{\psi}(\mathbf{k})\widetilde{V}(\p-\mathbf{k})\]
+prendiamo adesso il potenziale singolare $\widetilde{V}(\p) = g$ con $g\in\R$ ovvero $V(\x) = g\delta(\x)$ e vediamo gli operatori nei diversi spazi così ci accorgiamo del motivo della scelta di lavorare nello spazio degli impulsi
+\[%\begin{matrix}
+  H\psi = -\nabla^2\psi + g \delta(\x) \psi(0)\qquad bruttina\]%\\ \\
+\[ \widetilde{H\psi} =  \p^2 \widetilde{\psi} + \frac{g}{(2\pi)^n}\int_{\R^n} d\mathbf{k}\,\widetilde{\psi}(\mathbf{k})\qquad buonina
+ \]
+ si può notare anche che l'equazione di Schr{\"o}dinger indipendente dal tempo da equazione differenziale si trasforma in equazione integrale nello spazio degli impulsi. Vediamo di studiare l'autoaggiunzione di questa hamiltoniana con potenziale singolare nello spazio degli impulsi cercando di sfruttare il teorema di Von-Neumann. L'hamiltoniana è ovviamente simmetrica e non limitata, prendiamo come dominio $D_{\widetilde{H}} = \{\widetilde{\psi},\widetilde{H}\widetilde{\psi} \in \widetilde{L}_2(\R^n) \, \int_{\R^n}d\p\,\widetilde{\psi}(\p) = 0\}$. Calcoliamo gli indici di difetto risolvendo l'equazione di Von-Neumann
+ \[\p^2 \widetilde{U}_\pm + gU_\pm(0) \pm i \widetilde{U}_\pm=0 \implies \widetilde{U}_\pm = -\frac{gU_\pm(0)}{\p^2\pm i}\]
+vediamone la norma per determinare gli indici di difetto, per il calcolo sfruttiamo  coordinate sferiche generalizzate
+\[\|\widetilde{U}_\pm\|^2 = g^2U_\pm^2(0)\int_{\R^n}d\p\,\frac{1}{(\p^2 \pm i)^2} = \Omega_ng^2U_\pm^2(0) \int_0^{+\infty}d\rho\, \frac{\rho^{n-1}}{(\rho^2\pm i)^2} \]
+dove $\Omega_n$ rappresenta in contributi angolari, è evidente che in questo integrale l'unico problema di divergenza sta all'infinito, ma a seconda di $n$ abbiamo casistiche diverse, infatti per $\rho\to \infty$ l'integrale converge quando $\rho^{n-4}$ va a 0, ovvero per $n\geq 0$ l'integrale diverge quindi dobbiamo prendere necessariamente $g=0$ per cui indici di difetto nulli, l'hamiltoniana è autoaggiunta, nel caso che $n<4$ l'integrale converge e abbiamo $n_- = n_+ = 1$ infinite estensioni autoaggiunte. Costruiamocele nel caso $n=1$, per fare meglio i conti torniamo nello spazio $L_2(\R)$, abbiamo allora che:
+\[U_\pm(x) = C_\pm \int_{-\infty}^{+\infty} \frac{e^{ipx}}{p^2\pm i} = C_\pm e^{-\sqrt{\pm i }|x|}\]
+dove abbiamo raccolto tutte le costanti in $C_\pm$ e abbiamo svolto l'integrale col metodo dei residui. Il dominio delle estensione autoaggiunte è quindi:
+\[D_\varphi = \{\varphi : \varphi(x) = h(x) +C[e^{-\sqrt{i}|x|} + e^{i\theta}e^{-\sqrt{-i}|x|}]\}\]
+vediamo meglio questa condizione al contorno in $x=0$
+\[\varphi(0) =C (1+e^{i\theta}) \qquad \varphi'(x) = h'(x) +C[-\sqrt{i}e^{-\sqrt{i}|x|} - \sqrt{-i}e^{i\theta}e^{-\sqrt{-i}|x|}](\theta(x)-\theta(-x))\]
+\[\varphi'(0_+) = h'(0) + C(-\sqrt{i}-\sqrt{-i}e^{i\theta}) \qquad \varphi'(0_-) = h'(0) - C(-\sqrt{i}-\sqrt{-i}e^{i\theta})\]
+da cui otteniamo:
+\[\frac{\varphi'(0_+) -\varphi'(0_-) }{\varphi(0)} = \frac{-\sqrt{i} - \sqrt{-i}e^{i\theta}}{1+e^{i\theta}} = \gamma\]
+si lascia per esercizio dimostrare che $\gamma$ è una quantità reale. Da cui infine la condizione al contorno:
+\[\psi'(0_+) - \psi'(0_-) = \gamma \psi(0) \quad \gamma\in\R\]
+
+
+\section{Problemi di Scattering}
+Mettiamoci per semplicità in $\R$ e affrontiamo il problema di studiare un sistema caratterizzato da un Hamiltoniana del tipo $H = -\frac{\hbar^2}{2m}\frac{d^2}{dx^2} + g\delta(x)$ con $g$ costante di accoppiamento. In prima approssimazione sostituiamo il potenziale a delta con un potenziale a supporto compatto in $[-N,N]$ come in figura
+\begin{figure}[H]
+\centering
+\begin{tikzpicture}
+\draw [<->](-5,0) -- (5,0)node[below=1.5pt] {\color{black}$x$};
+\draw[->](0,0)--(0,4)node[right=1.5pt] {\color{black}$V(x)$};
+
+\draw [red,domain=-2:2,samples = 1000] plot ({\x}, {3*2.718^(-16*(\x)^2)});
+
+\draw[dotted](.6,0)node[below]{\footnotesize$N$};
+\draw[dotted](-.6,0)node[below]{\footnotesize$-N$};
+
+\end{tikzpicture}
+\caption{Potenziale a supporto compatto}
+\end{figure}
+definiamo la corrente di probabilità come 
+\[J(x) = \frac{\hbar}{2im}(\overline{\psi}'\psi - \overline{\psi}\psi')\]
+per leggi di conservazione la corrente di probabilità deve essere costante $\frac{dJ}{dx} = 0$ quindi deve valere che $J(x<0) = J(x>0)$. L'equazione di Schr{\"o}dinger nel caso stazionario si può scrivere come $-\psi'' = \frac{2mE}{\hbar^2}\psi$, se la risolviamo per il nostro sistema per le $x$ dove il potenziale è nullo otteniamo
+\[\begin{cases}
+\psi(x) = A(p)e^{ipx} +B(p) e^{-ipx} \qquad x<-N \\
+\psi(x) = F(p)e^{ipx} +G(p) e^{-ipx} \qquad x>N
+\end{cases}\]
+dove $p^2 = \frac{2mE}{\hbar^2}$. Imponiano la condizione della conservazione della corrente di probabilità, ovvero $J(x<-N) = J(x>N)$, calcoliamo quindi:
+\[J(x<-N) = \frac{\hbar}{2im}\left[(-ip\overline{A}e^{-ipx}+ip\overline{B}e^{ipx})( Ae^{ipx} +Be^{-ipx}) -(ipAe^{ipx} -ipBe^{-ipx})(\overline{A}e^{-ipx} +\overline{B}e^{ipx} )  \right]\]
+\[= \frac{p\hbar}{2m}\left[-|A|^2 + |B|^2 -\overline{A}Be^{-2ipx} +\overline{B}Ae^{2ipx} - |A|^2 + |B|^2 - A\overline{B}e^{2ipx} + \overline{A}Be^{-2ipx}\right] = \frac{p\hbar}{m}(-|A|^2 + |B|^2)\]
+analogamente viene
+\[J(x<-N) = \frac{p\hbar}{m}(-|F|^2 + |G|^2)\]
+da cui quindi arriviamo alla condizione
+\[J(x<-N) = J(x>N)\implies|A|^2-|B|^2 = |F|^2 - |G|^2 \implies |A|^2+|G|^2 = |F|^2 + |B|^2\]
+questa condizione può essere riscritta in forma matriciale utilizzando i vettori complessi $\begin{pmatrix}
+  B\\
+  F
+ \end{pmatrix}\in\C^2$,$\begin{pmatrix}
+  A\\
+  G
+ \end{pmatrix}\in\C^2$:
+\[ \begin{pmatrix}
+  B\\
+  F
+ \end{pmatrix} = S \begin{pmatrix}
+  A\\
+  G
+ \end{pmatrix} \]
+ con $S$ \textbf{matrice di scattering} $2\times2$. Si può dimostrare che $S$ è una matrice unitaria, ovvero $S^\dagger S = \mathbbm{1}$, che equivale alla seguente condizione:
+ \[S^\dagger S = \begin{pmatrix}
+  \overline{S_{11}} & \overline{S_{21}} \\
+   \overline{S_{12}} & \overline{S_{22}} 
+ \end{pmatrix}\begin{pmatrix}
+  S_{11} & S_{12}\\
+   S_{21} & S_{22} 
+ \end{pmatrix} = \begin{pmatrix}
+ 1 & 0\\
+ 0 & 1\end{pmatrix} \implies |S_{11}|^2 + |S_{21}|^2 = 1\]
+ Mettiamoci ora nel caso in cui l'onda arriva da sinstra e dopo il pontenziale va a destra, quindi $G = 0$, semplifichiamo ulteriormente il problema e poniamo $F=1$. A questo punto possiamo definire le seguenti quantità:
+ \[T = \frac{|F|^2}{|A|^2} = \frac{1}{|A|^2} \qquad \textbf{coefficiente di trasmissione}\]
+ \[R = \frac{|B|^2}{|A|^2}  \qquad \textbf{coefficiente di riflessione}\]
+ che soddisfano la condizione $T+R = 1$, in questo caso è banalmente soddisfatta dato che	
+ \[ \frac{1}{|A|^2} + \frac{|B|^2}{|A|^2} = \frac{|B|^2 + 1}{|A|^2} = \frac{|A|^2}{|A|^2} = 1\]
+ dove abbiamo tenuto conto che vale $|A|^2+|G|^2 = |F|^2 + |B|^2$ che in questo caso è $|A|^2 = 1 + |B|^2$.\\
+ Per ricavarci i valori di $A$ e $B$ dobbiamo studiare le condizioni al contorno della funzione d'onda, per farlo consideriamo il pontenziale deltiforme $V(x) = g\delta(x)$, nel paragrafo precedente abbiamo già studiato il caso di questo potenziale, imponiano quindi la condizione ottenuta $\psi'(0_+) - \psi'(0_-) = \frac{2mg}{\hbar^2}\psi(0)$ ed il fatto che $\psi$ deve essere continua in 0. La continuità ci da che $A+B=1$, mentre la condizione sulla derivata:
+ \[\begin{cases}ip-ip(A-B) = \frac{2mg}{\hbar^2}(A+B) \\ A+B=1\end{cases} \implies A = \frac{ip\hbar^2 -mg}{ip\hbar^2} \quad B = \frac{mgA}{ip\hbar^2-mg} = \frac{mg}{ip\hbar^2} \]
+ da cui è possibile anche calcolare i coefficienti di trasmissione e riflessione
+ \[R = \frac{m^2g^2}{p^2\hbar+m^2g^2} \qquad T = \frac{p^2\hbar^4}{p^2\hbar^4+m^2g^2}\]
+ la matrice di scattering ha come componenti $S_{11}= B/A$ e $S_{21} = 1/A$, i poli di questa matrice sono gli zeri di $A$ ovvero $ip\hbar^2= mg \implies p =\frac{mg}{\hbar^2i}$ che implica che $p^2$ è un numero negativo, ma $p^2$ è legato all'energia quindi questo caso potrebbe essere uno stato legato, nel caso in cui $g$ sia minore di 0 siamo nel caso di uno stato legato, invece nel caso $g>0$ abbiamo risonanza.\\
+ I valori di $A$ e $B$ potevano essere calcolati in un modo diverso. Se formuliamo l'equazione di Schr{\"o}dinger in forma integrale e la risolviamo troviamo esattamente la stessa soluzione di prima.\\
+ Iniziamo a trovare la formulazione integrale, nel caso generale in 3 dimensioni l'equazione di Schr{\"o}dinger può essere scritta come:
+ \[\left(-\nabla^2 -\frac{2mE}{\hbar^2}\right)\psi(\x) = -\frac{2m}{\hbar^2}V(\x)\psi(\x)\] 
+ se consideriamo il membro di destra come termine non omogeneo ci riconduciamo al caso di un equazione lineare $Lu = g$ che ha come soluzione $u = u_0 + g*\mathcal{E}$ dove $u_0$ è la soluzione dell'omogenea e $\mathcal{E}$ è la soluzione fondamentale dell'operatore $L$. Nel nostro caso quindi la soluzione sarà:
+ \[\psi(\x) = \psi_0(\x) -\frac{2m}{\hbar^2}\int_{\R^3}\mathcal{E}(\x-\mathbf{y})V(\mathbf{y})\psi(\mathbf{y})\,d\mathbf{y} \]
+ L'operatore in questo caso è del tipo $-\nabla^2 - \omega^2$ che è l'operatore di Helmholtz la cui soluzione fondamentale si può trovare con il metodo di Hormander, passando quindi nello spazio degli impulsi tramite trasformata di Fourier. La soluzione che si trova è:
+ \[\mathcal{E}(\x) = \frac{e^{\pm i\omega|\x|}}{4\pi|\x|}\]
+ che messa dentro alla formula per $\psi(\x)$, assieme alla soluzione dell'omogenea, ci da l'equazione integrale equivalente a quella di Schr{\"o}dinger:
+ \[\psi(\x) = e^{\pm i \mathbf{p}\cdot \x} -\frac{2m}{4\pi\hbar^2}\int_{\R^3} \frac{e^{\pm i\omega|\x-\mathbf{y}|}}{|\x-\mathbf{y}|}V(\mathbf{y})\psi(\mathbf{y})\,d\mathbf{y} \]
+ detta anche \textbf{equazione di Lippmann-Schwinger}.\\
+ Ritorniamo nel nostro caso con potenziale unidimensionale $V(x) = g\delta(x)$, in questo caso l'operatore è $L = \frac{d^2}{dx^2} + p^2$ che ha come soluzione fondamentale anticipata $G_A(x) = -\theta(-x)Z(x)$ con $Z(x)$ soluzione dell'equazione omogenea con condizioni al contorno $Z(0) = 0$, $Z'(0)=1$. È facile vedere che $G_A(x) = -\theta(-x)\frac{\sin(px)}{p}$ da cui l'equazione di Lippmann-Schwinger del nostro sistema:
+ \[\psi(x) = e^{ipx} -\frac{2m}{\hbar^2}\int_{\R} \theta(y-x)\frac{\sin(p(x-y))}{p} g\delta(y)\psi(y)\,dy = e^{ipx} -\frac{2mg}{\hbar^2}\theta(-x)\frac{\sin(px)}{p} \psi(0)\]
+ notiamo che la condizione al contorno $\psi'(0_+) - \psi'(0_-) = \frac{2mg}{\hbar^2}\psi(0)$ è già soddisfatta dalla $\psi(x)$, infatti:
+ \[\psi'(x) = ip e^{ipx} -\frac{2mg}{\hbar^2}\theta(-x)\cos(px)\psi(0)\]
+ da cui:
+ \[\psi'(0_+) - \psi'(0_-) = ip -ip +\frac{2mg}{\hbar^2}\psi(0) =  \frac{2mg}{\hbar^2}\psi(0)\]
+inoltre per $x>0$ la funzione $\psi(x)$ possiamo scriverla come
+\[\psi(x) = e^{ipx} \implies F=1\quad G=0\]
+mentre per $x<0$ la funzione possiamo scriverla come (tenendo conto che $\psi(0) = 1$ per continuità della funziona d'onda):
+\[\psi(x) = e^{ipx} -\frac{2mg}{\hbar^2}\left[\frac{e^{ipx} - e^{-ipx}}{2ip}\right] =e^{ipx} \left(1-\frac{mg}{ip\hbar^2}\right) + \frac{mg}{ip\hbar^2} e^{-ipx}   \]
+che sono gli stessi $A$ e $B$ che abbiamo trovato prima.\\
+Concentriamoci ora sugli stati legati del sistema, in precedenza li abbiamo indentificati come le singolarità della matrice di scattering un approccio alternativo al problema è quello di studiare la risolvente del sistema i cui poli ci danno gli stati legati. Questo approccio è preferibili in alcuni casi, ad esempio quello in cui nel potenziale compaiono due delte di Dirac che andremo a vedere in dettaglio a breve. Iniziamo però da alcuni fatti di carattere generale e consideriamo un Hamiltoniana $H =H_0 + V$ in $L_2(\R)$, la risolvente è l'operatore $G_z$ tale che 
+\begin{equation}\label{risolvente} (H-z)G_z = \mathbbm{1}\end{equation}
+se indichiamo con $G_z^0$ la risolvente dell'operatore $H_0$ allora vale l'identità del risolvente:
+\[G_z = G_z^0 - G_z^0VG_z\]
+è facile dimostrarlo, infatti mostriamo che vale la \eqref{risolvente} mettendoci dentro tale l'identità:
+\[(H-z)G_z = (H_0-z+V)G_z = (H_0-z)G_z + VG_z = (H_0 -z)(G_z^0-G_z^0VG_z) + VG_z = \]
+\[\mathbbm{1} - \mathbbm{1}VG_z + VG_z = \mathbbm{1}\]
+per determinare la risolvente di un sistema, ovvero risolvere la \eqref{risolvente}, è più comodo passare dal nucleo dell'operatore, i termini di nuclei l'equazione per la risolvente diventa:
+\[(H-z)G_z(x,y) = \delta(x-y)\]
+che possiamo riscrivere come:
+\[(H_0-z)G_z(x,y) = \delta(x-y) - V(x)G_z(x,y)\]
+se consideriamo il termine a destra come termine noto abbiamo che la soluzione dell'equazione è la convoluzione tra la soluzione fondamentale e il termine noto, ma notiamo che la soluzione fondamentale di $H_0-z$ è proprio $G_z^0(x,y)$, quindi possiamo scrivere che:
+\[G_z(x,y) = G_z^0(x,y)*[\delta(x-y) - V(x)G_z(x,y)] \]
+tenendo conto che la convoluzione gode della proprietà distributiva e che la delta è l'elemento identità per tale operazione possiamo dire che
+\begin{equation}\label{ris_nucleo}G_z(x,y) = G_z^0(x,y) - \int dy'\, G_z^0(x,y')V(y')G_z(y',y)\end{equation}
+Applichiamo ora questi risultati al nostro sistema che ha $V(y') = g\delta(y')$, è facile allora trovare $G_z(x,y)$ con la formula appena trovata:
+\begin{equation}\label{ris_sistema}G_z(x,y) = G_z^0(x,y) -gG_z^0(x,0)G_z(0,y)\end{equation}
+si tratta adesso di trovare $G_z^0(x,y)$, per semplificare il problema cerchiamo $G_z^0(x)$ e poi reintroduciamo la variabile $y$ tenendo conto dell'invarianza per traslazione del problema
+\[(H_0 -z)G_z^0(x) = \delta(x) \implies \left(-\frac{\hbar^2}{2m}\frac{d^2}{dx^2}-z\right)G_z^0(x) = \delta(x)\]
+utilizziamo Fourier per risolvere l'equazione differenziale, passiamo quindi alla variabile $k = \frac{p}{\hbar}$
+\[\left(\frac{\hbar^2}{2m}k^2 -z\right)\widetilde{G_z^0}(x) = 1 \implies \widetilde{G_z^0}(x) = \frac{1}{\frac{\hbar^2}{2m}k^2-z} = \frac{2m}{\hbar^2}\left(\frac{1}{k^2+a^2}\right) \] 
+dove $a^2 = -\frac{2mz}{\hbar^2}$. Per tornare nello spazio delle configurazioni facciamo l'antitrasformata di Fourier
+\[G_z^0(x) = \frac{m}{\pi\hbar^2}\int_{-\infty}^{+\infty}dk\, \frac{e^{ikx}}{k^2+a^2} = \frac{m}{\hbar^2a}e^{-a|x|}\]
+dove l'integrale è stato fatto con il metodo dei residui, reintroduciamo adesso $y$ nell'unica maniera possibile per avere l'invarianza per traslazione
+\[G_z^0(x,y)  = \frac{m}{\hbar^2a}e^{-a|x-y|}\]
+che possiamo ora utilizzare nella \eqref{ris_sistema}, dove ci manca però $G_z(0,y)$ che però possiamo trovare valutando l'espressione \eqref{ris_sistema} in $x=0$:
+\[G_z(0,y) = G_z^0(0,y) - gG_z^0(0,0)G_z(0,y) \implies G_z(0,y) = \frac{G_z^0(0,y)}{1+ gG_z^0(0,0)} = \frac{G_z^0(0,y)}{1+ \frac{gm}{\hbar^2a}}\]
+con la quale possiamo finalmente arrivare alla soluzione per $G_z(x,y)$:
+\[G_z(x,y) = G_z^0(x,y) - \frac{gG_z^0(x,0)G_z^0(0,y)}{1+ \frac{gm}{\hbar^2a}}\]
+un polo di questo risolvente è $a = -\frac{gm}{\hbar^2}$ che si traduce nello stesso stato legato trovato in precedenza\footnote{Non è così banale, lo verificherò}.\\ 
+Questo approccio per risolvere il problema degli stati legati è estremamente più comodo quando abbiamo a che fare con Hamiltoniane del tipo $H = -\frac{\hbar^2}{2m}\frac{d^2}{dx^2} + \sum_{k=1}^N g_k\delta(x-x_k)$, vediamo il caso $N=2$. Consideriamo quindi un sistema caratterizzato da un Hamiltoniana $H = -\frac{\hbar^2}{2m}\frac{d^2}{dx^2} +g_1\delta(x-x_1)+g_2\delta(x-x_2)$ con $x_1>0$, $x_2>0$ e $g_{1,2}\in\R$. Se utilizzassimo un approccio classico dovremmo determinare la funzione d'onda che descrive il sistema con le seguenti condizioni al contorno:
+\[\begin{cases}
+\psi'(x_{1+}) - \psi'(x_{1-}) = \frac{2mg_1}{\hbar^2}\psi(x_1)\\
+\psi'(x_{2+}) - \psi'(x_{2-}) = \frac{2mg_2}{\hbar^2}\psi(x_2)
+\end{cases}\]
+assieme naturalmente alla condizioni di continuità di $\psi$. La mole di calcoli è relativamente minore se andiamo a studiare invece i poli della risolvente, sfruttando la \eqref{ris_nucleo} possiamo dire che:
+\[G_z(x,y) = G_z^0(x,y) - g_1G_z^0(x,x_1)G_z(x_1,y) - g_2G_z^0(x,x_2)G_z(x_2,y) \]
+dove la $G_z^0(x,y)$ l'abbiamo già calcolata, ci mancano quindi $G_z(x_1,y)$ e $G_z(x_2,y)$. Per ricavarle valutiamo questa espressione in $x_1$ e in $x_2$, arriviamo quindi al seguente sistema:
+\[\begin{cases}
+G_z(x_1,y) = G_z^0(x_1,y) - g_1G_z^0(x_1,x_1)G_z(x_1,y) - g_2G_z^0(x_1,x_2)G_z(x_2,y)\\
+G_z(x_2,y) = G_z^0(x_2,y) - g_1G_z^0(x_2,x_1)G_z(x_1,y) - g_2G_z^0(x_2,x_2)G_z(x_2,y)
+\end{cases}\]
+notiamo che per la forma della $G_z^0(x,y)$ vale che $G_z^0(x_1,x_2) = G_z^0(x_2,x_1) =: B $ ed inoltre $G_z^0(x_1,x_1)=G_z^0(x_2,x_2)=:A$. Possiamo riscrivere allora il sistema nel seguente modo
+\[\begin{cases}
+G_z(x_1,y) = G_z^0(x_1,y) - g_1AG_z(x_1,y) - g_2BG_z(x_2,y)\\
+G_z(x_2,y) = G_z^0(x_2,y) - g_1BG_z(x_1,y) - g_2AG_z(x_2,y)
+\end{cases}\]
+che in forma matriciale diventa:
+\[\begin{pmatrix}
+1+g_1A & g_2B\\
+g_1B & 1+g_2A
+\end{pmatrix}
+\begin{pmatrix}
+G_z(x_1,y)\\
+G_z(x_2,y)
+\end{pmatrix}=
+\begin{pmatrix}
+G_z^0(x_1,y)\\
+G_z^0(x_2,y)
+\end{pmatrix}
+\]
+se identifichiamo con $M$ la matrice più a sinistra la soluzione a problema è:
+\[\begin{pmatrix}
+G_z(x_1,y)\\
+G_z(x_2,y)
+\end{pmatrix}= M^{-1}\begin{pmatrix}
+G_z^0(x_1,y)\\
+G_z^0(x_2,y)
+\end{pmatrix}\]
+per scrivere la soluzione ci avvaliamo del metodo di cramer con il quale possiamo raccogliere il fattore $\frac{1}{\text{det}M}$ delle soluzioni e scrivere che:
+\[G_z(x,y) = G_z^0(x,y) +\frac{1}{\text{det}M}(\dots \text{roba} \dots)\]
+dove abbiamo tralasciato i termini in parentesi in quanto siamo interessati agli stati legati ovvero ai poli del risolvente che in questo caso corrispondo agli zero del determinante della matrice M
+\[\text{det}M = 0 \implies (1+g_1A)(1+g_2A) - g_1g_2B^2 = 0\]
+tenendo conto della definzione di $A$ e $B$ arriviamo all'equazione:
+\[\left(1+\frac{g_1m}{a\hbar^2}\right)\left(1+\frac{g_2m}{a\hbar^2}\right) - \frac{g_1g_2}{\hbar^4a^2}e^{-2ad} = 0\]
+dove abbiamo definito $d=|x_1-x_2|$. Si tratta di un equazione trascendentale che può essere risolta ``analiticamente'' sfruttando la funzione $W$ di Lambert, limitiamoci ad una trattazione più elementare di tipo geometrico e studiamo graficamente l'equazione che possiamo riscrivere come:
+\[a^2 + \frac{m(g_1+g_2)}{\hbar^2}a= \frac{m^2g_1g_2}{\hbar^4}(e^{-2ad}-1)\]
+a sinistra abbiamo una parabola nella variabile $a$ mentre a destra un esponenziale. La parabola ha sempre concavità verso l'alto, inoltre passa sempre per l'origine, l'esponenziale passa anch'esso per l'origine. Consideriamo che $a$ deve essere strettamente positivo in quanto è legato all'energia $a = \frac{\sqrt{2m}\sqrt{|E|}}{\hbar}$. L'altro zero della parabola è in $-\frac{m}{\hbar^2}(g_1+g_2)$ se $g_1+g_2>0$ allora lo zero sarà nelle $a$ negative e siamo nel caso della seguenti figure
+\begin{figure}[H]
+\centering
+\begin{minipage}{.5\textwidth}
+\centering
+\begin{tikzpicture}
+\draw [->](0,0) -- (5,0)node[below=1.5pt] {\color{black}$a$};
+\draw[->](0,-1.5)--(0,2)node[right=1.5pt] {\color{black}$y$};
+\draw[dotted](0,-1)node[left]{\scriptsize$-1$}--(5,-1);
+\draw [red,domain=0:5,samples = 1000] plot ({\x}, {2.718^(-\x)-1});
+\draw [blue,domain=0:4,samples = 100] plot ({\x}, {0.1*\x^2+0.1*\x});
+\end{tikzpicture}
+\caption{$g_1+g_2>0$ e $g_1g_2>0$}
+\end{minipage}%
+\begin{minipage}{.5\textwidth}
+\centering
+\begin{tikzpicture}
+\draw [->](0,0) -- (5,0)node[below=1.5pt] {\color{black}$a$};
+\draw[->](0,-1.5)--(0,2)node[right=1.5pt] {\color{black}$y$};
+\draw[dotted](0,1)node[left]{\scriptsize$1$}--(5,1);
+\draw [red,domain=0:5,samples = 1000] plot ({\x}, {-(2.718^(-\x)-1)});
+\draw [blue,domain=0:4,samples = 100] plot ({\x}, {0.1*\x^2+0.1*\x});
+\end{tikzpicture}
+\caption{$g_1+g_2>0$ e $g_1g_2<0$}
+\end{minipage}
+\end{figure}
+a seconda del segno di $g_1g_2$ avremo o no degli stati legati. Nel caso in cui $g_1+g_2<0$ siamo nelle seguente situazione
+\begin{figure}[H]
+\centering
+\begin{minipage}{.5\textwidth}
+\centering
+\begin{tikzpicture}
+\draw [->](0,0) -- (5,0)node[below=1.5pt] {\color{black}$a$};
+\draw[->](0,-1.5)--(0,2)node[right=1.5pt] {\color{black}$y$};
+\draw[dotted](0,-1)node[left]{\scriptsize$-1$}--(5,-1);
+\draw [red,domain=0:5,samples = 1000] plot ({\x}, {2.718^(-\x)-1});
+\draw [blue,domain=0:3.5,samples = 100] plot ({\x}, {\x^2-3*\x});
+\end{tikzpicture}
+\caption{$g_1+g_2<0$ e $g_1g_2>0$}
+\end{minipage}%
+\begin{minipage}{.5\textwidth}
+\centering
+\begin{tikzpicture}
+\draw [->](0,0) -- (5,0)node[below=1.5pt] {\color{black}$a$};
+\draw[->](0,-1.5)--(0,2)node[right=1.5pt] {\color{black}$y$};
+\draw[dotted](0,1)node[left]{\scriptsize$1$}--(5,1);
+\draw [red,domain=0:5,samples = 1000] plot ({\x}, {-(2.718^(-\x)-1)});
+\draw [blue,domain=0:3.5,samples = 100] plot ({\x}, {\x^2-3*\x});
+\end{tikzpicture}
+\caption{$g_1+g_2<0$ e $g_1g_2<0$}
+\end{minipage}
+\end{figure}
+dove nel caso $g_1g_2<0$ avremo sempre degli stati legati, mentre nel caso $g_1g_2>0$ avremo stati legati solo quando la parabola in 0 avrà derivata maggiore in modulo di quella dell'esponenziale, ovvero:
+\[\frac{m|g_1+g_2|}{\hbar^2} > \frac{2m^2g_1g_2d}{\hbar^4}\]
+che equivale alla condizione:
+\[|g_1+g_2|> \frac{2mg_1g_2d}{\hbar^2}\]
+\section{Momento angolare}
+Nel paragrafo 2.3.2 abbiamo studiato l'hamiltoniana con simmetria centrale sfruttando delle coordinate sferiche, il laplaciano ci dava un termine $-\nabla_{S^{n-1}}^2$ che abbiamo trascurato di studiare, in realtà in fisica questo operatore è di grande importanza in quanto lo possiamo identificare fisicamente come il momento angolare. Richiamiamo alcuni risultati che avevamo ottenuto, l'hamiltoniana in coordinate sferiche valeva
+\[H\psi = -\frac{\hbar^2}{2m}\left[\partial_r^2\psi + \frac{n-1}{r}\partial_r\psi + \frac{1}{r^2}\nabla_{S^{n-1}}^2\psi\right] +V(r)\psi\]
+dove avevamo che:
+\[\nabla_{S^{n-1}}^2 = \frac{1}{\sqrt{h}}\partial_\mu(\sqrt{h}h^{\mu\nu}\partial_\nu) \qquad \mu,\nu=1,2,\dots, n\]
+fattorizzando la $\psi$ in modo che $\psi = \varphi(r)Y_\alpha(\Omega^\alpha)$ e tenendo conto che vale:
+\[-\nabla_{S^{n-1}}^2 Y_\alpha=\lambda_\alpha^2Y_\alpha \]
+possiamo scrivere l'hamiltoniana radiale
+\[H_\alpha \varphi = \frac{\hbar^2}{2m}\left(-\varphi'' - \frac{n-1}{r}\varphi' + \frac{\lambda_\alpha^2}{r^2}\varphi\right) + V(r)\varphi(r)\]
+notiamo che con questa fattorizzazione della funzione d'onda siamo passati ad uno spazio di Hilbert del tipo $L(\R^n) = L_2(\R^+,r^{n-1}dr)\times L_2(S_{n-1})$ dove abbiamo specificato la misura di Lebesque dello spazio.\\
+Prima di arrivare al momento angolare soffermiamoci un attimo ancora sulla parte radiale e chiediamoci quale potrebbe essere l'operatore quantità di moto radiale $P_r$, è ovvio che deve soddisfare la regola di commutazione $[r,P_r] = i\hbar$, per le coordinate cartesiane è facile e l'abbiamo già visto che $[x_j,P_j] = i\hbar\delta_{ij} \implies P_j = -i\hbar\frac{\partial}{\partial x_j}$. La richiesta minimale su $P_r$ è che sia simmetrico, potrebbe venire naturale dire che vale $P_r = -i\hbar\partial_r$, ma è sbagliato per 2 ragioni principalmente. Mettiamoci per semplicità in $n=3$, si può dimostrare che $P_r$ così definito non è simmetrico (ricordiamo che nello spazio in cui stiamo lavorando la misura di Lebesque è $r^2dr$), inoltre noi vorremmo che $P_r^2 = -\partial_r^2 - \frac{2\partial_r}{r}$ in modo che messo nell'Hamiltoniana radiale ritorniamo all'Hamiltoniana classica. Il corretto operatore è $P_r = -i\hbar(\partial_r+\frac{1}{r})$, infatti con questa definizione $P_r^2$ è quello che vogliamo noi ed inoltre questo operatore è simmetrico:
+\[(P_rf,g) - (f,P_rg) = i\int_{0}^{+\infty}dr\,\frac{d}{dr}(r^2\overline{f}g) = i[r^2\overline{f}g\Big|_0^{+\infty}\]
+basta scegliere opportune condizioni al contorno per il dominio di $P_r$:
+\[D_{P_r} = \{f,P_rf\in L_2(\R^+,r^{2}dr), \lim_{r\to0}rf=0\}\]
+calcolando gli indici di difetto di questo operatore otteniamo $n_+=0$ e $n_-=1$ quindi per il teorema di Von-Neumann non esistono estensioni autoaggiunte, $P_r$ quindi è un operatore simmetrico ma non autoaggiunto. Si può dimostrare invece che $P_r^2$ è autoaggiunto.\\
+Notiamo che nell'Hamiltoniana compare un termine con la derivata prima, inoltre la misura di Lebesque dell'insieme in cui stiamo lavorando non è banale, proprio per questi motivi è conveniente fare una trasformazione unitaria, così come l'avevamo fatto nel paragrafo 2.3.2 $u = r\varphi(r)$, con questa trasformazione arriviamo all'Hamiltoniana:
+\[\widetilde{H_\alpha}u = \frac{\hbar^2}{2m}\left(-\frac{d^2}{dr^2} + \frac{\lambda_\alpha^2}{r^2}\right)u + V(r)u\]
+anche l'operatore $P_r^2$ si trasforma tenendo conto per una trasformazione unitaria $U$ vale che $\widetilde{P_r} = UP_rU^{-1}$, applicando questa si arriva ad:
+\[\widetilde{P_r} = -i\hbar\partial_r \qquad  \widetilde{P_r^2} = -\frac{\hbar^2}{2m}\frac{d^2}{dr^2} \] 
+Concentriamoci adesso sul momento angolare, ovvero sulla parte con il termine $\nabla_{S^{n-1}}^2$, vediamo velocemente il caso $n=2$ ovvero il laplaciano sul cerchio $\nabla_{S^1}^2$ abbiamo che applicando la formula del laplaciano:
+\[L^2 = -\hbar^2\nabla_{S^1}^2 = -\hbar^2\frac{d^2}{d\varphi^2}\]
+e risolvendo l'equazione agli autovalori 
+\[-\hbar^2 \frac{d^2}{d\varphi^2} Y_n(\varphi) = 4\pi^2n^2Y_n(\varphi) \qquad Y_n(\varphi) = \frac{e^{in\varphi}}{\sqrt{2\pi}} \quad n\in\mathbb{Z}\]
+studiamo il caso $n=3$, in questo caso la matrice $h$ è:
+\[h_{\mu\nu} = \begin{pmatrix}
+1 & 0\\
+0 & \sin^2\theta
+\end{pmatrix} \qquad h^{\mu\nu} = \begin{pmatrix}
+1 & 0\\
+0 & \frac{1}{\sin^2\theta}
+\end{pmatrix}\qquad \sqrt{h} = \sin\theta\]
+si arriva allora a:
+\[-\nabla_{S^2}^2 = -\frac{\partial^2}{\partial\theta^2} - \text{cotang}\theta\frac{\partial}{\partial\theta} - \frac{1}{\sin^2\theta}\frac{\partial^2}{\partial\varphi^2}\]
+in questo caso abbiamo utilizzando come coordinate $\theta,\varphi$, è possibile utilizzare invece come coordinata al posto di $\theta$, $u = \cos\theta$ con $u\in[-1,1]$ in questo caso $\frac{du}{\sqrt{1-u^2}} = \sin\theta d\theta$, la metrica diventa $dh^2 =\frac{du^2}{1-u^2} + (1-u^2)d\varphi^2$ con il quale la matrice $h$:
+\[h_{\mu\nu} = \begin{pmatrix}
+\frac{1}{1-u^2}& 0\\
+0 & 1-u^2\theta
+\end{pmatrix} \qquad h^{\mu\nu} = \begin{pmatrix}
+1-u^2 & 0\\
+0 & \frac{1}{1-u^2}
+\end{pmatrix}\qquad \sqrt{h} = 1\]
+che ci portano ad un laplaciano sulla sfera del tipo:
+\[-\nabla_{S^2}^2Y = -\partial_u((1-u^2)\partial_uY) - \frac{1}{1-u^2}\partial_\varphi^2Y\]
+un operatore strettamente collegato a quello del momento angolare è il momento angolare proiettato lungo $z$ che vale $L_z = -i\hbar\frac{\partial}{\partial\varphi}$, si può mostrare che questi due operatore commutano $[L^2,L_z] = 0$, ma noi sappiamo che quando due operatori commutano allora hanno un S.O.N.C. in comune, che possiamo trovare risolvendo il seguente problema agli autovalori:
+\begin{equation}\label{probautovalori}\begin{cases}
+L^2Y = \hbar^2\lambda^2Y\\
+L_zY = \hbar m Y
+\end{cases}\end{equation}
+per semplicità cerchiamo una soluzione fattorizzata nel seguente modo: $Y(u,\varphi) = p(u)e^{im\varphi}/\sqrt{2\pi}$ con $m\in\mathbb{Z}$, è immediato verificare che questa funzione soddisfa l'equazione agli autovalori per $L_z$, utilizziamo quindi l'equazione di $L^2$ per determinare $p(u)$, infatti la parte angolare si cancella:
+\[L^2Y = -\hbar^2\nabla_{S^2}^2Y = -\hbar^2\partial_u((1-u^2)\partial_up(u))\frac{e^{im\varphi}}{\sqrt{2\pi}} + \frac{p(u)m^2\hbar^2}{1-u^2}\frac{e^{im\varphi}}{\sqrt{2\pi}} = \hbar^2\lambda^2p(u)\frac{e^{im\varphi}}{\sqrt{2\pi}}\]
+che semplificando e svolgendo la derivata in $u$ diventa:
+\[(1-u^2)\frac{d^2p(u)}{du^2} - 2u\frac{dp(u)}{du}+\left(\lambda^2 -\frac{m^2}{1-u^2}\right)p(u)=0 \qquad m\in\mathbb{Z}\]
+questa si chiama \textbf{equazione generalizzata di Legendre}, l'equazione di Legendre si ottiene invece con $m=0$:
+\[(1-u^2)\frac{d^2p(u)}{du^2} - 2u\frac{dp(u)}{du}+\lambda^2p(u)=0\]
+la soluzione in $L_2(-1,1)$ regolare di quest'ultima equazione è:
+\[p_l(u) = C_l\frac{d^2}{du^2}\left((u^2-1)^l\right)\]
+con $C_l$ costante e autovalri che soddisfano $\lambda^2 = l(l+1)$, è facile verificarlo mettendo dentro questa soluzione nell'equazione e vedendo che è soddisfatto solo per tali valori di $\lambda$. Le soluzioni di quella generalizzata, quindi con $m\neq0$ sono le funzioni generalizzate di Legendre:
+\[p_{l,m}(u) = K_{l,m}\frac{d^{l-m}}{du^{l-m}}\left((u^2-1)^l\right)\]
+con $K_{l,m}$ costante e stessi autovalori di prima, ma con $|m|\leq l$. Le funzioni armoniche sferiche sono le $Y_{l,m} = p_{l,m}(u)\frac{e^{im\varphi}}{\sqrt{2\pi}} $, per determinare le costanti basta imporre che $Y$ sia un S.O.N.C, ovvero che valga:
+\[\int_0^{2\pi}d\varphi\int_{-1}^1du\, \overline{Y_{l,m}}Y_{l',m'} = \delta_{ll'}\delta_{mm'}\]
+Un approccio alternativo allo studio del momento angolare quantistico può essere affrontato prendendo il momento angolare classico e quantizzandolo sfruttando l'operatore quantità di moto quantistico:
+\[\mathbf{L} = \mathbf{r}\times \mathbf{p} \implies \mathbf{L} = -i\hbar\mathbf{r}\times \nabla \]
+che espresso in componenti è:
+\[L_i = -i\hbar \varepsilon_{ijk}x_k\partial_j\]
+dove $\varepsilon_{ijk}$ è il tensore di Levi-Civita. Le componenti del momento angolare soddisfano la seguente regola di commutazione:
+\[[L_i,L_j] = i\hbar \varepsilon_{ijk}L_k\]
+il quadrato del momento angolare sarà ovviamente $L^2 = L_x^2+L_y^2 + L_z^2$ e si può verificare che commuta con tutte le componenti del momento angolare: $[L^2,L_i]=0$, quindi non solo con $L_z$ come avevamo detto in precedenza, questo implica che $L^2$ ed $L_i$ condividono lo stesso sistema di autovettori.\\
+Altri operatori legati al momento angolare sono i \textbf{ladder operator} definiti come:
+\[L_+ = Lx + iL_y \qquad L_- = Lx-iL_y\]
+questi operatori non sono autoaggiunti $L_+\neq L_+^\dagger$, $L_-\neq L_-^\dagger$, ma vale che $L_+^\dagger = L_-$ e $L_-^\dagger = L_+$. Possiamo esprimere le componenti $L_x$ ed $L_y$ del momento angolare in funzione di questi operatori:
+\[L_x = \frac{1}{2}(L_+ +L_+) \qquad L_y = \frac{1}{2}(L_+-L_-)\] 
+questi operatori sono utili per il problema agli autovalori di $L_z$, intanto la regola di commutazione che seguono questi operatori è: $[L_+,L_z] = -\hbar L_+$, inoltre vale che $L_zL_+ = \hbar L_+ +  L_+-z$ ed il problema agli autovalori diventa 
+\[\begin{cases}
+L_zL_\pm f_{l,m} = \hbar(m+1)L_+ f_{l,m\pm1}\\
+L_\pm f_{l,m} = \hbar C^{\pm}_{l,m}f_{l,m\pm1}
+\end{cases}
+\]
+possiamo quindi interpretare $L_+f_{l,m}$ come autostato di $L_z$. Altre formule utili che possiamo ricavare direttamente dalle definizioni sono:
+\[L_x^2 = \frac{(L_++L_-)^2}{4} = \frac{L_+^2 + L_-^2 + L_+L_- + L_-L_+}{4}\quad L_y^2 = -\frac{(L_+-L_-)^2}{4} = \frac{L_+^2 + L_-^2 - L_+L_- - L_-L_+}{4}\]
+\[L^2-L_z^2 = L_x^2 + L_y^2 = \frac{L_+L_- + L_-L_+}{2}\]
+\[L_+L_- = (L_x+iL_y)(L_x-iL_y) = L_x^2 + iL_yL_x -iL_xL_y + L_y^2 = L_x^2+L_y^2 -i[L_x,L_y] = L^2-L_z^2 +\hbar L_z\]
+e nello stesso modo $L_-L_+ = L^2-L_z^2-\hbar L_z$.
+\\Poniamoci ora il problema di trovare le costanti $C^{\pm}_{l,m}$ del problema agli autovalori:
+\[\|L_\pm f_{l,m}\|^2 = (L_\pm f_{l,m}, L_\pm f_{l,m}) = (f_{l,m},L_\mp L_\pm f_{l,m}) = (f_{l,m}, (L^2 -L_z^2\pm \hbar L_z)f_{l,m}) =\]
+\[\hbar^2(l(l+1)-m(m+1))(f_{l,m},f_{l,m})=\hbar^2(l(l+1)-m(m+1)) \]
+dove è bastato sfruttare il problema agli autovalori \eqref{probautovalori}, dato che:
+\[\|L_\pm f_{l,m}\|^2 = \|\hbar C^{\pm}_{l,m} f_{l,m\pm1}\|^2 = \hbar^2 (C^{\pm}_{l,m})^2 \|f_{l,m\pm1}\|^2 = \hbar^2 (C^{\pm}_{l,m})^2\]
+confrontando questi ultimi due risultati è evidente che $C^{\pm}_{l,m} = \sqrt{l(l+1)-m(m+1)}$.\\
+Quando studiamo il porblema agli autovalori di $L^2$, fissato $l$ abbiamo una degenarizione $2l+1$, questo significa che possiamo dare a $L^2$ una rappresentazione matriciale con una matrice $2l+1\times 2l+1$:
+\[(f_{l,m},L^2f_{l,m'}) = \hbar^2 l(l+1) \delta_{mm'}\]
+nella stessa maniera possiamo dare una rappresentazione matriciale a $L_z$:
+\[(f_{l,m},L_z f_{l,m'}) = \hbar m \delta_{mm'}\]
+e ovviamente anche ad $L_\pm,L_x,L_y$:
+\[(f_{l,m},L_\pm f_{l,m'}) = (f_{l,m},\hbar C^{\pm}_{l,m'}f_{l,m'\pm 1}) = \hbar C^\pm_{l,m'}\delta_{m,m'\pm1}\]
+\[(f_{l,m},L_xf_{l,m'}) = \frac{\hbar}{2}[C^+_{l,m}\delta_{m,m'+1} + C^-_{l,m}\delta_{m,m'-1}]\]
+\[ (f_{l,m},L_yf_{l,m'}) = \frac{\hbar}{2i}[C^+_{l,m}\delta_{m,m'+1} - C^-_{l,m}\delta_{m,m'-1}]\]
+da notare che mentre $L^2,L_z$ sono matrici diagonali le restanti non lo sono. Grazie a queste rappresentazioni è immediato calcolare i valori medi degli operatori $L_x,L_y$ quando $m=m'$, infatti per le delte di kronecker $\braket{L_x} = 0, \braket{L_y} = 0$. Non è nullo però il valore medio di $L_x^2$, infatti:
+\[(f_{l,m},L_x^2 f_{l,m'}) = \frac{\hbar^2}{2}(l(l+1)-m^2)\]
+\subsection{Calcolo di alcune armoniche sferiche}
+Calcoliamo esplicitamente alcune armoniche sferiche in $L_2(S^2)$, ricordiamo che gli operatori momento angolare si possono scrivere come:
+\[L_z = -i\hbar \partial_\varphi \qquad L_x = -i\hbar(y\partial_z - z\partial_y) \qquad L_y = -i\hbar(z\partial_x - x\partial_z)\]
+in coordinate polari:
+\[L_x = -i\hbar (\sin\varphi \partial_\theta - \cos\varphi\text{cotan}\theta\partial_\varphi)\qquad L_y = -i\hbar(\cos\varphi\partial_\theta -\sin\varphi\text{cotan}\theta\partial_\varphi )\]
+i ladder operator in coordinate polari:
+\[L_\pm = L_x\pm iL_y = \hbar e^{\pm i\varphi}[\pm \partial_\theta + i \text{cotan}\theta\partial_\varphi]\]
+le armoniche sferiche sono gli autovalori di $L^2$ ed $L_z$ quindi dobbiamo risolvere il problema:
+\[\begin{cases}
+L^2Y_{l,m}(\theta,\varphi) = \hbar^2l(l+1)Y_{l,m}(\theta,\varphi)\\
+L_zY_{l,m}(\theta,\varphi) = \hbar m Y_{l,m}(\theta,\varphi)
+\end{cases}\]
+cerchiamo armoniche sferiche con la parte in $\varphi$ fattorizzata come $ Y_{l,m}(\theta,\varphi) = \Theta(\theta)e^{im\varphi}$. Al posto che risolvere il problema agli autovalori di $L^2$ possiamo sfruttare il fatto che $L_+f_{l,l} = \hbar C^+_{l,l}f_{l,m+1} = 0$ dato che $C^+_{l,l}=0$, se  $L_+f_{l,l}=0$ allora anche $L_+Y_{l,l}=0$, che riscriviamo come:
+\[e^{i\varphi}\left[\frac{\partial}{\partial\theta} + i \frac{\cos\theta}{\sin\theta}\frac{\partial}{\partial \varphi}\right]e^{il\varphi}\Theta_{l,l} = 0 \implies \Theta_{l,l}' -l \Theta_{l,l} \frac{\cos\theta}{\sin\theta} = 0\]
+possiamo risolvere l'equazione per separazione delle variabili:
+\[\frac{d\Theta_{l,l}}{\Theta_{l,l}} = l\frac{\cos\theta}{\sin\theta}d\theta \implies \log(\Theta_{l,l}) = \log(\sin^l\theta) \]
+da cui la soluzione $\Theta_{l,l} = N_l \sin^l\theta$. Calcoliamo la costante di normalizzazione per $l=1$:
+\[Y_{1,1} = N_1 \sin\theta e^{i\varphi} \implies \|Y_{1,1}\|^2_{S^2}=\int_0^{2\pi}d\varphi\int_0^{\pi}d\theta\, \sin\theta |Y_{1,1}|^2 = 2\pi N_1^2\int_0^{\pi}d\theta\, \sin^3\theta \]
+facendo un cambio di coordinate $u=\cos\theta$ l'integrale diventa:
+\[2\pi N_1^2\int_0^{\pi}d\theta\, \sin^3\theta  = 2\pi N_1^2\int_{-1}^{1}du\,(1-u^2) = \frac{8}{3}\pi N_1^2 \implies N_1 = \pm\sqrt{\frac{3}{8\pi}} \]
+di solito il sengo davanti alla radice si sceglie per convenzione, solitamente si sceglie il segno meno. In conclusione abbiamo trovato che $Y_{1,1} = -\sqrt{\frac{3}{8\pi}} e^{i\varphi}\sin\theta$, grazie a questo risultato è possibile trovare anche $Y_{1,0}$ grazie ad i ladder operator, infatti:
+\[L_- Y_{1,1} = \hbar C^{-}_{1,1} Y_{1,0} \implies Y_{1,0} = \frac{1}{\hbar}L_-Y_{1,1}  = \sqrt{\frac{3}{4\pi}}\cos\theta\]
+applicando di nuovo il ladder operator possiamo trovare $Y_{1,-1}$, ma possiamo anche sfruttare una proprietà delle armoniche sferiche:
+\[\overline{Y_{l,m}} = (-1)^m Y_{l,-m}\]
+grazie alla quale possiamo immediatamente concludere che $Y_{1,-1} = \sqrt{\frac{3}{8\pi}} e^{-i\varphi}\sin\theta$

@@ -1,0 +1,109 @@
+\documentclass[12pt]{article}
+\usepackage{mathtools}
+\usepackage[italian]{babel}
+\usepackage{graphicx}
+\usepackage[utf8]{inputenc}
+\usepackage{float}
+\usepackage{tabularx}
+\usepackage{chngpage}
+\usepackage{amsthm}
+\usepackage{amsfonts}
+\usepackage{gensymb}
+\usepackage{tikz}
+
+\begin{document}
+\newcommand{\R}{\mathbb{R}}
+\newcommand{\C}{\mathbb{C}}
+\newcommand{\Sum}{\sum_{n=0}^\infty}
+\newtheorem{prop}{Proposizione}
+\newtheorem{thm}{Teorema}[section]
+\newtheorem{lem}[thm]{Lemma}
+\theoremstyle{definition}
+\newtheorem{dfn}{Definizione}
+\theoremstyle{remark}
+\newtheorem*{rmk}{Remark}
+\renewcommand{\d}[2]{\frac{d #1}{d #2}} % for derivatives
+\newcommand{\dd}[2]{\frac{d^2 #1}{d #2^2}} % for double derivatives
+\newcommand{\pd}[2]{\frac{\partial #1}{\partial #2}} 
+% for partial derivatives
+\newcommand{\pdd}[2]{\frac{\partial^2 #1}{\partial #2^2}} 
+% for double partial derivatives
+\section{Equazione di propagazione in una dimensione}
+Si tratta di risolvere la seguente equazione differenziale
+\begin{equation}
+\label{eq}
+\begin{cases}
+    \pdd{u(x,t)}{t}-c^2\pdd{u(x,t)}{x}=0  \\
+   u(x,0) = 0\\
+   \pd{u}{t}(x,0) = g(x)
+  \end{cases} 
+\end{equation}
+Applichiamo la trasformata di Fourier all'equazione per lo spazio e otteniamo
+\[\mathcal{F}\left(\pdd{u(x,t)}{t}-c^2\pdd{u(x,t)}{x}\right) = 0\]
+\[\pdd{\mathcal{F}(u(k,t)}{t}+c^2k^2\mathcal{F}(u(k,t)) =0\]
+infatti la derivata rispetto al tempo passa fuori dalla trasformata di Fourier in quanto fatta solo rispetto allo spazio e la derivata rispetto allo spazio per proprietà della trasformata diventa un fattore $-k^2$ davanti. Scriviamo la trasformata cosi: $\mathcal{F}(u(k,t)) \equiv \tilde{u}(k,t)$ e otteniamo l'equazione
+\[\pdd{\tilde{u}(k,t)}{t}+c^2k^2\tilde{u}(k,t)=0\]
+definito $\omega = kc$ abbiamo
+\[\pdd{\tilde{u}(k,t)}{t}+\omega^2\tilde{u}(k,t)=0\]
+che è l'equazione armonica con soluzione nota:
+\begin{equation}
+\label{sol}
+\tilde{u}(k,t) = A(k)\sin(\omega t+\phi)
+\end{equation}
+con $A(k)$ da determinare secondo le condizioni iniziali e $\phi=0$ per la prima condizione inziale. Per trovare $A(k)$ prendiamo la seconda condizione dell'equazione \eqref{eq} e applichiamo la trasformata di Fourier in modo da avere la condizione iniziale nello spazio di Fourier
+\[\mathcal{F}\left(\pd{u}{t}(k,0)\right) = \mathcal{F}(g(k)) \qquad \pd{\tilde{u}}{t}(k,0) = \tilde{g}(k)\]
+quindi prendiamo la soluzione \eqref{sol} deriviamola rispetto al tempo e imponiamo la condizione in $t=0$
+\[\pd{\tilde{u}}{t}(k,t) = A(k)\omega \cos(\omega t)\]
+\[\pd{\tilde{u}}{t}(k,0) =A(k)\omega = \tilde{g}(k) \]
+da cui $A(k) = \tilde{g}(k)/\omega$
+La nostra soluzione finale quindi è:
+\[\tilde{u}(k,t) = \frac{\tilde{g}(k)}{\omega}\sin(\omega t)\]
+Ora l'unica cosa che ci rimane è antitrasformare la $\tilde{u}(k,t)$ in modo da avere l'originale $u(x,t)$
+\begin{equation}\label{f}
+\mathcal{F}^{-1}(\tilde{u}(k,t)) = u(x,t) = \mathcal{F}^{-1}\left(\frac{\tilde{g}(k)}{\omega}\sin(\omega t)\right)
+\end{equation}
+Per il secondo membro utilizziamo il teorema della convuluzione, ovvero:
+\[\mathcal{F}(f*\chi) = \mathcal{F}(f)\mathcal{F}(\chi)\]
+infatti se nel nostro caso troviamo una $f$ e una $\chi$ in modo che: $\mathcal{F}(f) \equiv \tilde{g}(k)$ e $\mathcal{F}(\chi) \equiv \sin(\omega t)/\omega$, possiamo scrivere l'equazione \eqref{f} come:
+\[u(x,t) = \mathcal{F}^{-1}\left(\mathcal{F}(f*\chi)\right) = f*\chi\]
+trovare $\mathcal{F}(f) \equiv \tilde{g}(k)$ è facile, per definizione di trasformata di Fourier $f\equiv g$. Dobbiamo ora trovare una $\chi$ tale che 
+\[\mathcal{F}(\chi)=\tilde{\chi} = \frac{\sin(\omega t)}{\omega}\]
+Facciamo che magicamente sappiamo che è: \[\chi = \frac{1}{2c}\theta(ct-|x|)\] e verifichiamo che effettivamente la sua trasformata sia $\sin(\omega t)/\omega$
+Consideriamo che la funzione $\theta(x)$ è definita come:
+\[\theta(x) =\begin{cases}
+    1 \qquad x>0  \\
+   0\qquad x<0\\
+  \end{cases}\]
+quindi $\theta(ct-|x|) = 1$ quando $ct-|x|>0$ e $\theta(ct-|x|) = 0$ quando $ct-|x|<0$. Abbiamo quindi:
+\[\theta(ct-|x|) = 1 \implies ct-|x|>0 \implies |x|<ct \implies -ct<x<ct\]
+ovviamente allora:
+\[\theta(ct-|x|) = 0 \implies x<-ct \quad\&\quad x>ct\]
+Graficamente abbiamo quindi:
+\begin{figure}[H]
+\centering
+\begin{tikzpicture}
+\draw [->](-5,0) -- (5,0)node[below=1.5pt] {\color{black}$x$};
+\draw[->](0,0)--(0,5)node[right=1.5pt] {\color{black}$\theta(ct-|x|)$};
+\draw[blue](-5,0)--(-2.5,0)node[below=1.5pt] {\color{black}$-ct$};
+\draw[blue](2.5,0)node[below=1.5pt,yshift=-3pt] {\color{black}$ct$}--(5,0);
+\draw[blue](-2.5,0)--(-2.5,2.5);
+\draw[blue](2.5,0)--(2.5,2.5);
+\draw[blue](-2.5,2.5)--(0,2.5)node[above=1.5pt,xshift=-3pt] {\color{black}$1$}--(2.5,2.5);
+\end{tikzpicture}
+\end{figure}
+Per definizione di trasformata abbiamo:
+\[\tilde{\chi}(k) = \int_{-\infty}^{+\infty}e^{-ikx}\chi(x)\,dx =\frac{1}{2c}\int_{-\infty}^{+\infty}e^{-ikx}\theta(ct-|x|)\,dx \]
+ma per come abbiamo appena mostrato essere $\theta$, l'integrando è nullo per $x<-ct$ e $x>ct$, mentre vale $e^{-ikx}$ altrimenti, ci riduciamo quindi a:
+\[\frac{1}{2c}\int_{-\infty}^{+\infty}e^{-ikx}\theta(ct-|x|)\,dx = \frac{1}{2c}\int_{-ct}^{+ct}e^{-ikx}\,dx = \frac{1}{c}\left(\frac{e^{-ikx}}{-ik}\right)\bigg\vert_{-ct}^{ct}\]
+\[= \frac{1}{2c}\left(\frac{e^{-ikct}-e^{ikct}}{-ik} \right) =\frac{1}{ck}\left(\frac{e^{ikct}-e^{-ikct}}{2i} \right) \]
+tenendo conto che:
+\[\sin(x) = \frac{e^{ix}-e^{-ix}}{2i}\]
+sapendo che $\omega=ct$ otteniamo come ci aspettavamo:
+\[\tilde{\chi}(k) =\frac{\sin(\omega t)} {\omega}\]
+Torniamo all'equazione \eqref{f} abbiamo ottenuto che:
+\[u(x,t) = g*\chi\]
+che per definizione di prodotto di convuluzione:
+\[u(x,t) = \int_{-\infty}^{+\infty}g(x-y)\chi(y)\,dy = \frac{1}{2c}\int_{-\infty}^{+\infty}g(x-y)\theta(ct-|y|)\,dy\]
+che per le considerazioni già fatte prima:
+\[\frac{1}{2c}\int_{-\infty}^{+\infty}g(x-y)\theta(ct-|y|)\,dy=\frac{1}{2c}\int_{-ct}^{+ct}g(x-y)\,dy = u(x,t)\]
+\end{document}

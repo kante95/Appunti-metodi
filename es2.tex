@@ -1,0 +1,54 @@
+\chapter{Esercizi da esame}
+\section{Autostati di $L^2$}
+Dimostare che $\psi = A_1 g(r)(x+z)$ è un autostato di $L^2\psi = \hbar^2 l(l+1)\psi$ con $l=1$ nello spazio di Hilbert $L_2(\R^3)$ e calcolare la probabilità di ottenere $m=0,\pm1$ in una misura.\\
+\newline 
+Per prima cosa scriviamo la funzione d'onda in coordinate sferiche: $\psi = A_1 g(r)r(\sin\theta\cos\varphi+\cos\theta)$, sfruttiamo le armoniche sferiche per riscrivere lo stato $\cos\theta = \sqrt{\frac{4\pi}{3}}Y_{1,0}$, $\sin\theta\cos\varphi = \sqrt{\frac{4\pi}{3}} \frac{1}{\sqrt{2}}(Y_{1,-1} -Y_{1,1})$, con questo $\psi$ diventa:
+\[\psi =A_1 \sqrt{\frac{4\pi}{3}}g(r)r\left(Y_{1,0} +\frac{1}{\sqrt{2}}Y_{1,-1} -\frac{1}{\sqrt{2}}Y_{1,1}\right) \]
+in generale vale che una funzione d'onda $\psi_l = A f(r) \sum_{m'=-l}^{l}C_{l,m'}Y_{l,m'}$ se $l$ è fissato è un autostato di $L^2$ quindi nella forma in cui abbiamo scritto la $\psi$ è un autostato.\\
+Per il calcolo delle probabilità dobbiamo normalizzare la funzione d'onda, in generale prendiamo l'autostato di $L_z$ $\varphi_{l,m} = Bf(r)Y_{l,m}$ la normalizazzione vale:
+\[1 = \|\varphi_{l,m}\|^2 = \int_0^{+\infty}dr\,r^2 \|\varphi_{l,m}\|^2_{S^2} = \int_0^{+\infty}dr\,r^2 B^2 f^2(r) \implies B^2 = \frac{1}{\int_0^{+\infty}dr\,r^2f^2(r)}\]
+infatti le armoniche sferiche sono già normalizzate $\|Y_{l,m}\|^2=1$. Normalizziamo anche $\psi_l$:
+\[1 = \|\psi_l\|^2 =  \int_0^{+\infty}dr\,r^2 \|Af \sum_{m'=-l}^{l}C_{l,m'}Y_{l,m'}\|^2_{S^2} = A^2 \int_0^{+\infty}dr\,r^2 f^2(r)\|\sum_{m'=-l}^{l}C_{l,m'}Y_{l,m'}\|^2_{S^2} \]
+dato che le armoniche sferiche sono un S.O.N.C possiamo usare pitagora generalizzato ed arrivare ad:
+\[1 = \frac{A^2}{B^2}\sum_{m'=-l}^{l}|C_{l,m'}|^2 =  \frac{A^2N^2}{B^2} \implies A = \frac{B}{N}\]
+dove abbiamo anche definito $N= \sum_{m'=-l}^{l}|C_{l,m'}|^2$. Per calcolare le probabilità dobbiamo calcolare i coefficienti di Fourier generalizzati:
+\[\mathcal{P}(m) = |(\psi_l , \varphi_{l,m})|^2 = \left|\int_0^{+\infty}dr\,r^2 (\psi_l,\varphi_{l,m})_{S^2} \right|^2 = \frac{B^2}{N^2}  \left|\int_0^{+\infty}dr\,r^2 f^2\left(\sum_{m'=-l}^{l}C_{l,m'}Y_{l,m'},Y_{l,m}\right) \right|^2\]
+\[\mathcal{P}(m)= \frac{|C_{l,m}|^2}{N^2}\]
+nel nostro caso $A = A_1 \sqrt{\frac{4\pi}{3}}$, $f(r) = rg(r)$, $N^2 = 2$ applicando la formula appena trovata otteniamo:
+\[\mathcal{P}(m=1) = \frac{1}{2}\qquad \mathcal{P}(m=\pm1) = \frac{1}{4}\]
+\section{Nuclei integrali}
+Sia dato l'operatore $K(x,y) = -\theta(y-x)y(1+x)-\theta(x-y)x(1+y)$ in $L_2(0,1)$, dimostrare che tale operatore è compatto autoaggiunto ed ha traccia, inoltre discutere l'alternativa di Fredholm $f(x) -\mu Kf = 1$ e fare la verifica della traccia.\\
+\newline
+Per dimostare che è compatto basta calcolare la norma di Hilbert-Schmidt e vedere se converge:
+\[\|K\|_{H-S}^2 = \int_0^1 dx\int_0^1 |K(x,y)|^2 <\infty\]
+chiramente nel nucleo non abbiamo alcun elemento che diverge. Il nucleo è simmetrico, infatti $K(x,y) = \overline{K(y,x)}$ quindi l'operatore è autoaggiunto. La traccia vale:
+\[\text{Tr}K = \int_0^1 K(x,x)\,dx = -\int_0^1 (x+x^2) = -\frac{5}{6}\]
+Per discutere Fredholm dobbiamo studiare le proprietà spettrali di $K$, per farlo studiamo l'operatore inverse che è più facile da trattare in quanto è un operatore differenziale. Per trovarlo sappiamo che vale $LK(x,y) = \delta(x-y)$ dove $L=K^{-1}$ con opportune condizioni al contorno. Iniziamo a calcolare la derivata di $K$:
+\[\partial_xK = -y(1+y)\delta(x-y) +\delta(x-y)y(1+y)-\theta(y-x)y - \theta(x-y)(1+y) = -\theta(y-x)y - \theta(x-y)(1+y)\]
+dato che la delta si cancella, dobbiamo andare ad ordini superiori di derivazione:
+\[\partial_x^2K = \delta(x-y)y - \delta(x-y)-y\delta(x-y) = -\delta(x-y)\]
+quindi $L= -\frac{d^2}{dx^2}$, vediamo ora le condizioni al contorno calcolando le seguenti quantità:
+\[K(0,y) = -y \quad \partial_x K(0,y) = -y \qquad K(1,y) = -(1+y) \quad \partial_x K(1,y) = -(1+y) \]
+è evidente che quindi le condizioni al bordo di Robin sono $K(0,y) = K'(0,y),K(1,y)=K'(1,y)$ che si riflettono sulle condizioni della $\varphi$ che risolve il problema agli autovalori $L\varphi = \lambda \varphi$: $\varphi(0) = \varphi'(0),\varphi(1)=\varphi'(1)$, risolviamo il problema spettrale:
+\[-\varphi'' = \lambda \varphi\]
+possiamo avere 3 casi, $\lambda=0$ che ci sarà una soluzione $\varphi = 0$ in quanto l'operatore è invertibile, il caso $\lambda = -u^2<0$:
+\[\varphi'' = u^2\varphi \implies \varphi = C_1 e^{-ux} + C_2 e^{-ux}\]
+imponiamo le condizioni al contorno:
+\[\begin{cases}
+C_1 +C_2 - uC_1 + uC_2 = 0\\
+C_1 e^u +C_2 e^{-u} -uC_1e^u+uC_2e^{-u}=0
+\end{cases}\]
+in forma matriciale:
+\[\begin{pmatrix}
+1-u & 1+u \\
+(1-u)e^u & (u+1)e^{-u}
+\end{pmatrix}\begin{pmatrix}
+C_1\\
+C_2
+\end{pmatrix} = 0\]
+se vogliamo soluzioni non banali quindi $C_1 \neq 0,C_2\neq 0$ dobbiamo imporre il determinante nullo:
+\[(1-u^2)e^{-u} - (1-u^2)e^u = 0 \implies (1-u^2)(e^{-u}-e^{-u})= 0 \implies u^2=1 \implies \lambda_1 = -1 \]
+vediamo ora il caso di $\lambda = \omega^2 >0$, senza rifare i conti sostituiamo in quelli precedenti $u = i\omega$ e otteniamo quindi la condizione sul determinante:
+\[(1+\omega^2)(e^{i\omega} - e^{-i\omega})=0\]
+in questo caso la soluzione è $\sin\omega = 0$ ovvero $\omega_n = n\pi$ con $n=1,2,3,\dots$ quindi $\lambda_n = \omega^2 = n^2\pi^2$. Lo spettro di di $L$ quindi si può riassumere come $\sigma(L) = \{\lambda_1 = -1,\lambda_n =n^2\pi^2 \}$ gli autovalori di $K$ sono l'inverso di quello di $L$, possiamo quindi fare la verifica della traccia:
+\[\text{Tr}K = \sum_n \frac{1}{\lambda_n} = -1 + \frac{1}{\pi^2}\sum_n\frac{1}{n^2} = -1 + \frac{1}{6} =  -\frac{5}{6}\]
