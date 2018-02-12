@@ -250,11 +250,11 @@ ma dato che $\chi$ non è continua non appartiene a $C_2(\R)$.
 \caption{Funzione $f_n$ graficata per diversi valori di $n$}
 \end{figure}
 
-$C_2(\R)$ quindi non è completo ma si può completare grazie al teorema del completamento, il completamento non è banale e si può fare sostituendo all'integrale di Riemann quello di Lebesque, si ottiene quindi l'insieme:
+$C_2(\R)$ quindi non è completo ma si può completare grazie al teorema del completamento, il completamento non è banale e si può fare sostituendo all'integrale di Riemann quello di Lebesgue, si ottiene quindi l'insieme:
 \[L_2(I) = \{f(x):\int_I|f(x)|^2\,dx<+\infty\} \]
-dove l'integrale si intende nel senso di Lebesque. Si incappa però in un altro problema tecnico delle funzioni nulle quasi ovunque, la norma di queste funzioni è nulla sebbene esse non sono nulle ovunque, quindi questo spazio è definito con una seminorma, si può facilmente sistemare questo problema identificando le funzioni quasi nulle ovunque con le funzioni nulle ovunque e in questo caso lo spazio $\mathcal{L}_2(I)$ diventa uno spazio di Hilbert.
+dove l'integrale si intende nel senso di Lebesgue. Si incappa però in un altro problema tecnico delle funzioni nulle quasi ovunque, la norma di queste funzioni è nulla sebbene esse non sono nulle ovunque, quindi questo spazio è definito con una seminorma, si può facilmente sistemare questo problema identificando le funzioni quasi nulle ovunque con le funzioni nulle ovunque e in questo caso lo spazio $\mathcal{L}_2(I)$ diventa uno spazio di Hilbert.
 \begin{thm}(Della convergenza dominata)
-Se $\{f_n\}$ sono L-sommabili ($\int_I|f(x)|\,dx<+\infty$ con l'integrale inteso nel senso di Lebesque) e se $\displaystyle\lim_{n\to+\infty} f_n(x) = f(x)$ e se esiste una $g(x)$ L-sommabile tale che $|f_n(x)|\leq g(x)$, $\forall n$ allora:
+Se $\{f_n\}$ sono L-sommabili ($\int_I|f(x)|\,dx<+\infty$ con l'integrale inteso nel senso di Lebesgue) e se $\displaystyle\lim_{n\to+\infty} f_n(x) = f(x)$ e se esiste una $g(x)$ L-sommabile tale che $|f_n(x)|\leq g(x)$, $\forall n$ allora:
 \[\lim_{n\to+\infty} \int_I f_n(x)\,dx = \int_I f(x)\,dx\]
 \end{thm}
 \section{Applicazioni lineari}
@@ -878,7 +878,7 @@ allora è evidente che $A= A^\dagger$ quando $A^*(x,y) = A(x,y) = \overline{A(y,
 \begin{dfn}
 Si chiamano i nuclei di Hilbert-Schmidt (H-S) gli elementi dell'insieme:
 \[\mathbb{L}_2(a,b) = \left\{A(x,y) : \int_a^bdx\int_a^bdy|A(x,y)|^2<+\infty\right\}\]
-dove l'integrale si intende nel senso di Lebesque.
+dove l'integrale si intende nel senso di Lebesgue.
 \end{dfn}
 Si può definire una norma in tale insieme come:
 \[\|A\|_{H-S} =  \int_a^bdx\int_a^bdy|A(x,y)|^2\]
@@ -1104,13 +1104,13 @@ che vale per l'osservazione di prima sulla proprietà degli esponenziali. Nel gr
 \[U_t^{-1} = U_{-t} \qquad U_tU_{-t} = \mathbbm{1}\]
 gli aggettivi fortemente continua vengono dal fatto che nello spazio di Hilbert la trasformazione tende fortemente all'operatore identità $U_t \xrightarrow[t\to 0]{\H} \mathbbm{1}$, mostriamolo verificando che la quantità $\|U_t\psi - \mathbbm{1}\psi\|$ tenda a 0 quando $t$ tende a 0
 \[\|e^{-itA}\psi -\psi\|^2 = \|(e^{-itA}-\mathbbm{1})\psi\|^2 = \int |e^{-it\lambda}-1|^2(\psi,dE_\lambda\psi) \]
-dove abbiamo sfruttato il lemma \eqref{lemmautilesullenorme}. Sarebbe carino ora passare sotto il segno di integrale con il limite e arrivare alla conclusione, per farlo consideriamo che l'integrale sia di Lebesque e sfruttiamo il teorema della convergenza dominata
+dove abbiamo sfruttato il lemma \eqref{lemmautilesullenorme}. Sarebbe carino ora passare sotto il segno di integrale con il limite e arrivare alla conclusione, per farlo consideriamo che l'integrale sia di Lebesgue e sfruttiamo il teorema della convergenza dominata
 \begin{thm}
 (Della convergenza dominata)
-se $|f_n(x)|\leq g(x)$ con $g(x)$ sommabile nel senso di Lebesque allora vale:
+se $|f_n(x)|\leq g(x)$ con $g(x)$ sommabile nel senso di Lebesgue allora vale:
 \[\lim_{n\to+\infty} \int f_n(x)\,dx = \int \lim_{n\to+\infty} f_n(x)\,dx\]
 \end{thm}
-nel nostro caso la funzione è dominata in quanto $|e^{-it\lambda}-1|\leq 4$ per la \eqref{disutileinseguito}, dato che 4 è sommabile secondo Lebesque vale il teorema e possiamo dire che:
+nel nostro caso la funzione è dominata in quanto $|e^{-it\lambda}-1|\leq 4$ per la \eqref{disutileinseguito}, dato che 4 è sommabile secondo Lebesgue vale il teorema e possiamo dire che:
 \[\lim_{t\to0}\int |e^{-it\lambda}-1|^2(\psi,dE_\lambda\psi)  = \int \lim_{t\to 0}|e^{-it\lambda}-1|^2(\psi,dE_\lambda\psi) = 0\]
 Per calcolare il generatore della trasformazione possiamo sfruttare la seguente:
 \begin{equation}\label{generatore}
